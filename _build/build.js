@@ -3,6 +3,7 @@
 
 var FS = require("fs");
 var PATH = require("path");
+var Q = require("q");
 var Writable = require("stream").Writable;
 var shell = require('shelljs'); // nicer scripting interface
 var generateJsdoc = require("./jsdoc/jsdoc");
@@ -16,26 +17,24 @@ var spawn = require("child_process").spawn;
  * @return {Promise}        A promise for the completion of the command.
  */
 var exec = function (command, args, cwd, silent) {
-    var promise = new Promise(function(resolve, reject) {
+    var deferred = Q.defer();
+    cwd = cwd || process.cwd();
 
-        var cwd = cwd || process.cwd();
-
-        if (!silent) {
-            console.log("+", command, args.join(" "), "# in", cwd);
-        }
-        var proc = spawn(command, args, {
-            cwd: cwd,
-            stdio: silent ? "ignore" : "inherit"
-        });
-        proc.on('exit', function(code) {
-            if (code !== 0) {
-                reject(new Error(command + " " + args.join(" ") + " in " + cwd + " exited with code " + code));
-            } else {
-                resolve();
-            }
-        });
+    if (!silent) {
+        console.log("+", command, args.join(" "), "# in", cwd);
+    }
+    var proc = spawn(command, args, {
+        cwd: cwd,
+        stdio: silent ? "ignore" : "inherit"
     });
-    return promise;
+    proc.on('exit', function(code) {
+        if (code !== 0) {
+            deferred.reject(new Error(command + " " + args.join(" ") + " in " + cwd + " exited with code " + code));
+        } else {
+            deferred.resolve();
+        }
+    });
+    return deferred.promise;
 };
 
 var SOURCE_PATH = PATH.join(__dirname, "..");
@@ -46,7 +45,7 @@ var APPS = {
 var TEMP_DIR = PATH.join(SOURCE_PATH, "tmp");
 
 function cloneAndMopApps(apps) {
-    return Promise.all(Object.keys(apps).map(function (name) {
+    return Q.all(Object.keys(apps).map(function (name) {
         var repo = apps[name].url;
         var commit = apps[name].commit || "master";
 
@@ -107,13 +106,13 @@ function mopHomeExample() {
     })
     .then(function () {
         // Remove generated files from root
-        return Promise.all(paths.map(function (path) {
+        return Q.all(paths.map(function (path) {
             return exec("rm", ["-r", PATH.join(outPath, path)]);
         }));
     })
     .then(function () {
         // Copy generated files back to root
-        return Promise.all(paths.map(function (path) {
+        return Q.all(paths.map(function (path) {
             return exec("cp", ["-r", PATH.join(buildPath, path), PATH.join(outPath, path)]);
         }));
     })
@@ -168,6 +167,7 @@ if (require.main === module) {
     })
     .then(function () {
         console.log("done");
-    });
+    })
+    .done();
 
 }
