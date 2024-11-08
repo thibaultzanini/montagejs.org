@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Gestures</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/gestures.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="gestures">Gestures</h1>
+
+<p>Montage provides a composer API for supporting commonly used gestures. Typically DOM events are device specific such as click or touch events. The Composer API abstracts these into higher order events such as press, so that you can focus on handling a specific action rather than the multiple ways that action could be carried out. Montage currently supports press, long press, and swipe gestures. More will be added as Montage matures.</p>
+
+<h2 id="press-composer">Press composer</h2>
+<p>The Press Composer handles both press and long press gestures. These abstract mouse clicks and touch events into a common event. The events that are handled include:</p>
+
+<h3 id="pressstart">pressStart</h3>
+<p>This is the event that is dispatched when the mousedown or touchstart events are fired.</p>
+
+<h3 id="press">press</h3>
+<p>After the pressStart event is fired, the press event will fire when releasing the mouse button (mouseup event) or lifting your finger (touchend event). This will also fire when a longPress event is fired, so can be cancelled with a pressCancel event.</p>
+
+<h3 id="longpress">longPress</h3>
+<p>A press gesture becomes a longPress gesture when it is active for longer than the specified longPressTimeout duration. To avoid a press event firing after a longPress event, it should be cancelled in the longPressHandler by calling the cancelPress() method.</p>
+
+<h3 id="presscancel">pressCancel</h3>
+<p>The pressCancel event is fired when the press event is cancelled. This can either be because it was manually cancelled by the developer by calling <code class="language-plaintext highlighter-rouge">cancelPress()</code>, another element claims the pointer, or is automatically cancelled due to:</p>
+
+<ul>
+  <li>the browser firing the touch cancel event</li>
+  <li>the user cancels the event by moving away from the element when the mouseup event fires due to releasing the mouse button</li>
+</ul>
+
+<h3 id="using-press-and-long-press-gestures">Using press and long press gestures</h3>
+<p>If you are familiar with how events are handled using Montage, you will be right at home using gestures. We will create a very simple example that handles a press event, changing the colour and text of the element, and shows a JavaScript alert when a longPress event is fired.</p>
+
+<h3 id="setting-up-your-composers">Setting up your composers</h3>
+<p>As with anything in Montage, you first have import the module into your Javascript file. Both press and long press functionality can be found in the press-composer:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Montage</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/core/core</span><span class="dl">"</span><span class="p">).</span><span class="nx">Montage</span><span class="p">,</span>
+    <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">,</span>
+    <span class="nx">PressComposer</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/composer/press-composer</span><span class="dl">"</span><span class="p">).</span><span class="nx">PressComposer</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>You then have to create and add the PressComposer:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">exports</span><span class="p">.</span><span class="nx">PressExample</span> <span class="o">=</span> <span class="nx">Montage</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="nx">Component</span><span class="p">,</span> <span class="p">{</span>
+     <span class="na">didCreate</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_pressComposer</span> <span class="o">=</span> <span class="nx">PressComposer</span><span class="p">.</span><span class="nf">create</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nf">addComposer</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_pressComposer</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="handle-the-events">Handle the events</h3>
+<p>Once we have a press composer we can add the events we want to listen to. In this case both the press and longPress events:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">prepareForActivationEvents</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nl">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_pressComposer</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">press</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_pressComposer</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">longPress</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>Finally we need to handle this events in the regular Montage way by implementing a method that prefixes the event name with “handle”.</p>
+
+<p>For the press event, we add an additional class to the element so that we can style it differently after the user presses the button, and change the text using innerHTML:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">handlePress</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">toggle</span><span class="p">(</span><span class="dl">"</span><span class="s2">press-active</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">contains</span><span class="p">(</span><span class="dl">"</span><span class="s2">press-active</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">I’m active!</span><span class="dl">"</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Now deactivated</span><span class="dl">"</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>For the longPress event we create a JavaScript alert, and also cancel the press event:</p>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">handleLongPress</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nl">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_pressComposer</span><span class="p">.</span><span class="nf">cancelPress</span><span class="p">();</span>
+        <span class="nf">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Long press event fired. Handle this in a graceful way in a real app</span><span class="dl">"</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In a real world app you may do something like creating a context menu with a number of items for the user to select.</p>
+
+<h3 id="hooking-everything-up">Hooking everything up</h3>
+<p>The only thing left is to hook the JavaScript up to some HTML using the Montage serialization, and add the styles using CSS:</p>
+
+<p>HTML:</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"pressme"</span> <span class="na">class=</span><span class="s">"press-target"</span><span class="nt">&gt;</span>Click or long click me!<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>Serialization:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"pressExample"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PressExample"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pressme"</span><span class="p">},</span><span class="w">
+            </span><span class="nl">"hasTemplate"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>If you click or touch the element for a short time the press composer will fire. If you keep the button pressed or your finger down the longPress event will fire.</p>
+
+<h2 id="swipe-composer">Swipe Composer</h2>
+<p>Montage currently supports swipe gestures only for touch screen enabled devices, excluding desktop platforms. The spec and implementation of the Swipe composer is currently being updated for a future release of Montage.</p>
+
+<p>I hope this served as a useful introduction to composers and gestures in Montage. If you have any questions or comments we’d love to hear from you!</p>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/draw-cycle.html">Prev</a>
+                    <a class="button paging--next " href="/docs/blueprints.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>MontageJS Draw Cycle</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" class="active">Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/draw-cycle.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="draw-cycle">Draw Cycle</h1>
+
+<p>Web applications should perform well. Users don’t like to wait while interacting with an app; “every millisecond counts!” For simple applications, improving the user experience can be as easy as following some <a href="https://developers.google.com/speed/docs/best-practices/rules_intro" target="_blank">performance best practices</a> and writing efficient JavaScript. For more complex applications, however, these practices are rarely enough to manage the main causes for poor application performance: DOM-based manipulation and styling changes. This is where MontageJS comes in.</p>
+
+<p>To help maximize application performance, MontageJS components participate in a managed draw cycle that aims at reducing the negative effects of expensive browser reflows and repaints on the user experience. In this approach, DOM write and read operations are batched into separate code passes and scheduled to execute at timed event loops using the browser’s <code class="language-plaintext highlighter-rouge">requestAnimationFrame()</code> API.</p>
+
+<h2 id="performance-matters">Performance Matters</h2>
+
+<p>The draw cycle is a timed loop that allows components to modify their element’s DOM structure. Technically, a component can change the DOM at any time; performance best practice, however, is to batch all DOM read/write operations into separate processes. This is critical because of the way browsers handle DOM changes. For the most part, browsers are pretty smart; they will queue up change operations and execute them in batches in order to minimize the number of reflows they need to perform. However, when your script requests style information (e.g., <code class="language-plaintext highlighter-rouge">element.offsetLeft</code>), you force the browser to give you the most up-to-date value, and this causes a reflow that can be expensive depending on the scope of the change.</p>
+
+<blockquote>
+  <p>For an overview of what happens in a browser after it has downloaded the source code for a page, see Stoyan Stefanov’s article on “<a href="http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank">Rendering: repaint, reflow/relayout, restyle</a>.”</p>
+</blockquote>
+
+<p>Interleaving read/write issues are simple enough to solve at a component level; you just need to be careful in how you write your DOM changes. In a complex web application, however, you are dealing with any number of components, some of which you may not even have authored yourself.</p>
+
+<p>Take for example an application that includes two components, a fancy slider and a text box, whose values are bound together. When a user drags the slider, the numeric value in the text box is updated to reflect the value of the slider at the current position; likewise, when a user enters a numeric value in the text box, the slider moves to reflect the chosen value.</p>
+
+<p>Dragging the slider forces the component to update its DOM structure and set the new value on the text box component which, in turn, forces the text box component to update its DOM. If each component draws independently of the other, chances are you’ll end up with interleaving DOM read/write operations. Now imagine a similar scenario with many more components drawing completely independently of each other. This is where the MontageJS draw manager steps in: it ensures that read/write operations to the DOM are not interleaved while keeping components unaware of each other.</p>
+
+<h2 id="draw-cycle-in-a-nutshell">Draw Cycle in a Nutshell</h2>
+
+<p>When a component needs to update its appearance, its <code class="language-plaintext highlighter-rouge">needsDraw</code> property is set to <code class="language-plaintext highlighter-rouge">true</code> (<code class="language-plaintext highlighter-rouge">this.needsDraw = true</code>). This, in turn, informs the template’s root component that one of its siblings needs to draw and a draw cycle is scheduled. Roughly, draw cycles consist of two phases:</p>
+
+<ol>
+  <li>The request draw phase, which involves building a <em>draw list</em> of components that have their <code class="language-plaintext highlighter-rouge">needsDraw</code> property set to <code class="language-plaintext highlighter-rouge">true</code>.</li>
+  <li>The draw phase, in which a series of predefined callback methods are invoked sequentially on the components in the draw list. The three primary callback methods are <code class="language-plaintext highlighter-rouge">willDraw()</code>, <code class="language-plaintext highlighter-rouge">draw()</code>, and <code class="language-plaintext highlighter-rouge">didDraw()</code>.</li>
+</ol>
+
+<p>Draw cycles are scheduled automatically using the <code class="language-plaintext highlighter-rouge">requestAnimationFrame()</code> method if supported or, as a fallback, <code class="language-plaintext highlighter-rouge">setTimeout()</code>.</p>
+
+<h3 id="building-the-draw-list">Building the Draw List</h3>
+
+<p>During each draw cycle, the draw manager walks the application’s component tree and constructs a draw list of components that have their <code class="language-plaintext highlighter-rouge">needsDraw</code> property set to <code class="language-plaintext highlighter-rouge">true</code>. If a component in the draw list is participating in a draw cycle for the first time, the <code class="language-plaintext highlighter-rouge">prepareForDraw()</code> event callback method is invoked at the very beginning of the draw cycle. (This ensures that the element is in the document before event listeners are added to it. Furthermore, if this particular component has a template, this is also the first time when the <code class="language-plaintext highlighter-rouge">.element</code> property refers to the element that comes from the template and not the placeholder. Naturally, event listeners are attached to the element, not the placeholder.)</p>
+
+<p>After the initial draw list has been created, the draw manager invokes <code class="language-plaintext highlighter-rouge">willDraw()</code> on each component in the list. This, in turn, may cause additional (child) components to set their <code class="language-plaintext highlighter-rouge">needsDraw</code> property to <code class="language-plaintext highlighter-rouge">true</code>. To include these components in the current draw cycle, the draw manager explores the component tree again for new components to add to the draw list. It then invokes <code class="language-plaintext highlighter-rouge">willDraw()</code> on each of the newly added components. This process is repeated until no additional components have requested a draw [or until the browser draw cycle starts] Any component that requests a draw during the remainder of the draw cycle will be included in the following draw cycle.</p>
+
+<h3 id="executing-the-draw-list">Executing the Draw List</h3>
+
+<p>After generating the draw list, the draw manager invokes the <code class="language-plaintext highlighter-rouge">draw()</code> method on every component in the list. This is the prescribed method for components to modify their DOM structure or CSS styles; DOM modifications should not be performed outside of a component’s <code class="language-plaintext highlighter-rouge">draw()</code> method.</p>
+
+<p>Finally, if the components need to read the final state of a draw cycle, after all <code class="language-plaintext highlighter-rouge">draw()</code> functions have been performed, <code class="language-plaintext highlighter-rouge">didDraw()</code> is called on each component in the draw list. This forces the reflow of the DOM at this point in time without having to worry that it is changed again by another component.</p>
+
+<h3 id="callback-methods">Callback Methods</h3>
+
+<p>The following list summarizes the component callback methods involved in the draw cycle. These methods should never be called directly by an application; they are invoked automatically by the MontageJS framework. Any component that intends to update its DOM structure directly must implement a <code class="language-plaintext highlighter-rouge">draw()</code> method.</p>
+
+<h4 id="preparefordraw">prepareForDraw()</h4>
+
+<ul>
+  <li><strong>When invoked:</strong> The first time a component is added to the draw list.</li>
+  <li><strong>Description:</strong> Enables the component to prepare for its first draw. For components that have an HTML template, this method is invoked after the template has been loaded and applied to the DOM.</li>
+</ul>
+
+<h4 id="willdraw">willDraw()</h4>
+<ul>
+  <li><strong>When invoked:</strong> On each component in the generated draw list before a <code class="language-plaintext highlighter-rouge">draw()</code> is performed.</li>
+  <li><strong>Description:</strong> Guarantees that the DOM is safe to be read. If the execution of this method sets <code class="language-plaintext highlighter-rouge">needsDraw</code> to true on other components, those components will be added also to the current draw cycle.</li>
+</ul>
+
+<h4 id="draw">draw()</h4>
+<ul>
+  <li><strong>When invoked:</strong> On each component in the generated draw list, after <code class="language-plaintext highlighter-rouge">willDraw()</code> has been invoked on each.</li>
+  <li><strong>Description:</strong> Contains all DOM write operations of components.</li>
+</ul>
+
+<h4 id="diddraw">didDraw()</h4>
+<ul>
+  <li><strong>When invoked:</strong> On each component in the generated draw list, after <code class="language-plaintext highlighter-rouge">draw()</code> has been invoked on each (and if the component needs to read the final state of a draw cycle).</li>
+  <li><strong>Description:</strong> Provides the component an opportunity to query the DOM for any necessary calculations after drawing, so it can force a reflow of the DOM at this point in time without having to worry that it is changed again by another component.</li>
+</ul>
+
+<h2 id="how-to-use-the-draw-cycle">How to Use the Draw Cycle</h2>
+<p>The draw cycle is an internal implementation of MontageJS. That means a lot of the heavy lifting is done for you by the framework, as long as you use the prebuilt MontageJS ui components. When creating your own components the following draw cycle rules apply:</p>
+
+<ol>
+  <li>A component shall never perform any DOM manipulation outside of its <code class="language-plaintext highlighter-rouge">draw()</code> method. This includes element style changes and appending or removing elements from the DOM.</li>
+  <li>Any reading of the DOM for measurements (such as an element’s <code class="language-plaintext highlighter-rouge">offsetWidth</code> property) shall be performed only in the <code class="language-plaintext highlighter-rouge">willDraw()</code> or <code class="language-plaintext highlighter-rouge">didDraw()</code> methods, and never in the <code class="language-plaintext highlighter-rouge">draw()</code> method.</li>
+</ol>
+
+<p>Following these rules when implementing your component’s DOM changes and queries will limit the amount of reflows in the browser which, in turn, will help improve the performance of your application.</p>
+
+<p>For an example implementation of the draw cycle, see <a href="http://montagejs.github.io/mfiddle/#!/5904498">MFiddle</a>.</p>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/event-handling.html">Prev</a>
+                    <a class="button paging--next disabled" href="/docs/.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

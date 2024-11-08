@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Naming Conventions</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/naming-conventions.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="naming-conventions">Naming Conventions</h1>
+
+<p>This document summarizes MontageJS-specific naming conventions and recommendations for modules, components, and CSS classes. Please refer to these conventions when creating MontageJS packages or contributing to the MontageJS framework.</p>
+
+<h2 id="modules">Modules</h2>
+
+<p>All module and package names are written in lowercase letters or numbers and delimited by dashes (for example, <code class="language-plaintext highlighter-rouge">child-package</code>).</p>
+
+<h2 id="components-reel">Components (.reel)</h2>
+<p>User interface components are stored in the ui directory of your MontageJS project and identified by a .reel extension.</p>
+
+<p>The following naming conventions apply for <code class="language-plaintext highlighter-rouge">.reel</code> directories:</p>
+
+<ul>
+  <li>Component names are always spelled in lowercase letters.</li>
+  <li>If the name uses multiple words, follow a dash-delimited <code class="language-plaintext highlighter-rouge">"word-word"</code> pattern; for example, <code class="language-plaintext highlighter-rouge">radio-button.reel</code>, or <code class="language-plaintext highlighter-rouge">text-field.reel</code>.</li>
+</ul>
+
+<h2 id="css-classes">CSS Classes</h2>
+
+<p>CSS class names follow a dash-delimited <code class="language-plaintext highlighter-rouge">package-Component</code> and <code class="language-plaintext highlighter-rouge">package-Component-childElement</code> pattern. For variations and states, double dash is used. For example, for the Matte Progress component it would be:</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.digit-Progress</span>          <span class="c">/* package-Component */</span>
+<span class="nc">.digit-Progress-bar</span>      <span class="c">/* package-Component-childElement */</span>
+<span class="nc">.digit-Progress--small</span>   <span class="c">/* package-Component--variation */</span>
+<span class="nc">.digit-Progress--loading</span> <span class="c">/* package-Component--state */</span>
+</code></pre></div></div>
+
+<p>More specifically, the following conventions apply:</p>
+
+<ol>
+  <li>All CSS classes are <strong>name-spaced</strong> with <strong>package</strong> + <strong>dash</strong>, like <code class="language-plaintext highlighter-rouge">montage-</code>, <code class="language-plaintext highlighter-rouge">digit-</code>, <code class="language-plaintext highlighter-rouge">matte-</code> etc.</li>
+  <li>
+    <p>Followed by the <strong>Component</strong> name that always starts with an uppercase letter; for example a button component would be: <code class="language-plaintext highlighter-rouge">digit-Button</code> and used as:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;button</span> <span class="na">data-montage-id=</span><span class="s">"button"</span> <span class="na">class=</span><span class="s">"digit-Button"</span><span class="nt">&gt;</span>
+</code></pre></div>    </div>
+
+    <p>If a component name consists of more than one word, each new word also starts with an uppercase letter, a convention commonly  referred to as <strong>upper camel case</strong> (“CamelCaps”) formatting; for example, <code class="language-plaintext highlighter-rouge">montage-InputRange</code>.</p>
+  </li>
+  <li><strong>Composite components</strong> (components with children) follow this convention:
+    <ul>
+      <li>If a component has a <strong>child element</strong>, the child’s name is written in lowercase (to signal the distinction between parent and child) and follows the component’s name separated by a dash; for example, <code class="language-plaintext highlighter-rouge">digit-Slider-thumb</code>.</li>
+      <li>If a child element consists of concatenated words, its name is written in lower camelCase; for example, <code class="language-plaintext highlighter-rouge">digit-Slider-thumbWithSpikyEars</code>.</li>
+      <li>If a component has multiple levels of child elements, each child can be separated from the other by a dash; for example, <code class="language-plaintext highlighter-rouge">digit-Slider-thumb-nobs-centerNob</code>. This is not required in all cases as the class name would become too long. Only use if it makes sense.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Variations</strong> If a component offers variations, a double-dash is used; for example: <code class="language-plaintext highlighter-rouge">digit-Button--primary</code>, <code class="language-plaintext highlighter-rouge">digit-Slider--vertical</code>.</p>
+  </li>
+  <li><strong>States</strong> If a component uses different states, also a double-dash is used; for example: <code class="language-plaintext highlighter-rouge">digit-Slider--dragging</code>, <code class="language-plaintext highlighter-rouge">matte-Button--pressed</code>.</li>
+</ol>
+
+<h3 id="rationale">Rationale</h3>
+<p>These CSS naming conventions are similar to <a href="http://bem.info/method/">BEM</a>. But the syntax got adapted for the following reasons:</p>
+
+<ul>
+  <li>Name-spacing it with the package avoids name collisions when packages are getting mixed.</li>
+  <li>Not using underscores “_” increases usability because you can double-click each part to quickly select and edit it. (Try it: <code class="language-plaintext highlighter-rouge">digit-Slider-thumb</code> versus <code class="language-plaintext highlighter-rouge">digit_Slider_thumb</code>.)</li>
+  <li>Using upper “CamelCase” for components highlights component/child relationship.</li>
+  <li>Using “camelCase” for multiword names increases readability but still keeps each part grouped together.</li>
+</ul>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev disabled" href="/docs/.html">Prev</a>
+                    <a class="button paging--next disabled" href="/docs/.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

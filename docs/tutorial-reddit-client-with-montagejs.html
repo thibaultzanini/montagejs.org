@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Reddit Client with MontageJS - MontageJS Tutorial</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" class="active">Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/tutorial-reddit-client-with-montagejs.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="building-a-simple-reddit-client-with-montagejs">Building a Simple Reddit Client with MontageJS</h1>
+
+<p>Many data-driven web applications need to display sequences of objects, often with specialized presentation. Consider some common examples: an employee directory that shows a list of names and phone numbers, a photo gallery that shows image thumbnails with captions, or a group chat interface that shows a list of messages accompanied by senders and time stamps. The manner in which the information is presented differs in each of those cases, but they all represent the same underlying pattern: a repeating group of elements.</p>
+
+<p>In MontageJS applications, a repeating group of elements  can be displayed with the prebuilt Repetition component. The component instructs an application to repeat a bit of HTML markup once for each item in the provided sequence. The Repetition component is an important building block in MontageJS development, serving a similar purpose to the loop expressions found in conventional template languages. Typical use cases include dynamic user interface elements, such as dynamically created lists.</p>
+
+<p>This tutorial shows you how to build a simple reddit client using the Repetition component. The application consists of two lists (see Figure 1):  a list of stories (on the left) and a list of popular subreddits (on the right). When you click a subreddit, the application uses the reddit API to obtain the top stories from the selected category. Stories are displayed with title, submitter, and current score details.</p>
+
+<figure>
+	<img src="/images/docs/tutorials/reddit-client/fig01.png" alt="The final application." />
+	<figcaption><strong>Figure 1.</strong> A simple reddit client built on MontageJS.</figcaption>
+</figure>
+
+<p><a href="http://montagejs.github.io/mfiddle/preview/#!/7881457" target="_blank">View the demo</a></p>
+
+<h1 id="requirements">Requirements</h1>
+
+<p>To make the most of this tutorial, you should be familiar with the basics of MontageJS concepts and development. If you are new to the MontageJS framework, you might want to step through the MontageJS <a href="http://montagejs.org/docs/montagejs-setup.html">Getting Started</a> guide first to get a feel for working with MontageJS components.</p>
+
+<h1 id="building-the-application">Building the Application</h1>
+
+<p>For this tutorial, you do not have to set up a new MontageJS project. Instead, you can follow along using <a href="http://montagejs.github.io/mfiddle/" target="_blank">MFiddle</a>, the online MontageJS component editor: Each top-level section in this tutorial ends with a link to a saved MFiddle that includes the code for the current state of the application for you to explore.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> If you wanted to follow along building the application from scratch, you would have to set up a new MontageJS project first (for details see the <a href="http://montagejs.org/docs/montagejs-setup.html" target="_blank">Setup guide</a>). Next, to follow best practice, you would create a new RedditClient component, and then link it to the Main component of your project. (Remember: Main is the main user interface component of the application. Think of it as the MontageJS equivalent of a website’s index page or the principal screen of your single-page application: it can contain any number of subcomponents for the presentation and behavior of an application.)</p>
+</blockquote>
+
+<p>This tutorial first explains how to build the subreddit navigation and populate it with live data, and then how to display the top stories in the application.</p>
+
+<h1 id="building-the-navigation">Building the Navigation</h1>
+
+<p>Conceptually, the reddit client application consists of two user interface components: a list of subreddits (labeled navigation) and a list of top stories. For this tutorial, start by building the subbredit navigation sidebar.</p>
+
+<h2 id="displaying-a-simple-repeating-list">Displaying a Simple Repeating List</h2>
+
+<p>The list of subreddits is, strictly speaking, a group of repeating elements that is declared in your component’s HTML file (AKA template). To display this list, you need to edit your template’s markup and declaration:</p>
+
+<ol>
+  <li>To your template’s markup, add the following two elements:
+    <ul>
+      <li>An unordered list element.</li>
+      <li>A single list item.</li>
+    </ul>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+ <span class="nt">&lt;/ul&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>In your template’s declaration, add two objects and then map them to the DOM elements in your template’s markup. In this example:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">rep</code> uses the Repetition component and maps to the <code class="language-plaintext highlighter-rouge">ul</code> element; the component’s <code class="language-plaintext highlighter-rouge">content</code> property is used to populate the repetition with a series of values.</li>
+      <li><code class="language-plaintext highlighter-rouge">item</code> uses a Text component and maps to the <code class="language-plaintext highlighter-rouge">li</code> element; its <code class="language-plaintext highlighter-rouge">content</code> property declares the value of each item listed in the repetition.</li>
+    </ul>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"component"</span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"rep"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"items"</span><span class="w"> </span><span class="p">},</span><span class="w">
+             </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">]</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item"</span><span class="w"> </span><span class="p">},</span><span class="w">
+             </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I am a list item."</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>At this point, the application displays a bulleted list of five items with the same text value: <code class="language-plaintext highlighter-rouge">I am a list item</code>. The <code class="language-plaintext highlighter-rouge">li</code> element that is nested within the repetition repeats once for every item in the repetition’s content array. (Imagine the repetition as a <code class="language-plaintext highlighter-rouge">for</code> loop: every component inside of the repetition spawns a separate instance for each iteration of the loop.)</p>
+
+<h3 id="binding-a-list-item-to-the-current-iteration">Binding a List Item to the Current Iteration</h3>
+
+<p>Next, modify the <code class="language-plaintext highlighter-rouge">item</code> object so that each list item element displays the actual value of the underlying array item. The Repetition component has a special property called <code class="language-plaintext highlighter-rouge">objectAtCurrentIteration</code> that is used to access the value from the array. To make each item in the list display its number, bind the value of the <code class="language-plaintext highlighter-rouge">item</code> object to the <code class="language-plaintext highlighter-rouge">rep</code>’s <code class="language-plaintext highlighter-rouge">objectAtCurrentIteration</code> property.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> MontageJS uses <a href="https://github.com/montagejs/frb/blob/master/README.md" target="_blank">functional reactive bindings</a> (FRB) to help keep user interface and model data in sync. FRB is a declarative language for binding properties and querying collections, to keep them in sync incrementally.</p>
+</blockquote>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item"</span><span class="w"> </span><span class="p">},</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@rep.objectAtCurrentIteration"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In this example, the repetition is populated with a static array of numbers. In practice, you will want to use the binding system to connect a repetition to an application’s data model—typically a data structure that is exposed as a property of your component.</p>
+
+<p>Note that the content array also can contain complex objects, not just simple values like the numbers used in the previous example. The objects nested inside the repetition can bind to the properties of the objects within the array. Any modification made to the underlying data in the array is automatically reflected in the application’s user interface.</p>
+
+<h3 id="binding-a-repetition-to-a-component-property">Binding a Repetition to a Component Property</h3>
+
+<p>To bind a repetition to a component property, you need to add some JavaScript code to your component’s JS file. This example uses a property called <code class="language-plaintext highlighter-rouge">subs</code>, which exposes an array of objects that represent subreddits. Each object in the array has two properties: <code class="language-plaintext highlighter-rouge">display_name</code> and <code class="language-plaintext highlighter-rouge">url</code>.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">display_name</code> is the text that will show in the application’s list of subreddits, AKA navigation sidebar.</li>
+  <li><code class="language-plaintext highlighter-rouge">url</code> contains the path for the individual subreddit:</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Owner</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+    <span class="na">subs</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="na">display_name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HTML</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/r/html5</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">display_name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Programming</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/r/programming</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">display_name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Coding</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/r/coding</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">display_name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Comp Sci</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/r/compsci</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">display_name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Web Dev</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/r/webdev</span><span class="dl">"</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="na">display_name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Startups</span><span class="dl">"</span><span class="p">,</span> <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/r/startups</span><span class="dl">"</span> <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Next, you need to update the <code class="language-plaintext highlighter-rouge">bindings</code> properties in your template’s declaration:</p>
+
+<ul>
+  <li>Replace the static value of the <code class="language-plaintext highlighter-rouge">rep</code> object’s <code class="language-plaintext highlighter-rouge">content</code> property with a binding that pulls in the owner’s <code class="language-plaintext highlighter-rouge">subs</code> property.</li>
+  <li>Edit the <code class="language-plaintext highlighter-rouge">item</code> object’s <code class="language-plaintext highlighter-rouge">value</code> binding so that it attaches to the <code class="language-plaintext highlighter-rouge">display_name</code> property of the current iteration object.</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"rep"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"items"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.subs"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@rep.objectAtCurrentIteration.display_name"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>At this point, the application displays a bulleted list that shows the name of the specified subreddits.</p>
+
+<p><a href="http://montagejs.github.io/mfiddle/#!/7745939" target="_blank">View source on MFiddle</a></p>
+
+<h2 id="selecting-items-in-a-repeating-group-of-elements">Selecting Items in a Repeating Group of Elements</h2>
+
+<p>The Repetition component has built-in support for item selection. With this feature enabled, users can click an item in the repetition to mark it as selected. The component has a selection property (<code class="language-plaintext highlighter-rouge">isSelectionEnabled</code>) that can be used to access the current selection, either programmatically or through bindings. The component will also automatically apply the <code class="language-plaintext highlighter-rouge">selected</code> CSS class to the selected items, which makes it easy to customize how they are presented.</p>
+
+<h3 id="setting-the-isselectionenabled-property">Setting the isSelectionEnabled Property</h3>
+
+<p>When the selection property is enabled, the default behavior is single selection, meaning only one item can be selected at a time. The component will automatically clear the previous selection when setting a new one. To support item selection, update the <code class="language-plaintext highlighter-rouge">rep</code> object’s properties:</p>
+
+<ol>
+  <li>
+    <p>In the template’s declartion, set the value of the <code class="language-plaintext highlighter-rouge">isSelectionEnabled</code> property to <code class="language-plaintext highlighter-rouge">true</code>:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="nl">"rep"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"items"</span><span class="p">},</span><span class="w">
+         </span><span class="nl">"isSelectionEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.subs"</span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Add a simple CSS rule to highlight the selected item:</p>
+
+    <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">.selected</span> <span class="p">{</span> <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>At this point, clicking an item in the bulleted list selects the item. When selected, the item turns red.</p>
+
+<h3 id="displaying-the-name-of-selected-items">Displaying the Name of Selected Items</h3>
+
+<p>Next, add a text header that uses bindings to show the name of the selected item. (This header will be displayed above the list of top stories in the final application.)</p>
+
+<ol>
+  <li>
+    <p>To your template’s markup, add an <code class="language-plaintext highlighter-rouge">h1</code> element:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"component"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;h1</span> <span class="na">data-montage-id=</span><span class="s">"currentsub"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+        
+     <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+     <span class="nt">&lt;/ul&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>In your template’s declaration, add a new object called <code class="language-plaintext highlighter-rouge">currentsub</code> and attach it to the <code class="language-plaintext highlighter-rouge">h1</code> element. The object’s <code class="language-plaintext highlighter-rouge">value</code> property is bound to the selected object’s <code class="language-plaintext highlighter-rouge">display_name</code> property:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="nl">"currentsub"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"currentsub"</span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@rep.selection.0.display_name ?? 'Please Select a Sub'"</span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>Note the use of <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">??</code> in the object’s <code class="language-plaintext highlighter-rouge">value</code> bindings expression.</p>
+
+<ul>
+  <li>
+    <p>The Repetition component is designed to support scenarios in which users can select multiple items at once (even though this example only uses single selection). To handle these use cases, the selection property returns an array.  <code class="language-plaintext highlighter-rouge">0</code> tells the binding system to use the first item in the array, which is the selected object. (Unlike JavaScript, the FRB syntax doesn’t require brackets when accessing an array index. FRB )</p>
+
+    <blockquote>
+      <p><strong>Note:</strong> Using an array index to access the first item will only work when the data structure is an array. You could use the FRB <code class="language-plaintext highlighter-rouge">one()</code> function instead to access the first item in a generic way.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>The <code class="language-plaintext highlighter-rouge">??</code> operator is used to determine whether to use the value before or after the operator, based on whether the value on the left is defined. If defined, the value before the <code class="language-plaintext highlighter-rouge">??</code> operator will be used. If null or undefined, the value after the operator will be used.</p>
+  </li>
+</ul>
+
+<p>In this example, if no selection has been made yet, the <code class="language-plaintext highlighter-rouge">??</code> operator causes the <code class="language-plaintext highlighter-rouge">h1</code> element to prompt users when no list item is selected. Once a selection has been made, the <code class="language-plaintext highlighter-rouge">h1</code> element will display the value of the selected item.</p>
+
+<p><a href="http://montagejs.github.io/mfiddle/#!/7746328" target="_blank">View source on MFiddle</a></p>
+
+<h2 id="populating-the-application-with-live-data">Populating the Application with Live Data</h2>
+
+<p>So far, you have learned how to use the Repetition component to display a list of static data. What you really want, though, is to populate the list with live data from the reddit API. The reddit API optionally provides JSONP output, which makes it easy to pull in data and display it in web applications.</p>
+
+<h3 id="passing-data-to-the-application">Passing Data to the Application</h3>
+
+<p>To pass data from the reddit server into the application, follow these steps:</p>
+
+<ol>
+  <li>In your component’s JS file, remove the dummy data so that the value of the <code class="language-plaintext highlighter-rouge">subs</code> property starts out as an empty array (<code class="language-plaintext highlighter-rouge">subs: { value: [] }</code>).</li>
+  <li>
+    <p>Add a <code class="language-plaintext highlighter-rouge">templateDidLoad</code> method. This method executes automatically when the framework has finished loading the component, so it’s the ideal place to populate the list with data.</p>
+
+    <p>Using the <code class="language-plaintext highlighter-rouge">templateDidLoad</code> method, the application obtains a list of popular subreddits from the reddit server. The JSON data is passed into the callback function, which extracts the list and assigns it to the <code class="language-plaintext highlighter-rouge">subs</code> property. The binding system observes the change and propagates the data into the repetition.</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+    
+ <span class="nx">exports</span><span class="p">.</span><span class="nx">Owner</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+     <span class="na">templateDidLoad</span><span class="p">:</span> <span class="p">{</span>
+         <span class="na">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+             <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">);</span>
+             <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">http://www.reddit.com/reddits.json?jsonp=subfn</span><span class="dl">"</span><span class="p">;</span>
+    
+             <span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+             <span class="nb">window</span><span class="p">[</span><span class="dl">"</span><span class="s2">subfn</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="nx">component</span><span class="p">.</span><span class="nx">subs</span> <span class="o">=</span> <span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+             <span class="p">};</span>
+                
+             <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+         <span class="p">}</span>
+     <span class="p">},</span>
+        
+     <span class="na">subs</span><span class="p">:</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="p">[]</span> <span class="p">}</span>
+ <span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>In this example, raw JSON data is passed from a remote API directly into the application. The binding system ensures that the desired values from the JSON data are displayed in the application, and that the application is updated when the data changes. If the application were to poll the API repeatedly, assigning the returned list to the <code class="language-plaintext highlighter-rouge">subs</code> property each time, the binding system would automatically propagate any changes that appear in the data.</p>
+
+<h3 id="consuming-live-data">Consuming Live Data</h3>
+
+<p>Unlike many other JavaScript MVC frameworks, MontageJS doesn’t require developers to peel apart the data and wrap values with special functions in order to make them observable; instead it operates directly on conventional JavaScript data structures. Naturally, the data that is consumed from the API looks a bit different from the dummy data used earlier. Each item in the list returned by the reddit API looks a bit like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t5"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2qh33"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"submit_text"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"funny"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"header_img"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://f.thumbs.redditmedia.com/CzqvfNUiQGzmMIOw.png"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description_html"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"funny"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"header_title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brought to you by Team Coco"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"header_size"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="mi">160</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"subscribers"</span><span class="p">:</span><span class="w"> </span><span class="mi">4842178</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t5_2qh33"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1201246556</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/r/funny/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_utc"</span><span class="p">:</span><span class="w"> </span><span class="mi">1201242956</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"subreddit_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"public"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"submission_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"any"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the JSON emitted by the reddit API, each item in the list of subreddits is wrapped inside of a <code class="language-plaintext highlighter-rouge">data</code> property. For this data to show in the application, you have to update the value of the <code class="language-plaintext highlighter-rouge">bindings</code> properties of the <code class="language-plaintext highlighter-rouge">item</code> and <code class="language-plaintext highlighter-rouge">currentsub</code> objects in your template’s declaration:</p>
+
+<ul>
+  <li>For <code class="language-plaintext highlighter-rouge">item</code>, change the binding expression <code class="language-plaintext highlighter-rouge">@rep.objectAtCurrentIteration.display_name</code> to <code class="language-plaintext highlighter-rouge">"@rep.objectAtCurrentIteration.data.display_name"</code></li>
+  <li>For <code class="language-plaintext highlighter-rouge">currentsub</code>, change <code class="language-plaintext highlighter-rouge">"@rep.selection.0.display_name ?? 'Please Select a Sub'"</code> to <code class="language-plaintext highlighter-rouge">"@rep.selection.0.data.display_name ?? 'Please Select a Sub'"</code></li>
+</ul>
+
+<p>Your template’s declaration now looks like this:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"component"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"rep"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"items"</span><span class="p">},</span><span class="w">
+            </span><span class="nl">"isSelectionEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.subs"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item"</span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@rep.objectAtCurrentIteration.data.display_name"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"currentsub"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"currentsub"</span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@rep.selection.0.data.display_name ?? 'Please Select a Sub'"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>At this point, the application displays a list of actual subreddits.</p>
+
+<h3 id="sorting-a-list">Sorting a List</h3>
+
+<p>To make things a little more interesting, try sorting the list of subreddits so that they are listed in descending order by the number of subscribers.</p>
+
+<p>The data returned by the reddit API includes a <code class="language-plaintext highlighter-rouge">subscriber</code> property for each subreddit that can be used as a sorting key. FRB provides a convenient <code class="language-plaintext highlighter-rouge">sorted</code> method that allows you to order the sequence using a specific property:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"rep"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"items"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"isSelectionEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.subs.sorted{-data.subscribers}"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-</code> operator, which appears in front of the property name in the binding expression, tells FRB that the sequence should be sorted in reverse order: from highest to lowest. The <code class="language-plaintext highlighter-rouge">-</code> operator works as expected in this case, because the values are simple numbers. You could also use FRB’s <code class="language-plaintext highlighter-rouge">reversed</code> method instead. FRB makes it easy to manipulate bound values in interesting ways. If more objects were added to the <code class="language-plaintext highlighter-rouge">subs</code> array or the value of a subreddit object’s <code class="language-plaintext highlighter-rouge">subscribers</code> property was programmatically altered, the binding system would automatically update the sort order to reflect the changes.</p>
+
+<p><a href="http://montagejs.github.io/mfiddle/#!/7747359" target="_blank">View source on MFiddle</a></p>
+
+<h1 id="displaying-the-top-stories">Displaying the Top Stories</h1>
+
+<p>Now that the navigation is finished, it’s time to add support for displaying the actual posts from selected subreddits. 
+To obtain and display the reddit posts you use the same approach you used for the subreddit list: grab some JSON data from the reddit API and put it into a repetition.</p>
+
+<ol>
+  <li>
+    <p>Start by adding the necessary markup to your component’s template.</p>
+
+    <p>For this example, the application will display the reddit stories in a table with two columns: the first column displays a post’s current score; the second column shows the title and author.</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"component"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;h1</span> <span class="na">data-montage-id=</span><span class="s">"currentsub"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+        
+     <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+     <span class="nt">&lt;/ul&gt;</span>
+        
+     <span class="nt">&lt;table</span> <span class="na">data-montage-id=</span><span class="s">"stories"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;tr&gt;</span>
+             <span class="nt">&lt;td</span> <span class="na">data-montage-id=</span><span class="s">"score"</span><span class="nt">&gt;&lt;/td&gt;</span>
+             <span class="nt">&lt;td&gt;</span>
+                 <span class="nt">&lt;p&gt;&lt;a</span> <span class="na">data-montage-id=</span><span class="s">"title"</span><span class="nt">&gt;&lt;/a&gt;&lt;/p&gt;</span>
+                 <span class="nt">&lt;p&gt;</span>Posted by <span class="nt">&lt;span</span> <span class="na">data-montage-id=</span><span class="s">"author"</span><span class="nt">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+             <span class="nt">&lt;/td&gt;</span>
+         <span class="nt">&lt;/tr&gt;</span>
+     <span class="nt">&lt;/table&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">table</code> element is where the application attaches the repetition that contains the stories.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">tr</code> element, including its contents, will repeat for each iteration in the repetition.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">score</code> and <code class="language-plaintext highlighter-rouge">author</code> elements inside of the table are both attached to Text components.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">title</code> element, which is inside an <code class="language-plaintext highlighter-rouge">a</code> tag, is handled by an Anchor component.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Update the template’s declaration with four new objects: <code class="language-plaintext highlighter-rouge">stories</code>, <code class="language-plaintext highlighter-rouge">title</code>, <code class="language-plaintext highlighter-rouge">author</code>, and <code class="language-plaintext highlighter-rouge">score</code>.</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="nl">"stories"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stories"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.stories"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="err">,</span><span class="w">
+ </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"matte/ui/anchor.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"title"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"textContent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@stories.objectAtCurrentIteration.data.title"</span><span class="w"> </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"href"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@stories.objectAtCurrentIteration.data.url"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="err">,</span><span class="w">
+ </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"author"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@stories.objectAtCurrentIteration.data.author"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="err">,</span><span class="w">
+ </span><span class="nl">"score"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"score"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+     </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@stories.objectAtCurrentIteration.data.score"</span><span class="w"> </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>The application needs to repopulate the list of stories every time a different subreddit is selected. The best way to accomplish that is by adding a change listener, a mechansim that automatically calls a function every time the value of a specified property is updated.</p>
+  </li>
+  <li>
+    <p>In the component’s JS file, at the beginning of the <code class="language-plaintext highlighter-rouge">templateDidLoad</code> function, add a line that configures a change listener for the navigation selection:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">this</span><span class="p">.</span><span class="nf">addPathChangeListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">templateObjects.rep.selection.0.data</span><span class="dl">"</span><span class="p">,</span>
+                            <span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">handleSelection</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Next, create a new function called <code class="language-plaintext highlighter-rouge">handleSelection</code>. This function is responsible for loading the new stories and putting them into the <code class="language-plaintext highlighter-rouge">stories</code> property:</p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nx">handleSelection</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nl">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">selected</span><span class="p">)</span> <span class="p">{</span>
+         <span class="k">if </span><span class="p">(</span><span class="nx">selected</span><span class="p">)</span> <span class="p">{</span>
+             <span class="kd">var</span> <span class="nx">script</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">script</span><span class="dl">"</span><span class="p">);</span>
+             <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">http://www.reddit.com/</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">selected</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">.json?sort=top&amp;t=month&amp;jsonp=storyfn</span><span class="dl">"</span><span class="p">;</span>
+    
+             <span class="kd">var</span> <span class="nx">component</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+             <span class="nb">window</span><span class="p">[</span><span class="dl">"</span><span class="s2">storyfn</span><span class="dl">"</span><span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">jsonData</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="nx">component</span><span class="p">.</span><span class="nx">stories</span> <span class="o">=</span> <span class="nx">jsonData</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+             <span class="p">};</span>
+            
+             <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+         <span class="p">}</span>
+     <span class="p">}</span>
+ <span class="p">},</span>
+        
+ <span class="nx">stories</span><span class="p">:</span> <span class="p">{</span> <span class="nl">value</span><span class="p">:</span> <span class="p">[]</span> <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>Note that the code used in the <code class="language-plaintext highlighter-rouge">handleSelection</code> function is similar to the code used to populate the subreddit list. It calls an API on the reddit servers and assigns data from the returned JSON to a <code class="language-plaintext highlighter-rouge">stories</code> property on the component. Note also that the <code class="language-plaintext highlighter-rouge">stories</code> property starts out as an empty array, like the <code class="language-plaintext highlighter-rouge">subs</code> property in the subreddit code.</p>
+  </li>
+</ol>
+
+<p>At this point, the functional part of the application is complete. When users click a subreddit, the selected category is passed to the <code class="language-plaintext highlighter-rouge">handleSelection</code> function, which then loads the stories from that subreddit and puts them in the component’s <code class="language-plaintext highlighter-rouge">stories</code> property. When the stories are placed in the <code class="language-plaintext highlighter-rouge">stories</code> property, the bound repetition will automatically display the stories in the page.</p>
+
+<p><a href="http://montagejs.github.io/mfiddle/#!/7881445" target="_blank">View source on MFiddle</a></p>
+
+<h1 id="styling-the-application">Styling the Application</h1>
+
+<p>MontageJS components are built from standard HTML markup, which means that developers can use the power of CSS to prettify applications. This example uses light text on a dark backround, with a light font weight and purple highlighting for the list item selection.</p>
+
+<p>First, add some <code class="language-plaintext highlighter-rouge">class</code> attributes to your markup. A few minor structural changes, such as moving the score text into a paragraph tag, might help as well. The following snippet shows the final markup:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"component"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1</span> <span class="na">data-montage-id=</span><span class="s">"currentsub"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+    
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navigation"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"header"</span><span class="nt">&gt;</span>Navigation<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    
+    <span class="nt">&lt;table</span> <span class="na">data-montage-id=</span><span class="s">"stories"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tbody&gt;&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"score"</span> <span class="na">data-montage-id=</span><span class="s">"score"</span><span class="nt">&gt;&lt;/p&gt;</span>
+            <span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;&lt;a</span> <span class="na">data-montage-id=</span><span class="s">"title"</span><span class="nt">&gt;&lt;/a&gt;&lt;/p&gt;</span>
+                <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"author"</span><span class="nt">&gt;</span>Posted by <span class="nt">&lt;span</span> <span class="na">data-montage-id=</span><span class="s">"author"</span><span class="nt">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;&lt;/tbody&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>After modifying your markup, you specify the CSS rules in your component’s CSS file. For the sake of brevity, you can inspect the application’s stylesheet on <a href="https://gist.github.com/anonymous/7766077#file-component-css" target="_blank">GitHub</a>.</p>
+
+<p><a href="http://montagejs.github.io/mfiddle/#!/7881457" target="_blank">View source on MFiddle</a></p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>The flexible component architecture and powerful MontageJS binding system reduce the amount of code that you need to write when building applications. You can use simple, declarative bindings to define relatively complex behaviors.</p>
+
+<p>For more information about the reddit client and developing applications with MontageJS, refer to the following resources:</p>
+
+<ul>
+  <li><a href="https://github.com/segphault/mjs-reddit-viewer" target="_blank">Source code of the reddit client application</a></li>
+  <li><a href="http://montagejs.org/docs/">MontageJS Documentation</a></li>
+  <li><a href="http://seg.phault.net/montage/cookbook/" target="_blank">MontageJS Cookbook</a></li>
+  <li><a href="http://montagejs.org/docs/montagejs-setup.html">Getting Started with MontageJS</a> steps you through the process of setting up your MontageJS development environment.</li>
+</ul>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev disabled" href="/docs/.html">Prev</a>
+                    <a class="button paging--next disabled" href="/docs/.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>MontageJS Blog</title>
+  <link href="http://montagejs.org/blog/"/>
+  <link type="application/atom+xml" rel="self" href="http://montagejs.org/blog/atom.xml"/>
+  <updated>2024-11-08T15:14:29+00:00</updated>
+  <id>http://montagejs.org/blog</id>
+
+  
+  <entry>
+    <id>http://montagejs.org/blog/2014/01/29/repetition-improvements-and-more</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2014/01/29/repetition-improvements-and-more"/>
+    <title>Repetition improvements and more</title>
+    <published>2014-01-29T00:00:00+00:00</published>
+    <updated>2014-01-29T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Just a few changes last week.&lt;/p&gt;
+
+&lt;p&gt;The repetition has had a bit of work, the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1409&quot;&gt;selection management was fixed&lt;/a&gt;,
+&lt;a href=&quot;https://github.com/montagejs/montage/pull/1410&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content&lt;/code&gt; changed to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;object&lt;/code&gt;&lt;/a&gt; and an &lt;a href=&quot;https://github.com/montagejs/montage/pull/1390&quot;&gt;optimization was generalized for the Flow&lt;/a&gt; which reduces the number of bindings fired. And sometimes instead of a binding, you can just use the same object. That’s what was done for the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1408&quot;&gt;AbstractSelect&lt;/a&gt;. The ability to &lt;a href=&quot;https://github.com/montagejs/montage/pull/1407&quot;&gt;block a component from drawing has been added&lt;/a&gt; which can be used to avoid a flickering UI when waiting for async operations to complete.&lt;/p&gt;
+
+&lt;p&gt;In Collections, &lt;a href=&quot;https://github.com/montagejs/collections/pull/44&quot;&gt;the behavior of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.equals&lt;/code&gt; for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NaN&lt;/code&gt; was fixed&lt;/a&gt; which means that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NaN&lt;/code&gt; can be removed from a collection. In general the constructor functions on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object&lt;/code&gt; (such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.has(thing, &quot;a&quot;)&lt;/code&gt;) will call the eponymous method of the first argument if it exists (i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;thing.has(&quot;a&quot;)&lt;/code&gt;), rather than requiring it to be on the prototype chain, so Crockford-style instances will work properly and for the improvement of performance.&lt;/p&gt;
+
+&lt;p&gt;If you haven’t seen it already, check out the blog post we published last week on &lt;a href=&quot;http://montagejs.org/blog/2014/01/22/build-3d-applications-with-montagejs/&quot;&gt;building a 3D app with Montage&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2014/01/22/the-month-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2014/01/22/the-month-in-montage"/>
+    <title>The month in Montage</title>
+    <published>2014-01-22T00:00:00+00:00</published>
+    <updated>2014-01-22T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;It’s been over a month since the last update and a lot has happened!&lt;/p&gt;
+
+&lt;p&gt;Three patch versions of Montage 0.13 have been released that fix &lt;a href=&quot;https://github.com/montagejs/montage/pull/1385&quot;&gt;several&lt;/a&gt; &lt;a href=&quot;https://github.com/montagejs/montage/pull/1399&quot;&gt;issues&lt;/a&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require&lt;/code&gt;, the &lt;a href=&quot;https://github.com/montagejs/montage/commit/0b118adf546c6aca1c57f785e8c5e301d62c7193&quot;&gt;KeyComposer&lt;/a&gt; and an &lt;a href=&quot;https://github.com/montagejs/montage/pull/1396&quot;&gt;uneeded warning&lt;/a&gt;. Full details are in the &lt;a href=&quot;https://github.com/montagejs/montage/blob/0.13/CHANGES.md#v01312&quot;&gt;Montage v0.13.12 changelog&lt;/a&gt;, and of course it’s available to install from npm.&lt;/p&gt;
+
+&lt;p&gt;Plenty of pull requests have been merged into Montage master and so I’ve skipped some of them here to save some time.&lt;/p&gt;
+
+&lt;p&gt;When using a Loader the console would display an unnecessary warning &lt;a href=&quot;https://github.com/montagejs/montage/pull/1396&quot;&gt;which has now been fixed&lt;/a&gt;, The NumberField now correctly handles &lt;a href=&quot;https://github.com/montagejs/montage/pull/1391&quot;&gt;floating point numbers in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;step&lt;/code&gt;&lt;/a&gt;. Thanks to @evax who &lt;a href=&quot;https://github.com/montagejs/montage/pull/1386&quot;&gt;implemented &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getPreventDefault&lt;/code&gt; in MutableEvent&lt;/a&gt;. The Overlay is now &lt;a href=&quot;https://github.com/montagejs/montage/pull/1379&quot;&gt;not shown if it can’t be the active target&lt;/a&gt; and the Esc key &lt;a href=&quot;https://github.com/montagejs/montage/pull/1381&quot;&gt;now correctly dismisses the Overlay the second time&lt;/a&gt;. Now that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:iteration&lt;/code&gt; is availabe &lt;a href=&quot;https://github.com/montagejs/montage/pull/1377&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;objectAtCurrentIteration&lt;/code&gt; has been deprecated&lt;/a&gt;. The &lt;a href=&quot;https://github.com/montagejs/montage/pull/1376&quot;&gt;generation of new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data-montage-id&lt;/code&gt;s when merging templates&lt;/a&gt; has been improved along with &lt;a href=&quot;https://github.com/montagejs/montage/pull/1403&quot;&gt;using the metadata to label objects if available&lt;/a&gt;. A &lt;a href=&quot;https://github.com/montagejs/montage/pull/1372&quot;&gt;nasty Safari bug with uuids was fixed&lt;/a&gt; (although it seems there are still some problems with UUIDs and events). A bug that occured occasionally in the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1404&quot;&gt;PressComposer was fixed&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In Digit a new &lt;a href=&quot;https://github.com/montagejs/digit/pull/59&quot;&gt;transparent skin&lt;/a&gt; was added that can be easily customized by chaging the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;color&lt;/code&gt; CSS property. This is along with the &lt;a href=&quot;https://github.com/montagejs/digit/pull/24&quot;&gt;Button–glass variation&lt;/a&gt; that makes borderless icon buttons easier. As in the Repetition, &lt;a href=&quot;https://github.com/montagejs/digit/pull/58&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;objectAtCurrentIteration&lt;/code&gt; was deperecated in BigList&lt;/a&gt;. The &lt;a href=&quot;https://github.com/montagejs/digit/pull/18&quot;&gt;tab/focus support&lt;/a&gt; was improved and support was added for &lt;a href=&quot;https://github.com/montagejs/digit/pull/17&quot;&gt;using an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;a&amp;gt;&lt;/code&gt; element with Button&lt;/a&gt;. Improvement of &lt;a href=&quot;https://github.com/montagejs/digit/pull/49&quot;&gt;the JSDocs continues&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Joey has been updated to the &lt;a href=&quot;https://github.com/montagejs/joey/commit/c8c55a1b79378dd37cf14d97beab0ed423c6401b&quot;&gt;latest Q-IO&lt;/a&gt; that fixes host negotiation decision tracking and ranged HTTP requests for files, and the “binary” now supports &lt;a href=&quot;https://github.com/montagejs/joey/commit/4d3d7ece0a38c1e0604ea1be39b68166d7f4d5e4&quot;&gt;priviledge descalation with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-u UID&lt;/code&gt;argument&lt;/a&gt;. Minit was updated to take advantage of this new release.&lt;/p&gt;
+
+&lt;p&gt;Another thanks to @evax for noticing a &lt;a href=&quot;https://github.com/montagejs/mop/commit/563b7a575bc82da9cd0a391fe812235d877bfa58&quot;&gt;typo in Mop, which was then fixed&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And, of course, you can now RSVP to be the first to find out about some &lt;a href=&quot;http://montagejs.org/reveal/&quot;&gt;exciting new things we’ve been up to&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/montage/blob/0.13/CHANGES.md#v01312&quot;&gt;Montage v0.13.12&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/minit/blob/master/CHANGES.md#v043&quot;&gt;Minit v0.4.3&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/frb/blob/master/CHANGES.md#v0217&quot;&gt;FRB v0.2.17&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/mousse/commit/95bafcdcd65b6fa21e52935dd22beb32648cbf9b&quot;&gt;Mousse v0.3.0&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/mr/blob/master/CHANGES.md#0151&quot;&gt;Mr v0.15.1&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/joey/blob/master/CHANGES.md#140&quot;&gt;Joey v1.4.0&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2014/01/22/build-3d-applications-with-montagejs</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2014/01/22/build-3d-applications-with-montagejs"/>
+    <title>Build 3D applications with the WebGL-based MontageJS 3D component</title>
+    <published>2014-01-22T00:00:00+00:00</published>
+    <updated>2014-01-22T00:00:00+00:00</updated>
+    <author>
+      <name>Ryan Paul</name>
+      <uri>http://twitter.com/segphault</uri>
+    </author>
+    <content type="html">&lt;p&gt;Modified February 25, 2014&lt;/p&gt;
+
+&lt;p&gt;We updated and converted the original blog post into a tutorial on &lt;a href=&quot;http://montagejs.org/docs/tutorial-3d-applications-with-montagejs.html&quot;&gt;building 3D applications with MontageJS&lt;/a&gt; and moved it to our docs section.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://montagejs.org/docs/tutorial-3d-applications-with-montagejs.html&quot;&gt;&lt;img src=&quot;./PlanetBlog.jpg&quot; alt=&quot;Beach Planet&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;revision-history&quot;&gt;Revision History&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Date&lt;/th&gt;
+      &lt;th&gt;Notes&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;02/11/2014&lt;/td&gt;
+      &lt;td&gt;renamed View as SceneView&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;02/25/2014&lt;/td&gt;
+      &lt;td&gt;removed content and redirected to new 3D tutorial&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/12/16/montagejs-silicon-valley-meetup</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/12/16/montagejs-silicon-valley-meetup"/>
+    <title>MontageJS Silicon Valley meetup on Wed, Dec 18</title>
+    <published>2013-12-16T00:00:00+00:00</published>
+    <updated>2013-12-16T00:00:00+00:00</updated>
+    <author>
+      <name>Ryan Paul</name>
+      <uri>http://twitter.com/segphault</uri>
+    </author>
+    <content type="html">&lt;p&gt;The Silicon Valley MontageJS user group is holding a meeting on Wednesday, December 18. Join us at the &lt;a href=&quot;https://goo.gl/maps/VsjK3&quot;&gt;FastMac offices&lt;/a&gt; in Santa Clara for dinner, drinks, and free MontageJS training. Introductory MontageJS training (ideal for those of you who are new to the framework) will start at 6:30 PM. An advanced training session, which starts at 7:45 PM, will demonstrate how to incorporate 3d graphics into MontageJS applications with WebGL.&lt;/p&gt;
+
+&lt;p&gt;If you attend, you can look forward to meeting other MontageJS users and several members of the core MontageJS team. To RSVP, please visit the &lt;a href=&quot;http://www.meetup.com/Montage-Developers-of-Silicon-Valley/events/154749222/&quot;&gt;event page&lt;/a&gt; at Meetup.com. If you can’t make it this time, but you’d like to be kept in the loop about upcoming events, consider joining the &lt;a href=&quot;http://www.meetup.com/Montage-Developers-of-Silicon-Valley/&quot;&gt;Montage Developers of Silicon Valley&lt;/a&gt; meetup group.&lt;/p&gt;
+
+&lt;p&gt;If you can’t join us in person, you can still catch the event by tuning in to our &lt;a href=&quot;https://plus.google.com/events/cok48cvp4mue3200mcncsc3474s&quot;&gt;live video stream&lt;/a&gt;, which starts at 6:30PM Pacific time.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/12/11/montage-patch-release-a-new-tutorial-and-blog-post</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/12/11/montage-patch-release-a-new-tutorial-and-blog-post"/>
+    <title>Montage patch release, a new tutorial and blog post</title>
+    <published>2013-12-11T00:00:00+00:00</published>
+    <updated>2013-12-11T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Montage &lt;a href=&quot;https://github.com/montagejs/montage/pull/1364&quot;&gt;v0.13.9&lt;/a&gt; was released last week to fix an issue were components could be drawn before their styles had loaded.&lt;/p&gt;
+
+&lt;p&gt;Afonso’s &lt;a href=&quot;http://en.wikipedia.org/wiki/Leet&quot;&gt;leet&lt;/a&gt; pull request was merged, which &lt;a href=&quot;https://github.com/montagejs/montage/pull/1337&quot;&gt;adds template properties&lt;/a&gt; and completes the work needed to replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@repetition.currentIteration&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@repetition:iteration&lt;/code&gt;, allowing more powerful composition.&lt;/p&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://github.com/montagejs/montage/pull/1278&quot;&gt;Label component was added&lt;/a&gt; to make building forms in Montage easier, the Select &lt;a href=&quot;https://github.com/montagejs/montage/pull/1353&quot;&gt;was patched&lt;/a&gt; to work around an FRB bug which allowed default value code to be &lt;a href=&quot;https://github.com/montagejs/digit/pull/53&quot;&gt;moved from Digit to Montage&lt;/a&gt;. The Digit select was &lt;a href=&quot;https://github.com/montagejs/digit/pull/54&quot;&gt;fixed to prevent an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;undefined&lt;/code&gt; item in the content breaking drawing&lt;/a&gt;. &lt;a href=&quot;https://github.com/montagejs/montage/pull/1362&quot;&gt;Wheel/mousewheel events were fixed in the Flow&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The RangeController received some fixes for the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1365&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;swap&lt;/code&gt; method&lt;/a&gt; and the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1352&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selection&lt;/code&gt; property&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We’ve &lt;a href=&quot;http://montagejs.org/docs/tutorial-reddit-client-with-montagejs.html&quot;&gt;published a new tutorial&lt;/a&gt; showing how to create a Reddit browser using many of the common concepts in Montage. A new blog post was published, &lt;a href=&quot;http://montagejs.org/blog/2013/12/05/what-is-in-a-flick/&quot;&gt;“What’s in a Flick?”&lt;/a&gt;, exploring how to differentiate between a user’s drag and scroll intentions.&lt;/p&gt;
+
+&lt;p&gt;The documentation continues to be improved, including the &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/80&quot;&gt;Repetition&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/82&quot;&gt;how it works with the RangeController&lt;/a&gt;, and the &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/74&quot;&gt;styling of code blocks was changed&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+&lt;p&gt;Montage &lt;a href=&quot;https://github.com/montagejs/montage/pull/1364&quot;&gt;v0.13.9&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/12/05/what-is-in-a-flick</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/12/05/what-is-in-a-flick"/>
+    <title>What's in a Flick?</title>
+    <published>2013-12-05T00:00:00+00:00</published>
+    <updated>2013-12-05T00:00:00+00:00</updated>
+    <author>
+      <name>António Afonso</name>
+      <uri>https://github.com/aadsm</uri>
+    </author>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Differentiating between a User’s Drag and Scroll Intentions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;If you make a living building HTML5 mobile apps, you’ve probably come across this common user interface challenge: a vertical (or horizontal) slider inside a scrollable area.&lt;/p&gt;
+
+&lt;p&gt;Most web frameworks know how to respond when users move or “flick” their fingers up or down on a slider knob. What if a user’s intention is not to move the slider, however? What if the user accidentally touches the slider knob when all he or she wants is scroll through the content area?&lt;/p&gt;
+
+&lt;p&gt;Based on our observations, we’ve always thought that flick gestures are slightly different depending on the user’s intention. If the intention is to move a slider, users typically act more carefully and thoughtfully—that is, they take a bit more time—to ensure the flick is initiated on the exact spot of the slider knob. By contrast, when the intention is to scroll, users are less careful and quickly swipe their fingers anywhere on the screen, ignoring the presence of any sliders. However, these were just our observations; we wanted proof that not all flicks are equal. So we built a simple app with a slider that enabled us to log flick timings. The goal was to see if a pattern emerges that would help us recognize whether the intent is to drag or scroll based on the initial move of a user’s finger.&lt;/p&gt;
+
+&lt;p&gt;The application uses our &lt;a href=&quot;http://montagejs.org/api/TranslateComposer.html&quot;&gt;TranslateComposer&lt;/a&gt;, which is part of the core MontageJS framework. The TranslateComposer abstracts the input method (touch or mouse) into a layer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;translate&lt;/code&gt; events. It also eliminates the need for writing a bunch of code that simulates scrolling behavior (e.g., momentum scroller effect) and ensures that the same UI decisions are applied for every component. Since the TranslateComposer is accessible to any component, we thought it might be a good starting point to try to validate our observations. Our hope was that the composer would allow us to calculate the velocity of the flick. But, as happens so often, there was a caveat: we could only evaluate the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchstart&lt;/code&gt; and the first &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchmove&lt;/code&gt; events to decide which component—the scroller or the slider—should receive the translate events. Using more events would have provided more data, but it also would have made the application less responsive in the eyes of the user.&lt;/p&gt;
+
+&lt;p&gt;The first iteration of our tool plotted the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchstart&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchmove&lt;/code&gt; events in a time-pixel graph when a user flicked his or her finger on a static slider (see Figure 1).&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/images/blog/flick-fig01a-sc.png&quot; alt=&quot;Scroll test&quot; /&gt;
+	&lt;img src=&quot;/images/blog/flick-fig01b-sl.png&quot; alt=&quot;Slider test&quot; /&gt;
+	&lt;figcaption&gt;Figure 1. Scroll text (top) and slider test (bottom).&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Based on this simple representation alone, we were able to see a noticeable difference in the duration between the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchstart&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchmove&lt;/code&gt; events depending on the scroll or drag intention. But it wasn’t enough to interpret the user’s intention with certainty. So we decided to modify our tool: we made the left side a vertical scrollable area with vertical sliders (see Figure 2). We also tracked the difference in milliseconds between the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchstart&lt;/code&gt; event and first &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touchmove&lt;/code&gt; event.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/images/blog/flick-fig02a-sc.png&quot; alt=&quot;Scroll test&quot; /&gt;
+	&lt;img src=&quot;/images/blog/flick-fig02b-sl.png&quot; alt=&quot;Scroll test&quot; /&gt;
+	&lt;figcaption&gt;Figure 2. Scroll test (top) and slider test (bottom).&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Even though we had measurable results, we still were not sure how to interpret them or what the ideal delta between events should be. We decided to add a logging function to our tool to help us gauge the average interval for each intention. We also added a button, so users could tell the tool the original intention after each flick (see Figure 3).&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/images/blog/flick-fig03.png&quot; alt=&quot;Scroll test&quot; /&gt;
+	&lt;figcaption&gt;Figure 3. Test with logging function.&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Since there were some discrete (if not odd) values—were they the result of awkward, weird, or bad flicks or noise?—simply taking the average of the durations between events was not sufficient to help us distinguish between flicks. We decided to plot a line where the min and max values were based on the standard deviation of the lower values and the upper values (see Figure 4). The more input our tool received the more fit the lines became. The value to use is the center of the gap between the two lines.&lt;/p&gt;
+
+&lt;figure&gt;
+	&lt;img src=&quot;/images/blog/flick-fig04.png&quot; alt=&quot;Scroll test&quot; /&gt;
+	&lt;figcaption&gt;Figure 4. Our final “test suite.”&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;To confirm the accuracy of our final results, we decided to input the calculated value into the TranslateComposer system every time the value was recalculated: Now, each time we feed the tool with new data, the TranslateComposer is updated automatically with the new value and we can immediately test the results on the group of sliders in the scrollable area on the left until we are happy with the performance.&lt;/p&gt;
+
+&lt;p&gt;Aside from satisfying our curiosity about how to interpret the flick of a finger, the tool also has the benefit of helping us quickly calculate the perfect value to distinguish between scroll and drag intentions based on potential device-dependent timing differences (see, for example, Agawi’s &lt;a href=&quot;http://venturebeat.com/2013/09/19/apples-iphone-5-touchscreen-is-2-5-times-faster-than-android-devices/&quot; target=&quot;_blank&quot;&gt;TouchMarks benchmark test&lt;/a&gt;). All we have to do is load the tool in the browser and play with it for a few seconds to get the best value for the current device/browser combination.&lt;/p&gt;
+
+&lt;p&gt;We currently run the tool on two different devices and found different optimum values for each one: On the iPad (iOS 6), the optimum value is 127.5 ms; on the Nexus 10 (Android 4.2.2), it is 153.5 ms. (If you are on a mobile device, see for yourself with &lt;a href=&quot;/blog/2013-11-08-what-is-in-a-flick/&quot; target=&quot;_blank&quot;&gt;this list of sliders&lt;/a&gt; which is a mockup of our tests: test your scroll or slide intentions.)&lt;/p&gt;
+
+&lt;p&gt;Bottom line, the more responsive the application the better the user experience—which is why the Montage team spends so much time and effort making sure our components and the technology behind them are as good as they can be.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/12/04/new-getting-started-guides-and-more</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/12/04/new-getting-started-guides-and-more"/>
+    <title>New getting started guides and more</title>
+    <published>2013-12-04T00:00:00+00:00</published>
+    <updated>2013-12-04T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;The quest to make our documentation the best it can be continues, with the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1356&quot;&gt;addition of Composer JSDocs&lt;/a&gt;, a big &lt;a href=&quot;https://github.com/montagejs/montage/pull/1358&quot;&gt;normalization of JSDocs&lt;/a&gt; and exciting &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/69&quot;&gt;new set-up and Hello MontageJS tutorials&lt;/a&gt;. They are live at &lt;a href=&quot;http://montagejs.org/docs/montagejs-setup.html&quot;&gt;Getting Started with MontageJS&lt;/a&gt; and &lt;a href=&quot;http://montagejs.org/docs/hello-montagejs.html&quot;&gt;Hello MontageJS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Montage recieved a fix to &lt;a href=&quot;https://github.com/montagejs/montage/pull/1334&quot;&gt;call beforeChangeListeners before the change happens &lt;/a&gt; and the Digit Select was fixed to &lt;a href=&quot;https://github.com/montagejs/digit/pull/54&quot;&gt;prevent an undefined item in content breaking drawing&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/mr/pull/63&quot;&gt;Some&lt;/a&gt; &lt;a href=&quot;https://github.com/montagejs/mr/commit/6d614201100fb246994dcd1c296ded624dcfc0c5&quot;&gt;bugs&lt;/a&gt; were found in Mr v0.14.0 and so Mr v0.14.2 was released to fix them. Mop v0.13.5 was released to pick up these changes and also included a &lt;a href=&quot;https://github.com/montagejs/mop/pull/44&quot;&gt;fix for independent modules creating different bundles&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Minit v0.4.1 was also released to &lt;a href=&quot;https://github.com/montagejs/minit/commit/fc7af5fabeb40d44797dbbc5ed2f8d23974aea5f&quot;&gt;bump all the dependency versions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/mr/commit/6b4d0ddeacb29ad1c9475b87b776342aab7c9ea6&quot;&gt;Mr v0.14.2&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/mop/commit/065917a92793b66f211c423dc9abbff8fcee334b&quot;&gt;Mop v0.13.5&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/minit/compare/v0.4.0...v0.4.1&quot;&gt;Minit v0.4.1&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/11/27/range-controller-docs-collections-and-mr</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/11/27/range-controller-docs-collections-and-mr"/>
+    <title>RangeController, Docs, Collections and Mr</title>
+    <published>2013-11-27T00:00:00+00:00</published>
+    <updated>2013-11-27T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last week Montage recieved a bug fix to &lt;a href=&quot;https://github.com/montagejs/montage/pull/1350&quot;&gt;show “0” when the textfield is set to 0&lt;/a&gt;.
+The selection management of the RangeController has had &lt;a href=&quot;https://github.com/montagejs/montage/pull/1345&quot;&gt;another revision&lt;/a&gt; after some problems were found with the previous implementation.&lt;/p&gt;
+
+&lt;p&gt;Our documentation keeps improving; a large amount of &lt;a href=&quot;https://github.com/montagejs/montage/commit/5962b33a90acd6dcd5ae57b59a1fce805b5661c4&quot;&gt;JSDoc was merged&lt;/a&gt; and the &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/67&quot;&gt;styling was made more compact&lt;/a&gt;. An example can be seen in the &lt;a href=&quot;http://montagejs.org/api/Application.html&quot;&gt;Application documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Two bugs were fixed in Collections: the change-dispatching array &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;splice&lt;/code&gt; &lt;a href=&quot;https://github.com/montagejs/collections/pull/40&quot;&gt;now handles negative start&lt;/a&gt; and all property change listeners are still called even if &lt;a href=&quot;https://github.com/montagejs/collections/pull/41&quot;&gt;earlier ones remove themselves&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A number of merges were made into Mr, including a &lt;a href=&quot;https://github.com/montagejs/mr/pull/61&quot;&gt;fix for loading of minified modules&lt;/a&gt;, and &lt;a href=&quot;https://github.com/montagejs/mr/pull/60&quot;&gt;dropping &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;directories&lt;/code&gt; support&lt;/a&gt; to increase compatibility with Node. These changes and more were released as &lt;a href=&quot;https://github.com/montagejs/mr/commit/3309dfc73f37e1e30b52639857143903da7d4bae&quot;&gt;Mr v0.14.0&lt;/a&gt;. &lt;a href=&quot;https://github.com/montagejs/mop/commit/c20091495d159a5e6cc8a6eddfed26e7c73cd7de&quot;&gt;Mop v0.13.4&lt;/a&gt; was released to accommodate the &lt;a href=&quot;http://semver.org/&quot;&gt;minor version bump&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/mr/commit/3309dfc73f37e1e30b52639857143903da7d4bae&quot;&gt;Mr v0.14.0&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/mop/commit/c20091495d159a5e6cc8a6eddfed26e7c73cd7de&quot;&gt;Mop v0.13.4&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/11/20/more-features-fewer-bugs-smaller-builds</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/11/20/more-features-fewer-bugs-smaller-builds"/>
+    <title>More features, fewer bugs, smaller builds</title>
+    <published>2013-11-20T00:00:00+00:00</published>
+    <updated>2013-11-20T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Plenty of changes were merged this week, and 4 updates were released.&lt;/p&gt;
+
+&lt;p&gt;Thanks to &lt;a href=&quot;http://hackological.com/blog/&quot;&gt;Hugo Daniel&lt;/a&gt; for submitting &lt;a href=&quot;https://github.com/montagejs/montage/pull/1342&quot;&gt;a fix for the Overlay in Firefox&lt;/a&gt;. The readme in the Minit app template was &lt;a href=&quot;https://github.com/montagejs/minit/pull/59&quot;&gt;made much clearer&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/minit/pull/57&quot;&gt;a bug in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minit serve&lt;/code&gt; command fixed&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;FRB gained a number of new features: &lt;a href=&quot;https://github.com/montagejs/frb/pull/31&quot;&gt;a binder for one()&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/frb/pull/25&quot;&gt;min() and max() functions&lt;/a&gt;, and &lt;a href=&quot;https://github.com/montagejs/frb/pull/28&quot;&gt;support for rounding&lt;/a&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;round&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ceil&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;floor&lt;/code&gt; operators. Bugs were fixed too, by &lt;a href=&quot;https://github.com/montagejs/frb/pull/26&quot;&gt;reimplementing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;view&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/frb/pull/29&quot;&gt;correctly passing arguments to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;addRangeChangeListener&lt;/code&gt;&lt;/a&gt;. All these changes are in &lt;a href=&quot;https://github.com/montagejs/frb/commit/6b36b00174aeb7613964d3c50ce623eaac5df47b&quot;&gt;FRB v0.2.16&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The size of bundles produced by Mop have been decreased by &lt;a href=&quot;https://github.com/montagejs/mop/pull/43&quot;&gt;excluding the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readme&lt;/code&gt; property&lt;/a&gt; that gets added by npm, decreasing the size of a simple application by 160k on disk, and 60k on the wire! This was released in &lt;a href=&quot;https://github.com/montagejs/mop/commit/b24a5fe4f1519ac608a29c209b17607acf0b3711&quot;&gt;Mop v0.13.3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Joey, our promise-based webserver, was updated to &lt;a href=&quot;https://github.com/montagejs/joey/commit/42c5037f040eb4e883f9df4d18f0d7fb78238d0d&quot;&gt;use the latest versions of Q and Q-IO&lt;/a&gt; in &lt;a href=&quot;https://github.com/montagejs/joey/commit/9a82af48ef80807d583bd96338b54d7a024890f5&quot;&gt;v1.3.3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Mr gained &lt;a href=&quot;https://github.com/montagejs/mr/pull/59&quot;&gt;support for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;browser&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt; property&lt;/a&gt;, increasing compatibililty with Browserify. This will be released soon along with some other improvements.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/frb/commit/6b36b00174aeb7613964d3c50ce623eaac5df47b&quot;&gt;FRB v0.2.16&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/collections/commit/7feefe23e1309fc51642a7adef42143f6ae90645&quot;&gt;Collections v0.2.2&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/mop/commit/b24a5fe4f1519ac608a29c209b17607acf0b3711&quot;&gt;Mop v0.13.3&lt;/a&gt;, and &lt;a href=&quot;https://github.com/montagejs/joey/commit/9a82af48ef80807d583bd96338b54d7a024890f5&quot;&gt;Joey v1.3.3&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/11/13/aliases-events-improvements-other-updates</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/11/13/aliases-events-improvements-other-updates"/>
+    <title>Aliases, events, improvements, other updates</title>
+    <published>2013-11-13T00:00:00+00:00</published>
+    <updated>2013-11-13T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Aliases, which were added a &lt;a href=&quot;/blog/2013/10/30/docs-blog-posts-and-future-features/&quot;&gt;couple of weeks ago&lt;/a&gt;, can now be &lt;a href=&quot;https://github.com/montagejs/montage/pull/1325&quot;&gt;deserialized&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/montage/pull/1335&quot;&gt;used in bindings&lt;/a&gt;. This paved the way for the implementation of &lt;a href=&quot;https://github.com/montagejs/montage/pull/1336&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@repetition:iteration&lt;/code&gt;&lt;/a&gt; introducing some exciting new possibilities for nested repetitions.&lt;/p&gt;
+
+&lt;p&gt;The TranslateComposer had a &lt;a href=&quot;https://github.com/montagejs/montage/pull/1333&quot;&gt;bug with listening to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mousemove&lt;/code&gt; fixed&lt;/a&gt; and the Flow was updated to scroll even when you &lt;a href=&quot;https://github.com/montagejs/montage/pull/1341&quot;&gt;start dragging on top of another clickable element&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The KeyComposer was &lt;a href=&quot;https://github.com/montagejs/montage/pull/1330&quot;&gt;made easier to use&lt;/a&gt;, as shown in &lt;a href=&quot;https://github.com/montagejs/montage/pull/1331/files&quot;&gt;this update to its usage in Montage&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The Matte List &lt;a href=&quot;https://github.com/montagejs/matte/pull/32&quot;&gt;gained the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;listEnd&lt;/code&gt; event&lt;/a&gt; to make lazy loading of list items easier.&lt;/p&gt;
+
+&lt;p&gt;And finally, &lt;a href=&quot;https://github.com/montagejs/minit/pull/56&quot;&gt;welcome.reel was removed from the Minit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app&lt;/code&gt; template&lt;/a&gt; to help simplify the creation of a new Montage app.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/11/06/embeddable-mfiddle</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/11/06/embeddable-mfiddle"/>
+    <title>Embeddable MFiddle</title>
+    <published>2013-11-06T00:00:00+00:00</published>
+    <updated>2013-11-06T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Montage saw a small &lt;a href=&quot;https://github.com/montagejs/montage/pull/1332&quot;&gt;fix for the translate-composer&lt;/a&gt; last week. And MFiddle gained a great new power.&lt;/p&gt;
+
+&lt;p&gt;The power to be &lt;a href=&quot;https://github.com/montagejs/mfiddle/pull/9&quot;&gt;embedded&lt;/a&gt;!&lt;/p&gt;
+
+&lt;iframe src=&quot;http://montagejs.github.io/mfiddle/embed/#!/7328022&quot; style=&quot;border: 0; width: 100%; height: 280px&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;http://montagejs.github.io/mfiddle/preview/#!/7328022&quot; style=&quot;border: 0; width: 100%; height: 60px&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;By going to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/embed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/preview&lt;/code&gt; you can get the source and result of a given MFiddle respectively. For &lt;a href=&quot;http://montagejs.github.io/mfiddle/#!/7328022&quot;&gt;the above fiddle&lt;/a&gt; the two URLs are http://montagejs.github.io/mfiddle/embed/#!/7328022 and http://montagejs.github.io/mfiddle/preview/#!/7328022&lt;/p&gt;
+
+&lt;p&gt;Look out for interactive examples appearing in the documentation soon.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/frb/commit/f8cd9a1de0eedddcf98649077779f9230840f656&quot;&gt;FRB v0.2.15&lt;/a&gt; and, missed from a couple of weeks ago, &lt;a href=&quot;https://github.com/montagejs/collections/commit/6a93e7554eeea271afc00f85318a0b619f4413fa&quot;&gt;Collections v0.2.1&lt;/a&gt;.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/10/30/docs-blog-posts-and-future-features</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/10/30/docs-blog-posts-and-future-features"/>
+    <title>Docs, blog posts and future features</title>
+    <published>2013-10-30T00:00:00+00:00</published>
+    <updated>2013-10-30T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Mostly website updates this week, with some code to support future features.&lt;/p&gt;
+
+&lt;p&gt;We’re having a push to improve API documentation at the moment, with updates to &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/51&quot;&gt;link to the source&lt;/a&gt;, other &lt;a href=&quot;https://github.com/montagejs/montage/commit/02504a8c2b2bed2aeddecd9da57b87afe2e1078a&quot;&gt;small changes&lt;/a&gt; with plenty more on the way. &lt;a href=&quot;http://github.com/simurai&quot;&gt;Simurai&lt;/a&gt; also wrote a blog post explaining some of &lt;a href=&quot;http://montagejs.org/blog/2013/10/24/BEM-syntax-with-ux-in-mind/&quot;&gt;the UX reasons for our CSS naming convention&lt;/a&gt; and the way to &lt;a href=&quot;https://github.com/montagejs/montagejs.org/commit/47ec5e7d25395445105a22c5496e45ddfbb1750f&quot;&gt;get started with Montage has been made more prominent&lt;/a&gt; on the homepage.&lt;/p&gt;
+
+&lt;p&gt;In the world of code, there’s been a &lt;a href=&quot;https://github.com/montagejs/montage/pull/1319&quot;&gt;fix for capturing the pointer in touch&lt;/a&gt;. “Aliases” have &lt;a href=&quot;https://github.com/montagejs/montage/pull/1322&quot;&gt;been&lt;/a&gt; &lt;a href=&quot;https://github.com/montagejs/montage/pull/1324&quot;&gt;added&lt;/a&gt; to Montage, and changes made in &lt;a href=&quot;https://github.com/montagejs/frb/pull/23&quot;&gt;FRB to support the syntax&lt;/a&gt;. This is a is a new type of object that can be declared in the serialization that will lead to the introduction of object labels like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@repetition:iteration&lt;/code&gt; replacing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@repetition.currentIteration&lt;/code&gt;. It will improve the robustness and composition of repetitions and substitutions to make components such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Table&lt;/code&gt; easier to implement. Stay tuned for more information in the coming weeks.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/10/24/BEM-syntax-with-ux-in-mind</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/10/24/BEM-syntax-with-ux-in-mind"/>
+    <title>A BEM syntax with UX in mind</title>
+    <published>2013-10-24T00:00:00+00:00</published>
+    <updated>2013-10-24T00:00:00+00:00</updated>
+    <author>
+      <name>simurai</name>
+      <uri>https://github.com/simurai</uri>
+    </author>
+    <content type="html">&lt;p&gt;At some point, while working on the MontageJS framework, the question came up what CSS naming convention we should start using. After a &lt;a href=&quot;https://github.com/montagejs/montage/issues/795&quot;&gt;long discussion&lt;/a&gt; we settled on using the &lt;a href=&quot;http://bem.info/method/definitions/&quot;&gt;BEM methodology&lt;/a&gt;, but changed the syntax a bit. To keep this post short, I won’t go into detail why using BEM is a good idea, but rather explain why we chose a different syntax. But first let’s look at some examples:&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;.digit-Progress&lt;/span&gt;          &lt;span class=&quot;c&quot;&gt;/* package-Component */&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.digit-Progress-bar&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;/* package-Component-childElement */&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.digit-Progress--small&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;/* package-Component--variation */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note: The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package-&lt;/code&gt; (digit-) prefix is used as a name-space so it wouldn’t conflict with other packages/libraries/frameworks.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Now let’s take a look at the reasons for choosing this syntax.&lt;/p&gt;
+
+&lt;h3 id=&quot;hyphens--&quot;&gt;Hyphens (-)&lt;/h3&gt;
+&lt;p&gt;The main reason why we’re using a hyphen (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&lt;/code&gt;) instead of underscores (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_&lt;/code&gt;), has to do with the fact that their behavior is different when &lt;strong&gt;double-clicking&lt;/strong&gt; to select text. Try for yourself:&lt;/p&gt;
+
+&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;component__element&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;/* underscores */&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;component-element&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;/* hyphen */&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/naming-conventions-1.gif&quot; alt=&quot;naming-conventions-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;See how when you’re using underscores it selects the part before and after, in this case the whole &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;component__element&lt;/code&gt;. But with hyphens it let’s you select only the part you double-clicked. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;component&lt;/code&gt; &lt;strong&gt;OR&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;element&lt;/code&gt;. This let’s you quickly edit only the parts you want:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/naming-conventions-2.gif&quot; alt=&quot;naming-conventions-2&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;camelcase&quot;&gt;camelCase&lt;/h3&gt;
+&lt;p&gt;Now what if the component or child element consists of multiple words? We could use underscores like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;component_name-element_name&lt;/code&gt;. It would still be double-clickable, but readability suffers since it’s harder to see what belongs together. Better to use &lt;strong&gt;camelCase&lt;/strong&gt; which groups each part visually: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;componentName-elementName&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;maincomponent&quot;&gt;MainComponent&lt;/h3&gt;
+&lt;p&gt;OK, I think we’re getting closer. As a last rule, for the “main” component we use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CamelCase&lt;/code&gt;. The reason for it is to add &lt;strong&gt;emphasis&lt;/strong&gt; and make it easier to distinguish the main component from a child element. Also when using a namespace, the component moves to the second position, which makes it even more important to have it stick out: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package-Component-childElement&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;variation&quot;&gt;–variation&lt;/h3&gt;
+&lt;p&gt;We kept the more commonly used double hyphens (–) for &lt;strong&gt;variations&lt;/strong&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;digit-Progress--small&lt;/code&gt;. It makes sense, because it pulls the variation (–small) visually more apart and makes it look like it’s something “different” than an actual element.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;So that’s about it. For more details, you can read up on the CSS part of our &lt;a href=&quot;http://montagejs.org/docs/naming-conventions.html#toc_3&quot;&gt;naming conventions&lt;/a&gt; or take a look at &lt;a href=&quot;https://github.com/suitcss/suit/blob/master/doc/naming-conventions.md&quot;&gt;SUIT framework&lt;/a&gt;, which started to use the same syntax and documented it really well.&lt;/p&gt;
+
+&lt;p&gt;In the end, whatever &lt;a href=&quot;http://blog.kaelig.fr/post/48196348743/fifty-shades-of-bem&quot;&gt;Shade of BEM&lt;/a&gt; you choose to cook with probably depends on your personal taste, but thinking about a great UX by improving usability and readability won’t hurt either.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/10/23/selection-and-the-slider</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/10/23/selection-and-the-slider"/>
+    <title>Selection, and a streamlined Slider</title>
+    <published>2013-10-23T00:00:00+00:00</published>
+    <updated>2013-10-23T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;There were just a couple of merged changes this week, and both were tidying up.&lt;/p&gt;
+
+&lt;p&gt;The RangeController had an &lt;a href=&quot;https://github.com/montagejs/montage/pull/1320&quot;&gt;improvement to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selection&lt;/code&gt;&lt;/a&gt; which reduces the complexity of the code and adds some new features, such as ensuring that that all items in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selection&lt;/code&gt; are members of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content&lt;/code&gt;.
+&lt;a href=&quot;https://github.com/montagejs/matte/pull/30&quot;&gt;Matte&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/native/pull/4&quot;&gt;Native&lt;/a&gt; were updated for compatibility.&lt;/p&gt;
+
+&lt;p&gt;And in Digit Slider was &lt;a href=&quot;https://github.com/montagejs/digit/pull/45&quot;&gt;streamlined to use fewer elements&lt;/a&gt;, simplifying the HTML and CSS.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/10/16/fixes-fixes-fixes-for-preloading-slider-and-tests</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/10/16/fixes-fixes-fixes-for-preloading-slider-and-tests"/>
+    <title>Fixes, fixes, fixes, for preloading, Slider, and tests</title>
+    <published>2013-10-16T00:00:00+00:00</published>
+    <updated>2013-10-16T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Mostly fixes were merged this week: urls that are absolute or are on the `file:// protocol are &lt;a href=&quot;https://github.com/montagejs/montage/pull/1316&quot;&gt;no longer preloaded&lt;/a&gt;, as they are potential x-domain requests. This fixes some errors with &lt;a href=&quot;https://github.com/montagejs/mop&quot;&gt;Mopped&lt;/a&gt; applications.&lt;/p&gt;
+
+&lt;p&gt;The Slider received some more attention, with fixes for the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1312&quot;&gt;initial thumb position&lt;/a&gt; and not &lt;a href=&quot;https://github.com/montagejs/montage/pull/1313&quot;&gt;moving to non-percentage values&lt;/a&gt;. A large number of tests failing in IE10 were fixed by &lt;a href=&quot;https://github.com/montagejs/montage-testing/pull/8&quot;&gt;shimming &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;console.group&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally, the Overlay gained the ability to be &lt;a href=&quot;https://github.com/montagejs/montage/pull/1303&quot;&gt;closed with the escape key&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/10/08/speed-source-links-and-saucelabs</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/10/08/speed-source-links-and-saucelabs"/>
+    <title>Speed, source links and Saucelabs</title>
+    <published>2013-10-08T00:00:00+00:00</published>
+    <updated>2013-10-08T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;As one of the most commonly used components it’s important that the &lt;a href=&quot;http://montagejs.org/docs/repetition.html&quot;&gt;Repetition&lt;/a&gt; is fast, and to this end &lt;a href=&quot;https://github.com/montagejs/montage/pull/1308&quot;&gt;some unnesesary bindings have been removed&lt;/a&gt;. Montage has also been &lt;a href=&quot;https://github.com/montagejs/montage/pull/1306&quot;&gt;updated to use last week’s releases&lt;/a&gt; of FRB and Collections.&lt;/p&gt;
+
+&lt;p&gt;The List’s scrolling behaviour was fixed in both &lt;a href=&quot;https://github.com/montagejs/matte/pull/25&quot;&gt;Matte&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/digit/pull/36&quot;&gt;Digit&lt;/a&gt;, and a &lt;a href=&quot;https://github.com/montagejs/digit/pull/39&quot;&gt;vertical slider&lt;/a&gt; was also added Digit.&lt;/p&gt;
+
+&lt;p&gt;Our &lt;a href=&quot;http://montagejs.org/api/&quot;&gt;API documentation&lt;/a&gt; has been updated to contain &lt;a href=&quot;https://github.com/montagejs/montagejs.org/pull/45&quot;&gt;links to the source of symbol definitions&lt;/a&gt;, and the new features in FRB &lt;a href=&quot;https://github.com/montagejs/frb/pull/21&quot;&gt;are now documented&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The montage-testing package recieved an &lt;a href=&quot;https://github.com/montagejs/montage-testing/pull/7&quot;&gt;update to Jasmine&lt;/a&gt; so that tests can be run on Saucelabs.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+&lt;p&gt;Digit &lt;a href=&quot;https://github.com/montagejs/digit/commit/38fe3e709b53f1dfac492bd27952b63d328f9a01&quot;&gt;v0.3.2&lt;/a&gt; and minidom &lt;a href=&quot;https://github.com/montagejs/minidom/commit/bab9be834a723f5d907cce4f46571d622ee9233a&quot;&gt;v0.1.0&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/10/02/the-week-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/10/02/the-week-in-montage"/>
+    <title>The week in Montage – 2nd October '13</title>
+    <published>2013-10-02T00:00:00+00:00</published>
+    <updated>2013-10-02T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Internal changes, UI updates and API improvements abound this week.&lt;/p&gt;
+
+&lt;p&gt;Montage received a &lt;a href=&quot;https://github.com/montagejs/montage/pull/1299&quot;&gt;big update to the overlay&lt;/a&gt; last week, along with a fix for a bug where &lt;a href=&quot;https://github.com/montagejs/montage/pull/1304&quot;&gt;dragging the slider would select text&lt;/a&gt;. The Digit slider got &lt;a href=&quot;https://github.com/montagejs/digit/pull/38&quot;&gt;visual improvements for Firefox&lt;/a&gt; as well. Also on UI components, the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1231&quot;&gt;Flow now adds the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selected&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active&lt;/code&gt; classes to its child elements&lt;/a&gt;. On the purely API side listeners from &lt;a href=&quot;https://github.com/montagejs/montage/pull/1301&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;addRangeAtPathChangeListener&lt;/code&gt; now handle invalid properties along the path&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A bug in range and map change listeners has been fixed such that &lt;a href=&quot;https://github.com/montagejs/collections/pull/34&quot;&gt;dispatchesRangeChanges and dispatchesMapChanges have been made non-enumerable&lt;/a&gt; on observed arrays. This fixes an issue that made equivalent observed and non-observed arrays difficult to compare. Also, &lt;a href=&quot;https://github.com/montagejs/collections/pull/33&quot;&gt;the List and Set collections can now dispatch range change events&lt;/a&gt;, which in turn makes them bindable through FRB expressions that could previously only react to changes in Array and SortedSet. In FRB the &lt;a href=&quot;https://github.com/montagejs/frb/pull/16&quot;&gt;Set now supports the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;only&lt;/code&gt; operator&lt;/a&gt;, and after some &lt;a href=&quot;https://github.com/montagejs/frb/pull/15&quot;&gt;internal changes to the Scope object&lt;/a&gt; the &lt;a href=&quot;https://github.com/montagejs/frb/pull/18&quot;&gt;parent binder, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^&lt;/code&gt;, has been added&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/tstatler&quot;&gt;Tim Statler&lt;/a&gt; who helped out by &lt;a href=&quot;https://github.com/montagejs/minit/pull/54&quot;&gt;fixing the Minit app template&lt;/a&gt;, and &lt;a href=&quot;https://github.com/mattisfrommars&quot;&gt;mattisfrommars&lt;/a&gt; for improving &lt;a href=&quot;https://github.com/montagejs/popcorn/pull/13&quot;&gt;some of the Popcorn code&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;Collections &lt;a href=&quot;https://github.com/montagejs/collections/blob/master/CHANGES.md#v020&quot;&gt;v0.2.0&lt;/a&gt;, FRB &lt;a href=&quot;https://github.com/montagejs/frb/blob/master/CHANGES.md#v0214&quot;&gt;v0.2.14&lt;/a&gt; and introducing &lt;a href=&quot;https://npmjs.org/package/domenic&quot;&gt;Domenic&lt;/a&gt;!&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/09/25/the-week-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/09/25/the-week-in-montage"/>
+    <title>The week in Montage – 25th September '13</title>
+    <published>2013-09-25T00:00:00+00:00</published>
+    <updated>2013-09-25T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;More improvements and some exciting new features.&lt;/p&gt;
+
+&lt;p&gt;Montage gained &lt;a href=&quot;https://github.com/montagejs/montage/pull/1243&quot;&gt;a big enhancement to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super&lt;/code&gt; implementation&lt;/a&gt;, increasing speed and allowing it to work in strict mode. There were a couple improvements to the draw cycle: not adding components to the draw list &lt;a href=&quot;https://github.com/montagejs/montage/pull/1291&quot;&gt;when they shouldn’t be&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/montage/pull/1274&quot;&gt;loading stylesheets before drawing&lt;/a&gt; to avoid a flash of unstyled content. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Image&lt;/code&gt; now has a &lt;a href=&quot;https://github.com/montagejs/montage/pull/1281&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;crossOrigin&lt;/code&gt; property&lt;/a&gt; to allow it to be &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/HTML/CORS_Enabled_Image&quot;&gt;drawn to and read from a canvas&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;An exciting new feature has been added to the translate-composer that &lt;a href=&quot;https://github.com/montagejs/montage/pull/1241&quot;&gt;changes the logic it uses to determine whether it should steal the pointer&lt;/a&gt; from another component that has claimed it. This is based on some interesting research by &lt;a href=&quot;https://github.com/aadsm&quot;&gt;Afonso&lt;/a&gt; on the thresholds that should be used for different devices to ensure a great user experience on each of them.&lt;/p&gt;
+
+&lt;p&gt;After reporting issues on collections last week &lt;a href=&quot;https://github.com/wpk-&quot;&gt;Paul Koppen&lt;/a&gt; &lt;a href=&quot;https://github.com/montagejs/collections/pull/31&quot;&gt;fixed another&lt;/a&gt; and submitted an &lt;a href=&quot;https://github.com/montagejs/collections/pull/30&quot;&gt;improvement to the LRUSet&lt;/a&gt;. Thanks!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/09/18/the-week-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/09/18/the-week-in-montage"/>
+    <title>The week in Montage – 18th September '13</title>
+    <published>2013-09-18T00:00:00+00:00</published>
+    <updated>2013-09-18T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;This was a week of bug fixes and small improvements.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/matte&quot;&gt;Matte&lt;/a&gt; now looks better on &lt;a href=&quot;https://github.com/montagejs/matte/pull/10&quot;&gt;high resolution screens&lt;/a&gt; and the text-slider &lt;a href=&quot;https://github.com/montagejs/matte/pull/11&quot;&gt;switches seamlessly to the editing state&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The Montage overlay gained support for &lt;a href=&quot;https://github.com/montagejs/montage/pull/1292&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shouldDismissOverlay&lt;/code&gt; on the delegate&lt;/a&gt;, and the button &lt;a href=&quot;https://github.com/montagejs/montage/pull/1284&quot;&gt;no longer enters an infinite loop when setting the label&lt;/a&gt;. &lt;a href=&quot;https://github.com/montagejs/montage/pull/1279&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dispatchEvent&lt;/code&gt; was aligned with the spec&lt;/a&gt; to return whether the default action should be performed.&lt;/p&gt;
+
+&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/wpk-&quot;&gt;@wpk-&lt;/a&gt; for noticing some issues in &lt;a href=&quot;https://github.com/montagejs/collections/issues/29&quot;&gt;LruSet&lt;/a&gt;, which were then &lt;a href=&quot;https://github.com/montagejs/collections/commit/b85c4da4d243c54631108b2174e48b5072f1892e&quot;&gt;promptly&lt;/a&gt; &lt;a href=&quot;https://github.com/montagejs/collections/commit/49fbef0b349c14b7bd5c8fa2ba998a1790b7d34d&quot;&gt;fixed&lt;/a&gt;, as was another &lt;a href=&quot;https://github.com/montagejs/collections/pull/28&quot;&gt;event dispatching issue with Dict&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Not wanting to be left out, Mr also received a bug fix for &lt;a href=&quot;https://github.com/montagejs/mr/pull/50&quot;&gt;relative paths in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; property&lt;/a&gt; of package.json, but also gained a new feature: a way to &lt;a href=&quot;https://github.com/montagejs/mr/pull/22&quot;&gt;sandbox &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require&lt;/code&gt;&lt;/a&gt; and inject dependencies for testing purposes.&lt;/p&gt;
+
+&lt;h2 id=&quot;releases&quot;&gt;Releases&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/montagejs/matte/blob/master/CHANGES.md#014&quot;&gt;Matte v0.1.4&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/native/blob/master/CHANGES.md#v013&quot;&gt;Native v0.1.3&lt;/a&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/09/11/the-week-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/09/11/the-week-in-montage"/>
+    <title>The week in Montage – 11th September '13</title>
+    <published>2013-09-11T00:00:00+00:00</published>
+    <updated>2013-09-11T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;There were a couple of releases last week.&lt;/p&gt;
+
+&lt;p&gt;Montage recieved an update to templates that allow some external resources (images and iframes) to be &lt;a href=&quot;https://github.com/montagejs/montage/pull/1250&quot;&gt;loaded relative to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.reel&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/montage/pull/1283&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;forceDecimals&lt;/code&gt; was added&lt;/a&gt; to the NumberConverter. These changes were included in &lt;a href=&quot;https://github.com/montagejs/montage/commit/3c0e48b56252c17df71abff5725757867e117624&quot;&gt;Montage v0.13.6&lt;/a&gt; which was released on Thursday along with the newly released &lt;a href=&quot;https://github.com/montagejs/mr/commit/3f10114a97a4a57e1a2c8d12f99d6acae09a7ffd&quot;&gt;Mr v0.13.4&lt;/a&gt;. This includes an updated version of &lt;a href=&quot;https://github.com/kriskowal/q&quot;&gt;Q&lt;/a&gt; and some fixes for loading modules in preloading bundles after an application has been Mopped.&lt;/p&gt;
+
+&lt;p&gt;The RangeController was updated to make &lt;a href=&quot;https://github.com/montagejs/montage/pull/1290&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;selection&lt;/code&gt; update synchronously&lt;/a&gt; while being consistent with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multiSelect&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;avoidsEmptySelection&lt;/code&gt; properties, which fixes some visual artifacts in the repetition. FRB also had a couple of &lt;a href=&quot;https://github.com/montagejs/frb/commit/eccded462da2d0120c69dbc3c0b967a2ecd298a4&quot;&gt;bugs with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;filter&lt;/code&gt; fixed&lt;/a&gt; and &lt;a href=&quot;https://github.com/montagejs/minidom&quot;&gt;minidom&lt;/a&gt; now uses a spec compliant HTML5 parser provided by &lt;a href=&quot;https://npmjs.org/package/parse5&quot;&gt;parse5&lt;/a&gt; (along with a lot more tests!).&lt;/p&gt;
+
+&lt;p&gt;And finally, if you have ever been confused about how Montage uses Javascript objects then take a look at the newly rewritten &lt;a href=&quot;http://montagejs.org/docs/montagejs-objects.html&quot;&gt;MontageJS Objects&lt;/a&gt; article.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/09/04/the-week-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/09/04/the-week-in-montage"/>
+    <title>The week in Montage – 4th September '13</title>
+    <published>2013-09-04T00:00:00+00:00</published>
+    <updated>2013-09-04T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last week featured a number of small bug fixes in Montage for the &lt;a href=&quot;https://github.com/montagejs/montage/pull/1275&quot;&gt;button&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/montage/pull/1276&quot;&gt;blueprints&lt;/a&gt;, &lt;a href=&quot;https://github.com/montagejs/montage/pull/1235&quot;&gt;flow&lt;/a&gt; and an &lt;a href=&quot;https://github.com/montagejs/montage/pull/1239&quot;&gt;update to Mr v0.13.3&lt;/a&gt;. The translate composer &lt;a href=&quot;https://github.com/montagejs/montage/pull/1273&quot;&gt;now supports the standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wheel&lt;/code&gt; event&lt;/a&gt;. There was also a &lt;a href=&quot;https://github.com/montagejs/montage/pull/1213&quot;&gt;large update to Montage’s MediaController&lt;/a&gt; which paved the way for a brand new &lt;a href=&quot;https://github.com/montagejs/digit/pull/19/files&quot;&gt;video player in Digit&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;You can see Montage in action on the &lt;a href=&quot;http://todomvc.com/&quot;&gt;TodoMVC&lt;/a&gt; website, and last week Mike Czepiel &lt;a href=&quot;https://github.com/tastejs/todomvc/pull/666&quot;&gt;updated the example to Montage v0.13&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And finally, there has been some interesting work to define compilers and translators for Mr in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;. It’s not ready for use yet, but you can get a &lt;a href=&quot;https://github.com/montagejs/mr/pull/43&quot;&gt;sneak preview in this pull request&lt;/a&gt;.&lt;/p&gt;
+
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/08/28/the-week-in-montage</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/08/28/the-week-in-montage"/>
+    <title>The week in Montage – 28th October '13</title>
+    <published>2013-08-28T00:00:00+00:00</published>
+    <updated>2013-08-28T00:00:00+00:00</updated>
+    <author>
+      <name>Stuart Knightley</name>
+      <uri>http://github.com/Stuk/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Last week the Montage team was happy to gain two new members, &lt;a href=&quot;https://github.com/asolove&quot;&gt;Adam Solove&lt;/a&gt; and &lt;a href=&quot;https://github.com/NV&quot;&gt;Nikita Vasilyev&lt;/a&gt;! Nikita jumped straight in and improved component generation in Minit and fixed up some issues in our documentation on &lt;a href=&quot;http://montagejs.org/&quot;&gt;montagejs.org&lt;/a&gt;. Adam landed an improvement to the currency converter, and &lt;a href=&quot;https://github.com/montagejs/montage/pull/1264&quot;&gt;fixed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Template&lt;/code&gt;&lt;/a&gt; to call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;templateDidLoad&lt;/code&gt; on an instance &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;owner&lt;/code&gt; that doesn’t appear in the serialization.&lt;/p&gt;
+
+&lt;p&gt;Chrome 29 was released last week which defined &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;window.Touch&lt;/code&gt; on all devices and breaks some of our mouse/touch interaction code. A quick fix was implemented in Montage until we have a better solution, and a number of our examples were updated. &lt;strong&gt;Montage&lt;/strong&gt; v0.13.5 was released with this fix, Adam’s changes and improvements to &lt;a href=&quot;https://github.com/montagejs/montage/pull/1263&quot;&gt;mousewheel handling in Flow&lt;/a&gt; (replacing v0.13.4 which accidentally included some extra files).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Minit&lt;/strong&gt; &lt;a href=&quot;https://github.com/montagejs/minit/commit/87b8fd87e49112e17c3e21550f0c13257d907e79&quot;&gt;v0.3.8 was released&lt;/a&gt; including Nikita’s changes and some API improvements. &lt;strong&gt;FRB&lt;/strong&gt; &lt;a href=&quot;https://github.com/montagejs/frb/commit/9a26108be96f977d1b54c085160ef14c64999ad9&quot;&gt;v0.2.13 also saw a release&lt;/a&gt;, as did &lt;strong&gt;Joey&lt;/strong&gt; &lt;a href=&quot;https://github.com/montagejs/joey/commit/42383cda3121745b3c1fc12d114b3ab2dae53ef7&quot;&gt;v1.3.0&lt;/a&gt; with support for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;route.any&lt;/code&gt; thanks to &lt;a href=&quot;https://github.com/wmertens&quot;&gt;wmertens&lt;/a&gt;. &lt;strong&gt;Digit&lt;/strong&gt; components were updated to be nicer on the fingers and the toggle-switch had a bit of a clean up.&lt;/p&gt;
+
+&lt;p&gt;Michael has been busy updating the readmes for all our &lt;a href=&quot;http://montagejs.org/apps/&quot;&gt;example apps&lt;/a&gt; to be more consistent, along with plenty more updates to the website.&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/07/10/anniversary</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/07/10/anniversary"/>
+    <title>Montage's 1st anniversary</title>
+    <published>2013-07-10T00:00:00+00:00</published>
+    <updated>2013-07-10T00:00:00+00:00</updated>
+    <author>
+      <name>simurai</name>
+      <uri>https://github.com/simurai/</uri>
+    </author>
+    <content type="html">&lt;p&gt;On 10th of July 2012 the MontageJS framework went open source. Happy Birthday MontageJS!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/first-anniversary.jpg&quot; alt=&quot;montage-anniversary&quot; /&gt;&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/06/02/jsconf</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/06/02/jsconf"/>
+    <title>JSConf 2013</title>
+    <published>2013-06-02T00:00:00+00:00</published>
+    <updated>2013-06-02T00:00:00+00:00</updated>
+    <author>
+      <name>simurai</name>
+      <uri>https://github.com/simurai/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Some Montage guys went to this year’s JSConf. Apparently they had a blast.&lt;/p&gt;
+
+&lt;p&gt;They also met daddy:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pbs.twimg.com/media/BLmiZeGCMAAlyC9.jpg&quot; alt=&quot;jsfonf 2013&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And Mr. Bee even converted to a Java fan:&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p&gt;Being at JSConf is being a great experience. That script called Java sounds interesting&lt;/p&gt;&amp;mdash; romancortes (@romancortes) &lt;a href=&quot;https://twitter.com/romancortes/status/340540746396475393&quot;&gt;May 31, 2013&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async=&quot;&quot; src=&quot;//platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;See you in 2014!&lt;/p&gt;
+</content>
+  </entry>
+  
+  <entry>
+    <id>http://montagejs.org/blog/2013/06/01/first</id>
+    <link type="text/html" rel="alternate" href="http://montagejs.org/blog/2013/06/01/first"/>
+    <title>MontageJS now has a Blog</title>
+    <published>2013-06-01T00:00:00+00:00</published>
+    <updated>2013-06-01T00:00:00+00:00</updated>
+    <author>
+      <name>simurai</name>
+      <uri>https://github.com/simurai/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Hopefully you’ll get a glimpse what we’re up to and also learn new things.&lt;/p&gt;
+</content>
+  </entry>
+  
+
+</feed>

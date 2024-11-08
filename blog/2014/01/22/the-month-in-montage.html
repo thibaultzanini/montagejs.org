@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>The month in Montage</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+  <section id="blog" class="blog withSubnav">
+    <div class="wrapper">
+
+            
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+
+        <nav class="subnav subnav--noDetails">
+            
+              <a  href="/blog/2014/01/29/repetition-improvements-and-more">Repetition improvements and more</a>
+            
+              <a class="active" href="/blog/2014/01/22/the-month-in-montage">The month in Montage</a>
+            
+              <a  href="/blog/2014/01/22/build-3d-applications-with-montagejs">Build 3D applications with the WebGL-based MontageJS 3D component</a>
+            
+              <a  href="/blog/2013/12/16/montagejs-silicon-valley-meetup">MontageJS Silicon Valley meetup on Wed, Dec 18</a>
+            
+              <a  href="/blog/2013/12/11/montage-patch-release-a-new-tutorial-and-blog-post">Montage patch release, a new tutorial and blog post</a>
+            
+              <a  href="/blog/2013/12/05/what-is-in-a-flick">What's in a Flick?</a>
+            
+              <a  href="/blog/2013/12/04/new-getting-started-guides-and-more">New getting started guides and more</a>
+            
+              <a  href="/blog/2013/11/27/range-controller-docs-collections-and-mr">RangeController, Docs, Collections and Mr</a>
+            
+              <a  href="/blog/2013/11/20/more-features-fewer-bugs-smaller-builds">More features, fewer bugs, smaller builds</a>
+            
+              <a  href="/blog/2013/11/13/aliases-events-improvements-other-updates">Aliases, events, improvements, other updates</a>
+            
+              <a  href="/blog/2013/11/06/embeddable-mfiddle">Embeddable MFiddle</a>
+            
+              <a  href="/blog/2013/10/30/docs-blog-posts-and-future-features">Docs, blog posts and future features</a>
+            
+              <a  href="/blog/2013/10/24/BEM-syntax-with-ux-in-mind">A BEM syntax with UX in mind</a>
+            
+              <a  href="/blog/2013/10/23/selection-and-the-slider">Selection, and a streamlined Slider</a>
+            
+              <a  href="/blog/2013/10/16/fixes-fixes-fixes-for-preloading-slider-and-tests">Fixes, fixes, fixes, for preloading, Slider, and tests</a>
+            
+              <a  href="/blog/2013/10/08/speed-source-links-and-saucelabs">Speed, source links and Saucelabs</a>
+            
+              <a  href="/blog/2013/10/02/the-week-in-montage">The week in Montage – 2nd October '13</a>
+            
+              <a  href="/blog/2013/09/25/the-week-in-montage">The week in Montage – 25th September '13</a>
+            
+              <a  href="/blog/2013/09/18/the-week-in-montage">The week in Montage – 18th September '13</a>
+            
+              <a  href="/blog/2013/09/11/the-week-in-montage">The week in Montage – 11th September '13</a>
+            
+              <a  href="/blog/2013/09/04/the-week-in-montage">The week in Montage – 4th September '13</a>
+            
+              <a  href="/blog/2013/08/28/the-week-in-montage">The week in Montage – 28th October '13</a>
+            
+              <a  href="/blog/2013/07/10/anniversary">Montage's 1st anniversary</a>
+            
+              <a  href="/blog/2013/06/02/jsconf">JSConf 2013</a>
+            
+              <a  href="/blog/2013/06/01/first">MontageJS now has a Blog</a>
+            
+        </nav>
+
+        <div class="main">
+
+            <article class="content">
+                <h1>The month in Montage</h1>
+                <div class="blog-meta">
+                    <time class="blog-time">January 22 2014</time>
+                    Posted by <a class="blog-author" href="http://github.com/Stuk/" target="_blank">Stuart Knightley</a>
+                </div>
+                <p>It’s been over a month since the last update and a lot has happened!</p>
+
+<p>Three patch versions of Montage 0.13 have been released that fix <a href="https://github.com/montagejs/montage/pull/1385">several</a> <a href="https://github.com/montagejs/montage/pull/1399">issues</a> with <code class="language-plaintext highlighter-rouge">require</code>, the <a href="https://github.com/montagejs/montage/commit/0b118adf546c6aca1c57f785e8c5e301d62c7193">KeyComposer</a> and an <a href="https://github.com/montagejs/montage/pull/1396">uneeded warning</a>. Full details are in the <a href="https://github.com/montagejs/montage/blob/0.13/CHANGES.md#v01312">Montage v0.13.12 changelog</a>, and of course it’s available to install from npm.</p>
+
+<p>Plenty of pull requests have been merged into Montage master and so I’ve skipped some of them here to save some time.</p>
+
+<p>When using a Loader the console would display an unnecessary warning <a href="https://github.com/montagejs/montage/pull/1396">which has now been fixed</a>, The NumberField now correctly handles <a href="https://github.com/montagejs/montage/pull/1391">floating point numbers in <code class="language-plaintext highlighter-rouge">step</code></a>. Thanks to @evax who <a href="https://github.com/montagejs/montage/pull/1386">implemented <code class="language-plaintext highlighter-rouge">getPreventDefault</code> in MutableEvent</a>. The Overlay is now <a href="https://github.com/montagejs/montage/pull/1379">not shown if it can’t be the active target</a> and the Esc key <a href="https://github.com/montagejs/montage/pull/1381">now correctly dismisses the Overlay the second time</a>. Now that <code class="language-plaintext highlighter-rouge">:iteration</code> is availabe <a href="https://github.com/montagejs/montage/pull/1377"><code class="language-plaintext highlighter-rouge">objectAtCurrentIteration</code> has been deprecated</a>. The <a href="https://github.com/montagejs/montage/pull/1376">generation of new <code class="language-plaintext highlighter-rouge">data-montage-id</code>s when merging templates</a> has been improved along with <a href="https://github.com/montagejs/montage/pull/1403">using the metadata to label objects if available</a>. A <a href="https://github.com/montagejs/montage/pull/1372">nasty Safari bug with uuids was fixed</a> (although it seems there are still some problems with UUIDs and events). A bug that occured occasionally in the <a href="https://github.com/montagejs/montage/pull/1404">PressComposer was fixed</a>.</p>
+
+<p>In Digit a new <a href="https://github.com/montagejs/digit/pull/59">transparent skin</a> was added that can be easily customized by chaging the <code class="language-plaintext highlighter-rouge">color</code> CSS property. This is along with the <a href="https://github.com/montagejs/digit/pull/24">Button–glass variation</a> that makes borderless icon buttons easier. As in the Repetition, <a href="https://github.com/montagejs/digit/pull/58"><code class="language-plaintext highlighter-rouge">objectAtCurrentIteration</code> was deperecated in BigList</a>. The <a href="https://github.com/montagejs/digit/pull/18">tab/focus support</a> was improved and support was added for <a href="https://github.com/montagejs/digit/pull/17">using an <code class="language-plaintext highlighter-rouge">&lt;a&gt;</code> element with Button</a>. Improvement of <a href="https://github.com/montagejs/digit/pull/49">the JSDocs continues</a>.</p>
+
+<p>Joey has been updated to the <a href="https://github.com/montagejs/joey/commit/c8c55a1b79378dd37cf14d97beab0ed423c6401b">latest Q-IO</a> that fixes host negotiation decision tracking and ranged HTTP requests for files, and the “binary” now supports <a href="https://github.com/montagejs/joey/commit/4d3d7ece0a38c1e0604ea1be39b68166d7f4d5e4">priviledge descalation with the <code class="language-plaintext highlighter-rouge">-u UID</code>argument</a>. Minit was updated to take advantage of this new release.</p>
+
+<p>Another thanks to @evax for noticing a <a href="https://github.com/montagejs/mop/commit/563b7a575bc82da9cd0a391fe812235d877bfa58">typo in Mop, which was then fixed</a>.</p>
+
+<p>And, of course, you can now RSVP to be the first to find out about some <a href="http://montagejs.org/reveal/">exciting new things we’ve been up to</a>.</p>
+
+<h2 id="releases">Releases</h2>
+
+<p><a href="https://github.com/montagejs/montage/blob/0.13/CHANGES.md#v01312">Montage v0.13.12</a>, <a href="https://github.com/montagejs/minit/blob/master/CHANGES.md#v043">Minit v0.4.3</a>, <a href="https://github.com/montagejs/frb/blob/master/CHANGES.md#v0217">FRB v0.2.17</a>, <a href="https://github.com/montagejs/mousse/commit/95bafcdcd65b6fa21e52935dd22beb32648cbf9b">Mousse v0.3.0</a>, <a href="https://github.com/montagejs/mr/blob/master/CHANGES.md#0151">Mr v0.15.1</a>, <a href="https://github.com/montagejs/joey/blob/master/CHANGES.md#140">Joey v1.4.0</a>.</p>
+
+            </article>
+
+            <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+        </div>
+
+    </div>
+</section>
+
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

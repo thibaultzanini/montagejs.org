@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>MontageJS Components</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" class="active">Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/exploring-components.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="montagejs-components">MontageJS Components</h1>
+
+<blockquote>
+  <p><strong>Note:</strong> We are currently in the process of updating our docs. This document may not be complete or fully up-to-date yet. We apologize for any inconvenience.</p>
+</blockquote>
+
+<p>MontageJS applications consist of a model layer that handles the data and a view layer that reads from the models. Components make up the view portion of a MontageJS application. As a rule, these components are stored in the ui directory of your MontageJS application (which has the benefit that you can use any MontageJS package and easily locate the user interface components it provides).</p>
+
+<p>MontageJS components are encapsulated; the structure (HTML), appearance (CSS), and behavior (JavaScript) that power a user interface component are all located in the same directory, identified with a .reel suffix. For example, the foo-bar component is located in the ui directory of your MontageJS application at <code class="language-plaintext highlighter-rouge">montageapp/ui/foo-bar.reel</code> and encapsulates the following files: foo-bar.css, foo-bar.html, and foo-bar.js. Because components are self-contained, it’s easy to work on, rename, or even remove an individual component without having to find bits and pieces of it scattered across directories.</p>
+
+<p>MontageJS components are modular; regardless of where a component is used, the same HTML, CSS, and JavaScript will control how that particular component is structured, looks, and behaves.</p>
+
+<blockquote>
+  <p><strong>Note</strong>: Out of the box, MontageJS includes three prebuilt widget sets (or themes) for user interface components: Digit, Matte, and Native. Digit is a touch-friendly widget set optimzed for mobile device development. Matte contains desktop-optimized UI components. The Native package contains native UI components. This package lets you wrap HTML5 elements to give them access to MontageJS features such as data bindings and the MontageJS event handling model. All styling is left to the user-agent/browser or the author to apply.</p>
+</blockquote>
+
+<h2 id="anatomy-of-a-component">Anatomy of a Component</h2>
+<p>Let’s take a closer look at some key features of the HTML, CSS, and JS files included in the FooBar component. First the HTML file.</p>
+
+<p>Every component’s HTML file is a complete and valid HTML document. The head section includes the component’s CSS file and a script block, which contains all serialized MontageJS objects in the document.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"foo-bar.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/montage-serialization"</span><span class="nt">&gt;</span>
+<span class="p">{</span>
+    <span class="dl">"</span><span class="s2">owner</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">properties</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">element</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">#</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">foo-bar</span><span class="dl">"</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div></div>
+
+<p>For more details on the serialization format refer to <a href="http://montagejs.org/docs/Montage-serialization-format">MontageJS Serialization Format</a>. For now, note the following:</p>
+
+<ul>
+  <li>The script type is set to <code class="language-plaintext highlighter-rouge">text/montage-serialization</code>.</li>
+  <li>The serialization format is JSON, with some enforced semantics.</li>
+  <li><code class="language-plaintext highlighter-rouge">"owner"</code> is a special label in the serialization that refers to the current component. (Think of it as the equivalent of <code class="language-plaintext highlighter-rouge">this</code> in JavaScript.)</li>
+  <li><code class="language-plaintext highlighter-rouge">{"#": "foo-bar"}</code> refers to the root element in the body of the HTML file, identified with the <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#custom-data-attribute">custom data-attribute</a> <code class="language-plaintext highlighter-rouge">data-montage-id</code> of <code class="language-plaintext highlighter-rouge">foo-bar</code>:</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"foo-bar"</span> <span class="na">class=</span><span class="s">"FooBar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+<blockquote>
+  <p><strong>Note:</strong> In the object serialization JSON tree the “#” identifier refers to DOM elements (We also use the “@” identifier, which refers to template objects or other components defined in the object serialization).</p>
+</blockquote>
+
+<p>This means that when you use a FooBar component in a MontageJS application the only portion of its template that will be rendered is the <code class="language-plaintext highlighter-rouge">foo-bar</code> element.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> MontageJS components are reusable, that is, you can insert them multiple times in the same document, which is why we use a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#custom-data-attribute">custom data-attribute</a>, <code class="language-plaintext highlighter-rouge">data-montage-id</code>, to identify elements and not the document-unique HTML <code class="language-plaintext highlighter-rouge">id</code> attribute. This also gives you the freedom to use the <code class="language-plaintext highlighter-rouge">id</code> attribute for styling, whether for performance or legacy reasons.</p>
+</blockquote>
+
+<p>Next, the CSS file: By default, we start off with an almost blank style sheet, waiting for you to bring it to life by adding your meticulously crafted rules. The only content we pass along is the class name of the root element.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.FooBar</span> <span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note also that the class name is a CamelCase version of the .reel directory name. This is part of our internal <a href="https://github.com/montagejs/montage/wiki/Naming-Conventions">CSS naming convention</a>; it allows us to scope each component’s CSS so that it doesn’t “leak out” and accidentally style other components.</p>
+
+<p>Finally, the JS file:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">exports</span><span class="p">.</span><span class="nx">FooBar</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">(</span><span class="cm">/** @lends FooBar# */</span> <span class="p">{</span>
+   <span class="na">constructor</span><span class="p">:</span> <span class="p">{</span>
+       <span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="nf">FooBar</span><span class="p">()</span> <span class="p">{</span>
+           <span class="k">this</span><span class="p">.</span><span class="k">super</span><span class="p">();</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>The file exports a single object with a CamelCase version of the .reel directory name which inherits MontageJS methods from <code class="language-plaintext highlighter-rouge">Component</code>. The first argument provides a way to define the properties (methods and values) that will be available on the instances of the new type being created. The second argument provides a way to define properties of the type itself, they are accessible directly on the type (e.g., <code class="language-plaintext highlighter-rouge">Component.method()</code>).</p>
+
+<p><code class="language-plaintext highlighter-rouge">this.super()</code> is a special function that will call the parent method with the same name. in this case it will call the constructor function that was defined in the Component type. This is useful to extend a behavior and is similar to its Java counterpart.</p>
+
+<p>When in use, the FooBar component will be rendered in a document using its element from its included template, styled using its included CSS, and given instructions on how to act from its included JavaScript.</p>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/montagejs-examples.html">Prev</a>
+                    <a class="button paging--next " href="/docs/serialization-format.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

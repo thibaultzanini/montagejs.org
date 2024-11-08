@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Hello MontageJS - Getting Started Part 2</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" class="active">Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/hello-montagejs.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="hello-montagejs">Hello MontageJS</h1>
+
+<p>You’ve just finished setting up and verifying your first MontageJS project, and you are staring at a blank page: Now what?</p>
+
+<p>In this tutorial you will assemble and prepare for deployment a simple, mobile-friendly MontageJS application that converts degrees in Celsius to Fahrenheit and vice versa (see Figure 1). The application consists of three elements—two input fields and a slider—whose values are bound together. When you enter a numeric value in one input field, the numeric value in the other updates automatically and the slider moves to reflect the chosen value. Likewise, when you drag the slider, the numeric values in the input fields are updated to reflect the value of the slider at the current position.</p>
+
+<figure>
+	<img class="img--66" src="/images/docs/hello-montagejs/fig01.jpg" alt="The final application." style="width: 380px;" />
+	<figcaption><strong>Figure 1.</strong> Your goal is to build this temperature converter application.</figcaption>
+</figure>
+
+<p>To make the most of this tutorial, you should have a basic understanding of HTML, CSS, and JavaScript.</p>
+
+<h2 id="before-you-begin">Before You Begin</h2>
+
+<p>Be sure you have set up MontageJS development as instructed in <a href="http://montagejs.org/docs/montagejs-setup.html">Getting Started with MontageJS</a>. You must have node.js, npm, and minit (the MontageJS initializer command line tool) installed to complete this tutorial. You also need a text editor and a recent stable release of Google Chrome, Safari, or Firefox.</p>
+
+<h2 id="create-a-new-project">Create a New Project</h2>
+
+<blockquote>
+  <p><strong>Note:</strong> If you have already created a new project and are using minit to serve your project, you can skip this section and continue with “MontageJS Basics.”</p>
+</blockquote>
+
+<ol>
+  <li>
+    <p>Open a Terminal window or Command Prompt and type:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ minit create:app -n temp-converter
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Switch to the temp-converter directory and use minit to serve your project:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ cd temp-converter
+ $ minit serve &amp;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Point your browser to http://localhost:8083/.</p>
+  </li>
+</ol>
+
+<p>You should see a blank page with a version reference in the upper left corner of the page.</p>
+
+<h2 id="montagejs-basics">MontageJS Basics</h2>
+
+<p>MontageJS application development is divided into a development (creating the application) phase and a production (optimizing the application) phase. In development, you assemble an application out of encapsulated components. These components are stored in the ui directory of your project and identified by a .reel suffix (see Figure 2).</p>
+
+<figure>
+	<img class="img--66" src="/images/docs/hello-montagejs/fig02.jpg" alt="Default application starter template." style="width: 380px;" />
+	<figcaption><strong>Figure 2.</strong> User interface components are stored in the ui directory of your application.</figcaption>
+</figure>
+
+<p>When you assemble a MontageJS application, you modify the HTML documents (AKA templates in MontageJS speak) of the components in the ui directory. To change the look and feel of components, you modify the CSS files.</p>
+
+<p>Figure 3 identifies the components that make up the view layer of the application that you are about to build. Main.reel is the main user interface component of the application. Think of it as the MontageJS equivalent of a website’s index page or the principal screen of your single-page application: it can contain any number of subcomponents for the presentation and behavior of an application. The Converter component encapsulates the functionality of the application. The sole purpose of the Version component is to inform you of the MontageJS version you are using (it can be easily removed from the application).</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Although you could conceivably build an entire application using only the Main component, we recommend you assemble MontageJS applications out of individual components (just like you build a website out of individual pages)—to make the most of what MontageJS has to offer, including a modular architecture and encapsulated and reusable components.</p>
+</blockquote>
+
+<figure>
+	<img src="/images/docs/hello-montagejs/fig03.jpg" alt="The components of the application." style="width: 493px;" />
+	<figcaption><strong>Figure 3.</strong> The components that make up the temperature converter application.</figcaption>
+</figure>
+
+<p>The Main and Version components are part of the default project; the Converter component you have to build yourself.</p>
+
+<h2 id="create-the-converter-component">Create the Converter Component</h2>
+
+<p>Follow these steps to add a new component to your project:</p>
+
+<ol>
+  <li>
+    <p>At the command prompt, enter:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ minit create:component -n converter
+</code></pre></div>    </div>
+
+    <p>This places a new component, converter.reel, in the ui directory of your project. To incorporate this component in your application, you need to declare it in the Main component.</p>
+  </li>
+  <li>
+    <p>In your project folder, open ui/main.reel/main.html.</p>
+  </li>
+  <li>
+    <p>Between the <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> tags, before <code class="language-plaintext highlighter-rouge">&lt;div data-montage-id="montageVersion"&gt;&lt;/div&gt;</code>, add the following markup:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;h1&gt;</span>Temperature Converter<span class="nt">&lt;/h1&gt;</span>
+ <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"tempConverter"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div>    </div>
+
+    <p>The <code class="language-plaintext highlighter-rouge">data-montage-id</code> <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/elements.html#custom-data-attribute" target="_blank">custom data attribute</a> is used to identify elements in the markup whose behavior you want to control. The objects that control these elements are located within the script block in the <code class="language-plaintext highlighter-rouge">head</code> area of the HTML document.</p>
+  </li>
+  <li>
+    <p>Within the <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tags, after the owner object (and before the montageVersion object), add the following snippet (note the trailing comma; you need it to separate objects from each other or your application will not load):</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="nl">"tempConverter"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ui/converter.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tempConverter"</span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>This declares an instance of the Converter component (<code class="language-plaintext highlighter-rouge">"prototype": "ui/converter.reel"</code>) with an object label of <code class="language-plaintext highlighter-rouge">tempConverter</code>. Its <code class="language-plaintext highlighter-rouge">element</code> property corresponds to the associated HTML element, which you added in the previous step (<code class="language-plaintext highlighter-rouge">&lt;div data-montage-id="tempConverter"&gt;&lt;/div&gt;</code>).</p>
+  </li>
+  <li>
+    <p>Save the changes and refresh your browser.</p>
+  </li>
+</ol>
+
+<p>If all went well, you should see the title of the application and the Montage version number (see Figure 4). Since you have not specified any content in the Converter component yet, it remains invisible. (If you only get a blank page, verify that the objects between the <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tags are separated by commas.)</p>
+
+<figure>
+	<img src="/images/docs/hello-montagejs/fig04.jpg" alt="The skeleton of the application." style="width: 380px;" />
+	<figcaption><strong>Figure 4.</strong> The Main component with the title and MontageJS version number of the application.</figcaption>
+</figure>
+
+<h2 id="add-the-markup">Add the Markup</h2>
+
+<p>The application you are going to build has four elements—a title, two numeric input fields, and a slider—that need to be declared in your markup. You already declared the title of the application in main.html. Next, you declare the input fields and slider in converter.html.</p>
+
+<ol>
+  <li>Open ui/converter.reel/converter.html.</li>
+  <li>
+    <p>Replace the HTML within the <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> tags with the following markup:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"converter"</span> <span class="na">class=</span><span class="s">"Converter"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;div&gt;</span>
+         <span class="nt">&lt;fieldset&gt;</span>
+             <span class="nt">&lt;div&gt;</span><span class="ni">&amp;deg;</span>C
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+             <span class="nt">&lt;div&gt;</span><span class="ni">&amp;deg;</span>F
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+         <span class="nt">&lt;/fieldset&gt;</span>
+     <span class="nt">&lt;/div&gt;</span>
+         <span class="nt">&lt;fieldset&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"range"</span><span class="nt">/&gt;</span>
+         <span class="nt">&lt;/fieldset&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Save the changes and refresh your browser.</li>
+</ol>
+
+<p>You should see two input fields and a slider control (see Figure 5).</p>
+
+<figure>
+	<img src="/images/docs/hello-montagejs/fig05.jpg" alt="The basic elements of your application." style="width: 380px;" />
+	<figcaption><strong>Figure 5.</strong> The basic elements of your application rendered using the browser's default style sheet.</figcaption>
+</figure>
+
+<p>Next, you will use MontageJS to update the view layer of these HTML elements.</p>
+
+<h2 id="define-your-template">Define Your Template</h2>
+
+<p>First, update the markup of the HTML elements you want to control with a <code class="language-plaintext highlighter-rouge">data-montage-id</code> custom attribute.</p>
+
+<ol>
+  <li>
+    <p>In ui/converter.reel/converter.html, within the <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> tags, replace the existing markup with the following update:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"converter"</span> <span class="na">class=</span><span class="s">"Converter"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;div&gt;</span>
+         <span class="nt">&lt;fieldset&gt;</span>
+             <span class="nt">&lt;div&gt;</span><span class="ni">&amp;deg;</span>C
+                <span class="nt">&lt;input</span> <span class="na">data-montage-id=</span><span class="s">"celsius"</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+             <span class="nt">&lt;div&gt;</span><span class="ni">&amp;deg;</span>F
+                <span class="nt">&lt;input</span> <span class="na">data-montage-id=</span><span class="s">"fahrenheit"</span><span class="nt">/&gt;</span>
+             <span class="nt">&lt;/div&gt;</span>
+         <span class="nt">&lt;/fieldset&gt;</span>
+     <span class="nt">&lt;/div&gt;</span>
+         <span class="nt">&lt;fieldset&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">data-montage-id=</span><span class="s">"thermometer"</span> <span class="na">type=</span><span class="s">"range"</span> <span class="nt">/&gt;</span>
+         <span class="nt">&lt;/fieldset&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+
+    <p>Next, add the components that control the behavior of these HTML elements.</p>
+  </li>
+  <li>
+    <p>Replace the contents within the existing <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tags with the following block:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"converter"</span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+        
+     </span><span class="nl">"celsiusNumberfield"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/number-field.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"celsius"</span><span class="p">}</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+        
+     </span><span class="nl">"fahrenheitNumberfield"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/number-field.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fahrenheit"</span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+        
+     </span><span class="nl">"thermometer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/slider.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thermometer"</span><span class="p">},</span><span class="w">
+             </span><span class="nl">"axis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vertical"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>Things to note:</p>
+    <ul>
+      <li>The labels <code class="language-plaintext highlighter-rouge">celsiusNumberfield</code>, <code class="language-plaintext highlighter-rouge">fahrenheitNumberfield</code>, and <code class="language-plaintext highlighter-rouge">thermometer</code> identify the serialized objects that control the behavior of the corresponding HTML elements.</li>
+      <li><code class="language-plaintext highlighter-rouge">prototype</code> identifies the directory that contains the code of that object’s prototype (here you are using components from the mobile-optimized Digit widget set that is part of the default MontageJS project).</li>
+      <li><code class="language-plaintext highlighter-rouge">properties</code> lists the values assigned to the properties of the current object.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">element</code> property maps to the DOM elements you want to control, identified with the <code class="language-plaintext highlighter-rouge">data-montage-id</code> of <code class="language-plaintext highlighter-rouge">celsius</code>, <code class="language-plaintext highlighter-rouge">fahrenheit</code>, and <code class="language-plaintext highlighter-rouge">thermometer</code>.</li>
+      <li>The <code class="language-plaintext highlighter-rouge">axis</code> property replaces the horizontal slider with a vertical one.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Save the changes and refresh your browser.</p>
+  </li>
+</ol>
+
+<p>Setting the <code class="language-plaintext highlighter-rouge">data-montage-id</code> custom data attribute now initializes your markup using the default styles of the mobile-optimized Digit user interface components (see Figure 6).</p>
+
+<figure>
+	<img src="/images/docs/hello-montagejs/fig06.jpg" alt="The DOM elements extended with Digit components." style="width: 380px;" />
+	<figcaption><strong>Figure 6.</strong> The DOM elements extended with Digit components.</figcaption>
+</figure>
+
+<p>Next, you will bind together the properties of the input fields and slider.</p>
+
+<h2 id="add-bindings">Add Bindings</h2>
+
+<p>MontageJS uses functional reactive bindings (FRB), which you declare in the objects you want to bind together.</p>
+
+<ol>
+  <li>
+    <p>To help speed things up, replace the contents between the existing <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tags with the following:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"converter"</span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+        
+     </span><span class="nl">"celsiusNumberfield"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/number-field.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"celsius"</span><span class="p">}</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-&gt;"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(+@fahrenheitNumberfield.value - 32) / 1.8"</span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+        
+     </span><span class="nl">"fahrenheitNumberfield"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/number-field.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fahrenheit"</span><span class="p">},</span><span class="w">
+             </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"32"</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">},</span><span class="w">
+        
+     </span><span class="nl">"thermometer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/slider.reel"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"thermometer"</span><span class="p">},</span><span class="w">
+             </span><span class="nl">"axis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"vertical"</span><span class="w">
+         </span><span class="p">},</span><span class="w">
+         </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-&gt;"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@fahrenheitNumberfield.value"</span><span class="p">}</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>Things to note:</p>
+    <ul>
+      <li>The default value of the Fahrenheit field is set to 32; this is the initial state of the converter when loaded in the browser.</li>
+      <li>Two-way bindings (&lt;-&gt;) are established between:
+        <ul>
+          <li>The value of the celsiusNumberfield object (<code class="language-plaintext highlighter-rouge">(+@fahrenheitTextfield.value - 32) / 1.8</code>) and the value of the fahrenheitNumberfield object (<code class="language-plaintext highlighter-rouge">32</code>).</li>
+          <li>The values of the thermometer and the fahrenheitNumberfield objects.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>Now, when you modify any control, the others adjust accordingly. Give it a try. Enter a value in the Celsius field, use the spinner controls to increase or decrease the value in the Fahrenheit field, or drag the slider left or right.</p>
+
+<h2 id="make-it-pretty">Make It Pretty</h2>
+
+<p>At this point, the application works as planned but doesn’t look as designed (see Figure 1). This can be easily changed by adding some CSS rules.</p>
+
+<h3 id="style-the-converter-component">Style the Converter Component</h3>
+
+<p>First, you need to specify CSS class names in the markup of your component.</p>
+
+<ol>
+  <li>
+    <p>In ui/converter.reel/converter.html, replace the content within the <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> tags with the following updated markup:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"converter"</span> <span class="na">class=</span><span class="s">"Converter"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;fieldset</span> <span class="na">class=</span><span class="s">"Numbers"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"Label"</span><span class="nt">&gt;</span><span class="ni">&amp;deg;</span>C
+            <span class="nt">&lt;input</span> <span class="na">data-montage-id=</span><span class="s">"celsius"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;/div&gt;</span>
+         <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"Label"</span><span class="nt">&gt;</span><span class="ni">&amp;deg;</span>F
+            <span class="nt">&lt;input</span> <span class="na">data-montage-id=</span><span class="s">"fahrenheit"</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;/div&gt;</span>
+     <span class="nt">&lt;/fieldset&gt;</span>
+     <span class="nt">&lt;fieldset</span> <span class="na">class=</span><span class="s">"Slider"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;input</span> <span class="na">data-montage-id=</span><span class="s">"thermometer"</span> <span class="na">class=</span><span class="s">"Slider-handle"</span> <span class="na">type=</span><span class="s">"range"</span> <span class="na">min=</span><span class="s">"-13"</span> <span class="na">max=</span><span class="s">"122"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;/fieldset&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+
+    <p>Things to note:</p>
+    <ul>
+      <li>Added class names to control the layout and appearance of the input fields (<code class="language-plaintext highlighter-rouge">Numbers</code>), labels (<code class="language-plaintext highlighter-rouge">Label</code>), slider (<code class="language-plaintext highlighter-rouge">Slider</code>), and slider knob (<code class="language-plaintext highlighter-rouge">Slider-handle</code>).</li>
+      <li>Set minimum (<code class="language-plaintext highlighter-rouge">-13</code>) and maximum (<code class="language-plaintext highlighter-rouge">122</code>) values allowed in the Fahrenheit field (the slider has two-way bindings with the Fahrenheit field, hence this setting is bound to the Fahrenheit field).</li>
+    </ul>
+
+    <p>Next you need to add the CSS rules to the component’s style sheet.</p>
+  </li>
+  <li>
+    <p>Open ui/converter.reel/converter.css in your MontageJS project.</p>
+  </li>
+  <li>
+    <p>Replace the sparse contents of the file with the following rules:</p>
+
+    <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">.Converter</span> <span class="p">{</span>
+     <span class="nl">margin</span><span class="p">:</span> <span class="m">20px</span> <span class="nb">auto</span><span class="p">;</span>
+     <span class="nl">padding</span><span class="p">:</span> <span class="m">20px</span><span class="p">;</span>
+     <span class="nl">width</span><span class="p">:</span> <span class="m">274px</span><span class="p">;</span>
+     <span class="nl">border-radius</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
+     <span class="nl">background-color</span><span class="p">:</span> <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">98%</span><span class="p">);</span>
+     <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">inset</span> <span class="m">0px</span> <span class="m">1px</span> <span class="m">2px</span> <span class="m">1px</span> <span class="n">hsla</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="m">0px</span> <span class="m">2px</span> <span class="m">5px</span> <span class="n">hsla</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">.1</span><span class="p">);</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Converter</span><span class="nd">:after</span> <span class="p">{</span>
+     <span class="nl">content</span><span class="p">:</span> <span class="s1">""</span><span class="p">;</span>
+     <span class="nl">display</span><span class="p">:</span> <span class="nb">block</span><span class="p">;</span>
+     <span class="nl">clear</span><span class="p">:</span> <span class="nb">both</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Numbers</span> <span class="p">{</span>
+     <span class="nl">float</span><span class="p">:</span> <span class="nb">left</span><span class="p">;</span>
+     <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+     <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+     <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Label</span> <span class="p">{</span>
+     <span class="nl">margin</span><span class="p">:</span> <span class="m">15px</span> <span class="m">0</span><span class="p">;</span>
+     <span class="nl">line-height</span><span class="p">:</span> <span class="m">40px</span><span class="p">;</span>
+     <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.2em</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Label</span> <span class="nc">.digit-NumberField-input</span> <span class="p">{</span>
+     <span class="nl">width</span><span class="p">:</span> <span class="m">70px</span><span class="p">;</span>
+     <span class="nl">vertical-align</span><span class="p">:</span> <span class="nb">middle</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Slider</span> <span class="p">{</span>
+     <span class="nl">float</span><span class="p">:</span> <span class="nb">right</span><span class="p">;</span>
+     <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+     <span class="nl">padding</span><span class="p">:</span> <span class="m">8px</span> <span class="m">4px</span><span class="p">;</span>
+     <span class="nl">border-radius</span><span class="p">:</span> <span class="m">100px</span><span class="p">;</span>
+     <span class="nl">border</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+     <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">inset</span> <span class="m">0px</span> <span class="m">1px</span> <span class="m">3px</span> <span class="n">hsla</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">.3</span><span class="p">),</span> 
+                 <span class="m">0</span> <span class="m">2px</span> <span class="m">0</span> <span class="n">hsla</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">1</span><span class="p">);</span>
+     <span class="nl">background</span><span class="p">:</span> <span class="n">-webkit-linear-gradient</span><span class="p">(</span><span class="nb">bottom</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">50%</span><span class="p">),</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">80%</span><span class="p">)</span> <span class="m">30%</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">60</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">65%</span><span class="p">)</span> <span class="m">50%</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">80%</span><span class="p">)</span> <span class="m">70%</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">50%</span><span class="p">)</span> <span class="p">);</span>
+     <span class="nl">background</span><span class="p">:</span> <span class="n">linear-gradient</span><span class="p">(</span><span class="n">to</span> <span class="nb">top</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">50%</span><span class="p">),</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">80%</span><span class="p">)</span> <span class="m">30%</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">60</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">65%</span><span class="p">)</span> <span class="m">50%</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">80%</span><span class="p">)</span> <span class="m">70%</span><span class="p">,</span>
+                 <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">100%</span><span class="p">,</span><span class="m">50%</span><span class="p">)</span> <span class="p">);</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Slider-handle.digit-Slider.montage-Slider--vertical</span> <span class="p">{</span>
+     <span class="nl">height</span><span class="p">:</span> <span class="m">120px</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Slider-handle.digit-Slider</span> <span class="p">{</span>
+     <span class="nl">background-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+     <span class="nl">border-color</span><span class="p">:</span> <span class="nb">transparent</span><span class="p">;</span>
+     <span class="nl">box-shadow</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Save the changes and refresh your browser.</p>
+  </li>
+</ol>
+
+<p>At this point your application should look like Figure 7.</p>
+
+<figure>
+	<img src="/images/docs/hello-montagejs/fig07.jpg" alt="The styled Converter component." style="width: 380px;" />
+	<figcaption><strong>Figure 7.</strong> The application with the styled Converter component.</figcaption>
+</figure>
+
+<h3 id="style-the-main-component">Style the Main Component</h3>
+
+<p>Next, add some CSS rules to control the appearance of the Main component.</p>
+
+<ol>
+  <li>
+    <p>Switch to ui/main.reel/main.html and replace the content within the <code class="language-plaintext highlighter-rouge">&lt;body&gt;</code> tags with the following markup:</p>
+
+    <div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"main"</span> <span class="na">data-montage-skin=</span><span class="s">"light"</span> <span class="na">class=</span><span class="s">"Main"</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;h1</span> <span class="na">data-montage-id=</span><span class="s">"title"</span> <span class="na">class=</span><span class="s">"Title"</span><span class="nt">&gt;&lt;/h1&gt;</span>
+     <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"tempConverter"</span><span class="nt">&gt;&lt;/div&gt;</span>
+     <span class="nt">&lt;footer</span> <span class="na">data-montage-id=</span><span class="s">"montageVersion"</span><span class="nt">&gt;&lt;/footer&gt;</span>
+ <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>    </div>
+
+    <p>Things to note:</p>
+    <ul>
+      <li>The <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> element has been updated with the  <code class="language-plaintext highlighter-rouge">data-montage-id</code> attribute of <code class="language-plaintext highlighter-rouge">title</code>.</li>
+      <li>The string “Temperature Converter” has been removed from the markup; the value of the <code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> element is now declared by the title object in the serialization (see the following step).</li>
+      <li>The Montage version div tags have been replaced with <code class="language-plaintext highlighter-rouge">footer</code> tags.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Following the tempConverter object within the <code class="language-plaintext highlighter-rouge">&lt;script&gt;</code> tags, add the following snippet (remember: you need the trailing comma to separate objects from each other):</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/title.reel"</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"title"</span><span class="p">},</span><span class="w">
+         </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Temperature Converter"</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+ </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p>This declares an instance of the Title component and sets the value of the <code class="language-plaintext highlighter-rouge">h1</code> element to <code class="language-plaintext highlighter-rouge">Temperature Converter</code>.</p>
+  </li>
+  <li>
+    <p>Open ui/main.reel/main.css and replace the existing content with the following rules:</p>
+
+    <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">*</span> <span class="p">{</span>
+     <span class="nl">-moz-box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+     <span class="nl">box-sizing</span><span class="p">:</span> <span class="n">border-box</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nt">body</span> <span class="p">{</span>
+     <span class="nl">margin</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
+     <span class="nl">font-family</span><span class="p">:</span> <span class="s1">"Lucida Grande"</span><span class="p">,</span> <span class="s1">"Trebuchet MS"</span><span class="p">,</span> <span class="n">Verdana</span><span class="p">,</span> <span class="nb">sans-serif</span><span class="p">;</span>
+     <span class="nl">color</span><span class="p">:</span> <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">60%</span><span class="p">);</span>
+     <span class="nl">background-color</span><span class="p">:</span> <span class="n">hsl</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0%</span><span class="p">,</span><span class="m">95%</span><span class="p">);</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Main</span> <span class="p">{</span>
+     <span class="nl">padding</span><span class="p">:</span> <span class="m">3em</span> <span class="m">1em</span><span class="p">;</span>
+     <span class="nl">text-align</span><span class="p">:</span> <span class="nb">center</span><span class="p">;</span>
+ <span class="p">}</span>
+    
+ <span class="nc">.Title</span> <span class="p">{</span>
+     <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.3em</span><span class="p">;</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Save the changes and refresh your browser.</p>
+  </li>
+</ol>
+
+<p>If all went well, your application should resemble the one shown in Figure 8: a functional and pretty temperature converter.</p>
+
+<figure>
+	<img src="/images/docs/hello-montagejs/fig08.jpg" alt="The styled Converter and Main components." style="width: 380px;" />
+	<figcaption><strong>Figure 8.</strong> The final application with the styled Converter and Main components.</figcaption>
+</figure>
+
+<p>You’re almost done; just one more thing.</p>
+
+<h2 id="prepare-for-deployment">Prepare for Deployment</h2>
+
+<p>As mentioned earlier, building MontageJS applications is divided into a development phase and a production phase. When your application is finished, you need to get it ready for deployment. This is where mop, the MontageJS optimizer, comes in.</p>
+
+<p>Mop is a simple command line tool that transforms a bulky application in development into an optimized application ready for deployment. In the process, mop also minifies your code to help speed up the loadtime of the application.</p>
+
+<p>Mop is not part of the default MontageJS starter project; you have to install it separately. Follow these steps:</p>
+
+<ol>
+  <li>
+    <p>Open a Terminal window and at the prompt type:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ sudo npm install -g mop
+</code></pre></div>    </div>
+
+    <p>This installs mop globally so you can use it in the current and all future projects.</p>
+
+    <blockquote>
+      <p><strong>Note:</strong> npm uses <code class="language-plaintext highlighter-rouge">sudo</code> to make command line utilities such as mop available system wide.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Switch (<code class="language-plaintext highlighter-rouge">cd</code>) to the temp-converter project directory.</p>
+  </li>
+  <li>
+    <p>At the prompt enter <code class="language-plaintext highlighter-rouge">mop</code> and press Return.</p>
+
+    <p>Mop analyzes the code dependencies, identifies the modules the application uses, and then adds a builds directory to your project directory that contains a minified version of your application.</p>
+  </li>
+  <li>
+    <p>Open the builds directory, double-click the symlink, and then double-click index.html.</p>
+
+    <p>This opens the temperature converter application in the browser—without minit doubling as your on-demand web server (note the file URL in the browser’s address bar).</p>
+  </li>
+</ol>
+
+<p>To deploy the final application, all you have to do is copy the directory pointed to by the builds symlink to a web server.</p>
+
+<p>That’s it. You’ve built a simple MontageJS application and then optimized the source code ready for deployment. In the process you’ve discovered hands-on some of the benefits of working with MontageJS: Its declarative programming model lets you handle complex UI tasks with just a few lines of code; its modular approach to organizing code and components simplifies rich client development; and its clean separation of concerns makes it easy for developers and designers to collaborate on a project.</p>
+
+<p>Yet, you’ve barely scratched the surface of what you can do with MontageJS.</p>
+
+<h1 id="next-steps">Next Steps</h1>
+
+<ul>
+  <li>To learn more about using MontageJS, see the guides and demos in the <a href="http://montagejs.org/docs/">Documentation</a>.</li>
+  <li>For an overview of the MontageJS widget sets, check out the <a href="http://montagejs.org/docs/themes.html">Themes</a> sections.</li>
+  <li>To understand our MontageJS-specific naming patterns, see <a href="http://montagejs.org/docs/naming-conventions.html">Naming Conventions</a>.</li>
+  <li>For more details on using mop and the contents of the builds directory, see <a href="http://montagejs.org/docs/tools-mop.html">Using mop</a>.</li>
+</ul>
+
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/montagejs-setup.html">Prev</a>
+                    <a class="button paging--next disabled" href="/docs/.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

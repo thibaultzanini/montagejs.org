@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Troubleshooting</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" class="active">Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/troubleshooting.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="troubleshooting">Troubleshooting</h1>
+
+<p><strong>My MontageJS application does not appear as expected in the browser.</strong></p>
+
+<p>If you test a MontageJS application in the browser and don’t see what you expect, open the JavaScript console to look for any errors or warnings. Most modern web browsers include a JavaScript debugger, console, and related tools that can help debug problems with MontageJS applications. These tools are built into the latest versions of Chrome and Safari. You use the browser’s <code class="language-plaintext highlighter-rouge">console.log()</code> method to send output to the console.</p>
+
+<ul>
+  <li>To open the console in Chrome, select View &gt; Developer &gt; JavaScript console.</li>
+  <li>To open the console in Safari, first enable the Develop menu (Safari Preferences &gt; Advanced &gt; Show Develop menu in menu bar), then select Develop &gt; Show Error Console.</li>
+</ul>
+
+<p><strong>I get a “Warning: Element xxx not found in template” message when I try to run my MontageJS application.</strong></p>
+
+<p>Invalid element references are usually the result of mismatched element IDs. For example, in the following abbreviated code, the ID of the &lt;div&gt; element referenced in the serialization (<code class="language-plaintext highlighter-rouge">"loginButton"</code>) does not match the element’s actual ID (<code class="language-plaintext highlighter-rouge">"loginBtn"</code>).</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/montage-serialization"</span><span class="nt">&gt;</span>
+<span class="p">{</span>
+    <span class="dl">"</span><span class="s2">loginButton</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Button</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">module</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">montage/ui/button.reel</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">properties</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">element</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span><span class="dl">"</span><span class="s2">#</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">loginButton</span><span class="dl">"</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"loginBtn"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+</code></pre></div></div>
+
+<p>At runtime, this would generate the following error message in the JavaScript console:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: Element "#loginButton" not found in template
+http://localhost:8081/examples/myapp/mycomponent.reel/mycomponent.html
+</code></pre></div></div>
+
+<p><strong>I get an “Object “xxx” not found at “yyy”” error message.</strong></p>
+
+<p>If you provide an invalid value for a serialized object’s <code class="language-plaintext highlighter-rouge">"name"</code> property, MontageJS will generate an error. For example, the following serialization will generate this error, since the symbol name is misspelled <code class="language-plaintext highlighter-rouge">"Buttonn"</code> instead of <code class="language-plaintext highlighter-rouge">"Button"</code>.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">&lt;script</span><span class="w"> </span><span class="err">type=</span><span class="s2">"text/montage-serialization"</span><span class="err">&gt;</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"loginButton"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Buttonn"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/button.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"loginButton"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="err">&lt;/script&gt;</span><span class="w">
+</span></code></pre></div></div>
+
+<p>This would result in the following runtime error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Object "Buttonn" not found at "montage/ui/button.reel" referenced from http://localhost:8081/examples/buttonerror/.
+</code></pre></div></div>
+
+<p><strong>I get a “Can’t XHR “http://localhost: …”” error message.</strong></p>
+
+<p>If you provide an invalid module ID in a serialization, then the console will report a 404 error “Can’t XHR <em>module-id</em>”. For example, in the following serialization that defines a Textfield component, the module ID is misspelled as “montage/ui/textfld.reel”.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+</span><span class="nl">"emailInput"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Textfield"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/textfld.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">},</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In Chrome, this results in the following error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET http://localhost:8081/ui/textfeld.reel/textfld.js 404 (Not Found) browser.js:136
+Can't XHR "http://localhost:8081/ui/textfield.reel/textfield.js"
+</code></pre></div></div>
+
+<p><strong>I get an “unexpected comma” error.</strong></p>
+
+<p>Trailing “serial” commas are a common JSON formatting concern. The JSON serialization block must be well-formed for MontageJS to parse it successfully. A trailing comma after the last property in a JSON object or array generates runtime errors. In the following example, the comma that trails the <code class="language-plaintext highlighter-rouge">readyState</code> property would generate a parsing error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"anObject": {
+    "id": "123asd",
+    "colors": ["red", "green", "blue"],
+    "readystate": false,
+}
+</code></pre></div></div>
+
+<p>Likewise, in the following MontageJS serialization block, the trailing comma after the <code class="language-plaintext highlighter-rouge">"passwordInput"</code> JSON object would generate an “unexpected comma” error at runtime.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">&lt;script</span><span class="w"> </span><span class="err">type=</span><span class="s2">"text/montage-serialization"</span><span class="err">&gt;</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"emailInput"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Textfield"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/textfield.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"passwordInput"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Textfield"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"module"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/textfield.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="err">&lt;/script&gt;</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="go">Syntax error at line 16 from http://localhost:8081/examples/errors/:
+    },
+Unexpected comma.
+    1 
+    2 {
+    3     "emailInput": {
+    4         "name": "Textfield",
+    5         "module": "montage/ui/textfield.reel",
+    6         "properties": {
+</span><span class="gp">    7             "element": {"#</span><span class="s2">": "</span>email<span class="s2">"}
+</span><span class="go">    8         }
+    9     },
+   10     "passwordInput": {
+   11         "name": "Textfield",
+   12         "module": "montage/ui/textfield.reel",
+   13         "properties": {
+</span><span class="gp">   14             "element": {"#</span><span class="s2">": "</span>password<span class="s2">"}
+</span><span class="go">   15         }
+</span><span class="gp">&gt;</span><span class="o">&gt;&gt;</span>16     <span class="o">}</span>,
+<span class="go">   17 }
+   18
+</span></code></pre></div></div>
+
+<p>Removing the trailing comma on line 16 fixes the error.</p>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/faq.html">Prev</a>
+                    <a class="button paging--next disabled" href="/docs/.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

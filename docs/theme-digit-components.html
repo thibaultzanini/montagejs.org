@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Digit - MontageJS Theme</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" class="active">Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/theme-digit-components.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="digit-theme">Digit Theme</h1>
+
+<p>Digit is a touch-optimized component set for use with tablets and mobile phones. You can choose from three themes: flat, light, and dark.</p>
+
+<h2 id="overview">Overview</h2>
+<p>The following list provides an overview of the existing Digit components.</p>
+
+<p><a href="https://github.com/montagejs/digit/tree/master/ui/button.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/button.reel/screenshot.png" alt="Button" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/badge.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/badge.reel/screenshot.png" alt="Badge" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/checkbox.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/checkbox.reel/screenshot.png" alt="Checkbox" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/radio-button.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/radio-button.reel/screenshot.png" alt="RadioButton" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/toggle-switch.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/toggle-switch.reel/screenshot.png" alt="ToggleSwitch" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/select.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/select.reel/screenshot.png" alt="Select" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/number-field.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/number-field.reel/screenshot.png" alt="NumberField" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/slider.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/slider.reel/screenshot.png" alt="Slider" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/text.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/text.reel/screenshot.png" alt="Text" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/title.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/title.reel/screenshot.png" alt="Title" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/text-field.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/text-field.reel/screenshot.png" alt="TextField" /> </a>
+<a href="https://github.com/montagejs/digit/tree/master/ui/text-area.reel"> <img src="https://raw.github.com/montagejs/digit/master/ui/text-area.reel/screenshot.png" alt="TextArea" /> </a></p>
+
+<h2 id="available-components">Available Components</h2>
+<p>The following list summarizes the UI components that are currently part of the Digit widget set:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/badge.reel" target="_blank">Badge</a></td>
+      <td>Provides badge metadata functionality.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/button.reel" target="_blank">Button</a></td>
+      <td>Provides button functionality.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/checkbox.reel" target="_blank">Checkbox</a></td>
+      <td>Provides checkbox (multichoice) functionality.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/image.reel" target="_blank">Image</a></td>
+      <td>Provides functionality for displaying an image.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/list-item.reel" target="_blank">ListItem</a></td>
+      <td>Provides functionality for adding individual list items.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/list.reel" target="_blank">List</a></td>
+      <td>Provides functionality for adding multi-item lists.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/number-field.reel" target="_blank">NumberField</a></td>
+      <td>Provides functionality for entering a number in a text field. This typically includes a spinner control attached to the text field.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/radio-button.reel" target="_blank">RadioButton</a></td>
+      <td>Provides radio button (single option) functionality.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/select.reel" target="_blank">Select</a></td>
+      <td>Provides drop-down list functionality.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/slider.reel" target="_blank">Slider</a></td>
+      <td>Provides slider functionality.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/text-area.reel" target="_blank">TextArea</a></td>
+      <td>Provides functionality for an expandable multiline text field.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/text-field.reel" target="_blank">TextField</a></td>
+      <td>Provides functionality for a single-line text field.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/text.reel" target="_blank">Text</a></td>
+      <td>Provides functionality for adding styled text.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/title.reel" target="_blank">Title</a></td>
+      <td>Provides functionality for adding a styled Title element.</td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/montagejs/digit/tree/master/ui/toggle-switch.reel" target="_blank">ToggleSwitch</a></td>
+      <td>Provides toggle functionality.</td>
+    </tr>
+    <tr>
+      <td>VideoControl</td>
+      <td>(planned)</td>
+    </tr>
+    <tr>
+      <td>Video</td>
+      <td>(planned)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="updating-digit">Updating Digit</h2>
+<p>Digit is part of the default application template. The theme is still under development. To ensure you are using the latest version of digit, follow these steps:</p>
+
+<ol>
+  <li>
+    <p>Use your command line tool to switch to your project directory.</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cd yourprojectfolder
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>At the prompt, enter:</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> npm install digit@latest --save
+</code></pre></div>    </div>
+
+    <p>The <code class="language-plaintext highlighter-rouge">--save</code> flag ensures that the digit package is automatically added as a dependency to the package.json file of your application code.</p>
+  </li>
+</ol>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/themes.html">Prev</a>
+                    <a class="button paging--next " href="/docs/theme-matte-components.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

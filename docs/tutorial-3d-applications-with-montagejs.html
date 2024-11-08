@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>Building 3D Applications with MontageJS - MontageJS Tutorial</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" class="active">Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" >Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/tutorial-3d-applications-with-montagejs.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="building-3d-applications-with-montagejs">Building 3D Applications with MontageJS</h1>
+
+<p>Building browser-based 3D applications is no small feat. While <a href="http://www.khronos.org/webgl/" target="_blank">WebGL</a> brings plugin-free hardware-accelerated 3D graphics to the browser, its low-level API—well-suited for graphics programmers—sets a high entry bar for conventional front-end web developers.</p>
+
+<p>To help simplify building interactive 3D experiences in the browser, the MontageJS framework provides the SceneView component. SceneView is a WebGL-based 3D component that makes manipulating the individual elements of a 3D scene just as easy as manipulating conventional HTML elements in the DOM.</p>
+
+<p>To get a feel for what you can do with this component (and some minimal coding), open the <a href="http://montagejs.github.io/beachplanetblog/" target="_blank">Beach Planet demo</a> in a WebGL-enabled browser. Beach Planet is a simple hidden-object game that demonstrates the principles described in this tutorial. The objective of the game is to find four MontageJS logos by selecting different locations and clicking objects to reveal the hidden logos. The demo uses viewpoints, animated 3D transformations, and event handlers.</p>
+
+<figure>
+    <img src="/images/docs/tutorials/3d-apps/fig01.jpg" alt="The Beach Planet MontageJS and WebGL demo." style="width: 451px;" />
+    <figcaption><strong>Figure 1.</strong> Uncover four hidden logos—and experience the MontageJS 3D component in action.</figcaption>
+</figure>
+
+<p>This tutorial introduces the basic principles of building interactive 3D applications on MontageJS. It explains how to:</p>
+
+<ul>
+  <li>Set up MontageJS 3D project</li>
+  <li>Import a 3D scene in a MontageJS project</li>
+  <li>Manipulate a 3D scene (using CSS and bindings)</li>
+</ul>
+
+<h1 id="requirements">Requirements</h1>
+
+<p>To make the most of this tutorial, you should be familiar with the basics of MontageJS development. If you are new to the MontageJS framework, you might want to step through our <a href="http://montagejs.org/docs/montagejs-setup.html">Getting Started</a> guide first.</p>
+
+<p>Also, the tutorial includes detailed code examples to demonstrate the principles of how to use the SceneView component. To view the examples in context, refer to the Beach Planet <a href="https://github.com/montagejs/beachplanetblog" target="_blank">source code</a> on GitHub; all examples are accompanied by links to the source files. Alternatively, you can install and explore the Beach Planet demo locally, following the instructions provided in the demo’s <a href="https://github.com/montagejs/beachplanetblog" target="_blank">readme</a> file.</p>
+
+<h1 id="introducing-the-sceneview-component">Introducing the SceneView Component</h1>
+
+<p>The SceneView component is part of the <a href="https://github.com/fabrobinet/mjs-volume" target="_blank">mjs-volume</a> module maintained by Fabrice Robinet. The component is designed to help front-end web developers and designers build interactive 3D experiences in the browser using their existing HTML, CSS, and JavaScript skills. Using the component, you can:</p>
+
+<ul>
+  <li>Integrate a 3D scene in a MontageJS web application.</li>
+  <li>Manipulate individual elements of a 3D scene using CSS.</li>
+  <li>Animate elements of a 3D scene using the same method that you would use to perform CSS transitions.</li>
+</ul>
+
+<p>For all this to be possible, however, your 3D content has to be in a format that the SceneView component recognizes.</p>
+
+<h2 id="introducing-the-gltf-asset-format">Introducing the glTF Asset Format</h2>
+
+<p>The SceneView component displays content in a JSON-based runtime asset format called <a href="http://www.khronos.org/gltf" target="_blank">OpenGL Transmission Format</a> (glTF). Proposed by the Khronos Group consortium—the organization behind the popular <a href="http://www.khronos.org/collada/" target="_blank">COLLADA</a> interchange file format for digital assets—as an open standard for optimized rendering of 3D content on the Web, glTF can handle mesh data, animations, textures, and shaders. More specifically, a glTF asset provides a compact representation of a 3D scene using the following files:</p>
+
+<ul>
+  <li>A JSON file that contains the node hierarchy, materials, and cameras.</li>
+  <li>Binary (BIN) files that contain geometry and animations.</li>
+  <li>Image (JPG, PNG, etc.) files for textures.</li>
+  <li>GLSL text files for GLSL source code for individual stages.</li>
+</ul>
+
+<p>Any 3D assets you want to use in a MontageJS 3D application have to be converted to the glTF format.</p>
+
+<h2 id="converting-3d-assets-to-gltf">Converting 3D Assets to glTF</h2>
+
+<p>To convert 3D assets you can use the 3D-Asset-to-glTF toolchain provided by the COLLADA working group.</p>
+
+<p>In outline, converting 3D assets to glTF is a two-step process:</p>
+
+<ol>
+  <li>Export assets from a 3D authoring tool to the COLLADA interchange file format (which results in a DAE file).</li>
+  <li>Use the open source <a href="http://www.khronos.org/gltf" target="_blank">COLLADA-to-glTF</a> command line tool to convert the DAE file to a glTF model (which results in a JSON file and various associated binary and text files that represent the 3D scene).</li>
+</ol>
+
+<p>The COLLADA-to-glTF converter works well with COLLADA files exported from <a href="http://www.sketchup.com/" target="_blank">SketchUp</a> and other <a href="http://collada.org/mediawiki/index.php/Portal:Products_directory" target="_blank">mainstream 3D authoring tools</a>.</p>
+
+<p>For more information on how to use the COLLADA-to-glTF converter, see the section <a href="https://github.com/fabrobinet/mjs-volume/blob/master/README.md#converting-3d-assets-to-gltf" target="_blank">Converting 3D Assets to glTF</a> in the mjs-volume readme file.</p>
+
+<p>For more details on the SceneView component, including API documentation, refer to the <a href="https://github.com/fabrobinet/mjs-volume" target="_blank">mjs-volume</a> repository on GitHub.</p>
+
+<h1 id="setting-up-a-montagejs-3d-project">Setting Up a MontageJS 3D Project</h1>
+
+<p>Building any type of 3D application requires a bit of preparation, and building 3D applications on MontageJS is no different: Not only do you have to convert the original 3D assets so they can be used by the SceneView component, you also have to set up a project and then add both the prepared assets and the mjs-volume package to your project. (The SceneView component currently is not part of the default dependencies installed when you create a new MontageJS project.)</p>
+
+<blockquote>
+  <p><strong>Note:</strong> You don’t have to set up a project from scratch to follow along with this tutorial. You should be able to follow along by looking at the examples discussed in this tutorial and by referring to the source code linked off at the end of each example.</p>
+</blockquote>
+
+<p>To set up a MontageJS 3D project, you begin as you normally would, using the minit command line tool (for details see the <a href="http://montagejs.org/docs/montagejs-setup.html" target="_blank">Setup guide</a>); for example:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>minit create:app -n beachplanet
+</code></pre></div></div>
+
+<p>Then you add the mjs-volume package and the converted 3D assets to your project.</p>
+
+<h2 id="adding-the-sceneview-component">Adding the SceneView Component</h2>
+
+<p>The SceneView component is not (yet) part of the dependencies installed when you create a new project using the minit command line tool. To use the component, you have to add it to your MontageJS project:</p>
+
+<ol>
+  <li>
+    <p>In your (beachplanet) project directory, open the package.json file.</p>
+  </li>
+  <li>
+    <p>Add the mjs-volume package to the list of dependencies:</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="err">...</span><span class="w">
+ </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+     </span><span class="err">...</span><span class="p">,</span><span class="w">
+     </span><span class="nl">"mjs-volume"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"git://github.com/fabrobinet/mjs-volume.git"</span><span class="w">
+ </span><span class="p">}</span><span class="err">,</span><span class="w">
+ </span><span class="err">...</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>At the command prompt, switch (cd) to your project directory, and type:</p>
+
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code> npm install
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Press return to add the module.</p>
+  </li>
+</ol>
+
+<h2 id="adding-3d-assets-to-a-project">Adding 3D Assets to a Project</h2>
+
+<p>To add the converted 3D assets to your project, simply move the folder that contains the JSON, binary, and GLSL text files to the assets folder of your project. (For example, if you wanted to experiment with the assets of the Beach Planet demo in development, <a href="https://github.com/montagejs/beachplanetblog/archive/master.zip">download</a> and unzip the full Beach Planet source code from GitHub, and copy the 3d folder in the assets directory to the assets directory of your project.)</p>
+
+<h2 id="creating-a-component-for-the-3d-scene">Creating a Component for the 3D Scene</h2>
+
+<p>To follow best practice, you also want to create a new component for the 3D scene in the ui directory of your project, and then declare this component in the Main interface of your project.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Main is the main user interface component of a MontageJS application. Think of it as the MontageJS equivalent of a website’s index page or the principal screen of your single-page application: it can contain any number of subcomponents for the presentation and behavior of an application.</p>
+</blockquote>
+
+<p>At this point your MontageJS 3D project is set up and you are ready to code.</p>
+
+<h1 id="importing-a-3d-scene">Importing a 3D Scene</h1>
+
+<p>A 3D scene consists of a node hierarchy and includes meshes to be rendered, geometry, lights, shaders, and so on. When building a 3D application with MontageJS, you need two components:</p>
+
+<ul>
+  <li>The Scene runtime component, which is responsible for loading the JSON-based glTF asset.</li>
+  <li>The SceneView user interface component, which is responsible for displaying the content in the browser.</li>
+</ul>
+
+<p>To display a 3D scene, you assign an instance of the Scene component to the SceneView component in your component’s template.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">...</span><span class="w">
+</span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/scene"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"models/beachplanet/beachplanet.json"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"sceneView"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/ui/scene-view.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sceneView"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="err">...</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"sceneView"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>For this demo:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">scene</code> declares an instance of the scene.js runtime component from the mjs-volume/runtime directory. Its <code class="language-plaintext highlighter-rouge">path</code> property is set to the path of the glTF asset (here: beachplanet.json).</li>
+  <li><code class="language-plaintext highlighter-rouge">sceneView</code> declares an instance of the SceneView user interface component (scene-view.reel) of the mjs-volume module. Its <code class="language-plaintext highlighter-rouge">scene</code> property refers to the <code class="language-plaintext highlighter-rouge">scene</code> instance in the declaration (which is where it gets its data from). Its <code class="language-plaintext highlighter-rouge">element</code> propertery controls the HTML element with the <code class="language-plaintext highlighter-rouge">data-montage-id</code> custom attribute of <code class="language-plaintext highlighter-rouge">sceneView</code> (which is the “container” if you will that holds the scene for browser display).</li>
+</ul>
+
+<p>That’s all that is required to load a 3D scene. At this point, the 3D scene when rendered in a browser shows is a little planet with an ocean, a beach, some foliage, a few animals, and a small shack. You can use a mouse or familiar gestures to rotate and zoom in and out of the scene.</p>
+
+<figure>
+    <img src="/images/docs/tutorials/3d-apps/fig02.jpg" alt="A basic 3D scene in the browser." style="width: 451px;" />
+    <figcaption><strong>Figure 2.</strong> Importing a basic 3D scene.</figcaption>
+</figure>
+
+<blockquote>
+  <p><strong>Note:</strong> By default, the SceneView component does not have any height, which is why you will see some additional classes in the markup of the linked component’s source code. The SceneView component will automatically interpret certain CSS properties applied to its associated HTML element and adjust accordingly. You can use that feature to adjust the dimensions and background color of the SceneView.</p>
+</blockquote>
+
+<p>View the full <a href="https://github.com/montagejs/beachplanetblog/tree/master/ui/planet.reel" target="_blank">source code</a> on GitHub.</p>
+
+<p>#Manipulating a 3D Scene</p>
+
+<p>Once you have a 3D scene in your project, you can manipulate it in a variety of ways. For example, you may want to animate individual elements, handle user interactions, and give users the option to switch between view points. Using the glTF runtime assets and the mjs-volume runtime components, you can easily achieve all of the above using CSS rules and the MontageJS binding system. To accomplish this, you first expose the node of the element you want to manipulate and then apply the desired effect.</p>
+
+<h2 id="exposing-a-3d-node">Exposing a 3D Node</h2>
+
+<p>In the beachplanet.json file, individual elements of a 3D scene are described in objects called <em>nodes</em>. Each node has an ID value that uniquely identifies it within the scene. To manipulate an individual element of a 3D scene in a MontageJS application, you need to expose the associated node from the glTF file.</p>
+
+<p>For example, to manipulate the duck wader element (<code class="language-plaintext highlighter-rouge">buoy</code>) in the Beach Planet demo, you need to declare an instance of the node.js runtime component (which is part of the mjs-volume package) and associate its <code class="language-plaintext highlighter-rouge">id</code> property with the element’s glTF node (here: <code class="language-plaintext highlighter-rouge">node_31</code>):</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/scene"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"models/beachplanet/beachplanet.json"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"buoy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node_31"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p>As this example demonstrates, designing 3D assets does require some advance planning. In your asset authoring tool, you have to assign (preferably easy-to-remember) entity names to the 3D elements that you want to expose in a MontageJS application. The name is preserved when the 3D scene is exported to a COLLADA (DAE) file and then converted to a glTF model. To find a node ID, do a simple text search for the name inside of the glTF JSON file (here: models/beachplanet/beachplanet.json).</p>
+
+<p>Note that you can expose any individual material’s properties in a 3D scene to MontageJS in much the same way that you expose a node, using the material.js runtime component.</p>
+
+<h2 id="manipulating-a-3d-node-with-css">Manipulating a 3D Node with CSS</h2>
+
+<p>After declaring the element you want to manipulate in the component’s template, you can apply CSS classes that manipulate it in various ways.</p>
+
+<p>The node.js runtime component currently supports the <code class="language-plaintext highlighter-rouge">visibility</code> property and 3D transforms. The material.js runtime component supports the <code class="language-plaintext highlighter-rouge">opacity</code> property.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Additional functionality, including the ability to replace node textures and adjust node opacity, are planned for a future release (keep an eye on the commits for <a href="https://github.com/fabrobinet/mjs-volume" target="_blank">mjs-volume</a> for the latest improvements).</p>
+</blockquote>
+
+<p>Both runtime components support the use of CSS transitions to animate property changes. The <code class="language-plaintext highlighter-rouge">active</code> and <code class="language-plaintext highlighter-rouge">hover</code> selectors are also supported, so you can easily apply click and rollover effects. A CSS class for a node can be defined like any other class in the component’s CSS file, but it has to be applied through the MontageJS binding system.</p>
+
+<figure>
+    <img src="/images/docs/tutorials/3d-apps/fig03.jpg" alt="Animating the duck in the Beach Planet MontageJS and WebGL demo." style="width: 451px;" />
+    <figcaption><strong>Figure 3.</strong> The duck wader grows in size when in focus.</figcaption>
+</figure>
+
+<p>For this demo, the effect of seeing the duck wader (buoy) element grow in size when users leave their cursors over it is achieved using the following rules and declaration in the Buoy component (buoy.reel):</p>
+
+<ul>
+  <li>
+    <p>The component’s CSS file contains a CSS class called <code class="language-plaintext highlighter-rouge">animate</code> with a hover selector that performs a <code class="language-plaintext highlighter-rouge">scale3d</code> transformation.</p>
+
+    <div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">.animate</span><span class="nd">:hover</span> <span class="p">{</span>
+      <span class="nl">transform</span><span class="p">:</span> <span class="n">scale3d</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">);</span>
+      <span class="nl">cursor</span><span class="p">:</span> <span class="nb">pointer</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.animate</span> <span class="p">{</span>
+      <span class="nl">transition-property</span><span class="p">:</span> <span class="n">transform</span><span class="p">;</span>
+      <span class="nl">transition-duration</span><span class="p">:</span> <span class="m">5s</span><span class="p">;</span>
+      <span class="py">-montage-transform-z-origin</span><span class="p">:</span> <span class="m">0%</span><span class="p">;</span>
+  <span class="p">}</span>
+</code></pre></div>    </div>
+
+    <p>The <code class="language-plaintext highlighter-rouge">scale3d</code> transform increases the size of the object. The <code class="language-plaintext highlighter-rouge">transition</code> property is used to animate the change in appearance and its duration; in this example it takes five seconds for the wader to reach its full size. The animation is reversed when you move the cursor off of the element.</p>
+  </li>
+  <li>
+    <p>The component’s template uses the <code class="language-plaintext highlighter-rouge">classList.has</code> binding on the node (here <code class="language-plaintext highlighter-rouge">buoy</code>) to apply the CSS class.</p>
+
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">  </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/scene"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"models/beachplanet/beachplanet.json"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="nl">"sceneView"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/ui/scene-view.reel"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sceneView"</span><span class="w"> </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+  </span><span class="nl">"buoy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node_31"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"classList.has('animate')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>View the full <a href="https://github.com/montagejs/beachplanetblog/tree/master/ui/buoy.reel" target="_blank">source code</a> on GitHub.</p>
+
+<h2 id="adding-a-listener-to-handle-events">Adding a Listener to Handle Events</h2>
+
+<p>To build a truly interactive 3D experience, an application needs to be able to respond when users interact with an element in a scene. To trap an event, you can attach an event listener to a node and then implement a corresponding handler method.</p>
+
+<p>Adding an event listener to handle, for example, clicks on a 3D node is just as easy as handling an event for a MontageJS button control. The following code causes the application to display an alert whenever a user clicks the door of the shack in the Beach Planet demo.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">...</span><span class="w">
+</span><span class="nl">"door"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node_6"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"listeners"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"listener"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"owner"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="err">...</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Door</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+  <span class="na">handleDoorAction</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">The user clicked the door!</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Note that the <code class="language-plaintext highlighter-rouge">action</code> listener type works for clicks, but you could optionally use the <code class="language-plaintext highlighter-rouge">hover</code> type instead.</p>
+
+<h2 id="manipulating-a-3d-node-through-bindings">Manipulating a 3D Node through Bindings</h2>
+
+<p>Building on the previous example, you may want to make the scene respond to a user’s click (or tab) event. In the duck wader example, the binding that applies the CSS class to the 3D node is static, that is, the value is always <code class="language-plaintext highlighter-rouge">true</code>. But the real power of the MontageJS binding system comes into play when you use it to control whether the CSS class is applied.</p>
+
+<p>The following snippet demonstrates how to make the door of the shack open and close when it is clicked. In the component’s template, a <code class="language-plaintext highlighter-rouge">classList.has</code> expression is bound to a <code class="language-plaintext highlighter-rouge">doorOpen</code> property on the component that contains a Boolean value.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"door"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node_6"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"classList.has('animate')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"true"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"classList.has('open')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.doorOpen"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"listeners"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"listener"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"owner"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>In the component’s JS file, the event handler for the door inverts the value of the <code class="language-plaintext highlighter-rouge">doorOpen</code> property, ensuring that it will change between <code class="language-plaintext highlighter-rouge">true</code> and <code class="language-plaintext highlighter-rouge">false</code> every time the door is clicked.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Door</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+
+  <span class="na">doorOpen</span><span class="p">:</span> <span class="p">{</span> <span class="na">value</span><span class="p">:</span> <span class="kc">false</span> <span class="p">},</span>
+  
+  <span class="na">handleDoorAction</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">value</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">doorOpen</span> <span class="o">=</span> <span class="o">~</span><span class="k">this</span><span class="p">.</span><span class="nx">doorOpen</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">.</span> <span class="p">.</span> <span class="p">.</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>In the component’s CSS file, the <code class="language-plaintext highlighter-rouge">open</code> CSS class uses the <code class="language-plaintext highlighter-rouge">rotateZ</code> property to adjust the angle of the door, causing it to appear open. The <code class="language-plaintext highlighter-rouge">animate</code> CSS class uses a CSS transition to ensure that the transformation is animated.</p>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.open</span> <span class="p">{</span>
+  <span class="nl">transform</span><span class="p">:</span> <span class="n">rotateZ</span><span class="p">(</span><span class="m">-130deg</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.animate</span> <span class="p">{</span>
+  <span class="nl">transition-property</span><span class="p">:</span> <span class="n">transform</span><span class="p">;</span>
+  <span class="nl">transition-duration</span><span class="p">:</span> <span class="m">5s</span><span class="p">;</span>
+  <span class="nl">transform-origin</span><span class="p">:</span> <span class="m">0%</span> <span class="m">0%</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note that the transition behavior is defined in a separate CSS class that is applied at all times rather than toggled; this ensures that the transition animation will work when the door is both opening and closing.</p>
+
+<figure>
+    <img src="/images/docs/tutorials/3d-apps/fig04.jpg" alt="Animating the door in the Beach Planet MontageJS and WebGL demo." style="width: 451px;" />
+    <figcaption><strong>Figure 4.</strong> Use bindings to control whether CSS is applied on a node.</figcaption>
+</figure>
+
+<p>Another feature that comes into play in this example is the <code class="language-plaintext highlighter-rouge">transform-origin</code> property. This property ensures that the left edge of the door will remain fixed in its position. If the origin was not set, the door would rotate from the center instead of swinging as though on a hinge. In many cases where transforms are used, setting an origin will ensure that the transformation behaves as expected.</p>
+
+<p>View the full <a href="https://github.com/montagejs/beachplanetblog/tree/master/ui/door.reel" target="_blank">source code</a> on GitHub.</p>
+
+<h2 id="switching-view-points">Switching View Points</h2>
+
+<p>When presenting complex 3D scenes, you may want to control the user’s perspective. The SceneView component makes it easy to switch between different view points within a 3D scene. A view point is a node that holds a camera. View points can be accessed in the binding definition just like any other scene node.</p>
+
+<p>In the following example, the <code class="language-plaintext highlighter-rouge">sceneView</code> object has a <code class="language-plaintext highlighter-rouge">viewPoint</code> property that references the <code class="language-plaintext highlighter-rouge">planetVP</code> node:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="nl">"sceneView"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/ui/scene-view.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"allowsViewPointControl"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sceneView"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"viewPoint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"planetVP"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"planetVP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-Camera_cabin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">allowsViewPointControl</code> property is used to control whether the user can drag to adjust the view. This feature is useful in cases where the application needs more control over what the user sees in the scene. A binding can be used with the <code class="language-plaintext highlighter-rouge">viewPoint</code> property to control the view programmatically.</p>
+
+<p>The Beach Planet demo also provides a menu that helps users quickly choose the main Beach Planet detail views: planet, seagull, buoy (duck wader), cabin, and dolphins. The following snippet demonstrates how to choose between two different view points that are embedded in the Beach Planet scene. The <code class="language-plaintext highlighter-rouge">viewPoint</code> property is bound to the camera associated with the selected item in the menu.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"planetVP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-Camera_cabin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"cabinVP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-Camera_cabin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"seaGullVP"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/runtime/node"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-Camera_SeaGull"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"sceneView"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mjs-volume/ui/scene-view.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"allowsViewPointControl"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sceneView"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"scene"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"scene"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"viewPoint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"planetVP"</span><span class="w"> </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"nav"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nav"</span><span class="w"> </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Planet"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"planetVP"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cabin"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cabinVP"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w"> </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Seagull"</span><span class="p">,</span><span class="w"> </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"seaGullVP"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>View the full <a href="https://github.com/montagejs/beachplanetblog/tree/master/ui/menu.reel" target="_blank">source code</a> for this example on GitHub.</p>
+
+<figure>
+    <img src="/images/docs/tutorials/3d-apps/fig05.jpg" alt="Switching view points in the Beach Planet MontageJS and WebGL demo." style="width: 451px;" />
+    <figcaption><strong>Figure 5.</strong> Control the user's perspective with the viewPoint property.</figcaption>
+</figure>
+
+<p>Now that you know the basic principles of using the SceneView component, you can experiment with integrating interactive 3D experiences in your own web content (or grab some 3D models in the glTF format from <a href="http://sketchup.google.com/3dwarehouse/" target="_blank">3D Warehouse</a>). The component already offers enough features to build compelling experiences as the Beach Planet demo shows, but we have even more planned for the future.</p>
+
+<h1 id="next-steps">Next Steps</h1>
+
+<p>Explore the complete <a href="https://github.com/montagejs/beachplanetblog/tree/master/ui/beachplanet.reel" target="_blank">source code</a> for the Beach Planet demo on GitHub.</p>
+
+<p>To keep up with the latest developments of the MontageJS 3D components, follow or star the <a href="https://github.com/fabrobinet/mjs-volume" target="_target">mjs-volume</a> repository on GitHub.</p>
+
+<p>If you have ideas (or code) for improving the components, we’d love to hear from you. Get in touch by joining the &lt;a href=”https://groups.google.com/forum/?fromgroups#!forum/montagejs” target=<em>“blank”&gt;MontageJS mailing list&lt;/a&gt; or contacting &lt;a href=”https://twitter.com/montagejs” target=</em>“blank”&gt;@MontageJS&lt;/a&gt; on Twitter.</p>
+
+<p>For more information about developing applications with MontageJS, refer to the following resources:</p>
+
+<ul>
+  <li><a href="http://montagejs.org/docs/">MontageJS Documentation</a></li>
+  <li><a href="http://seg.phault.net/montage/cookbook/" target="_blank">MontageJS Cookbook</a></li>
+  <li><a href="http://montagejs.org/docs/montagejs-setup.html">Getting Started with MontageJS</a> steps you through the process of setting up your MontageJS development environment.</li>
+</ul>
+
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev disabled" href="/docs/.html">Prev</a>
+                    <a class="button paging--next disabled" href="/docs/.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>

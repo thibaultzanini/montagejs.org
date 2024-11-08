@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <title>MontageJS Repetition UI Container</title>
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/base.css">
+    <link rel="stylesheet" href="/stylesheets/pages.css">
+    <link rel="stylesheet" href="/stylesheets/solarized.css">
+    <link rel="stylesheet" href="/stylesheets/teaser.css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    
+    
+  </head>
+
+
+<body>
+  <header class="header">
+    <div class="header-container">
+        <a class="logo " href="/">Home</a>
+        
+        <input id="nav-toggle" class="nav-toggle nav-toggle--main" type="checkbox">
+        <label class="nav-toggleLabel nav-toggleLabel--main" for="nav-toggle" onclick></label>
+        
+        <nav class="nav">
+            <a class="nav-item " href="/">Home</a>
+            <a class="nav-item " href="/apps">Apps</a>
+            <a class="nav-item " href="/docs">Docs</a>
+            <a class="nav-item " href="/api/AbstractButton.html">API</a>
+            <a class="nav-item " href="/community">Community</a>
+            <a class="nav-item " href="/blog">Blog</a>
+            <a class="nav-item nav-item--teaser " href="/reveal/"></a>
+            <a class="nav-item nav-item--fork" href="https://github.com/montagejs/montage" target="_blank">Source</a>
+        </nav>
+        
+    </div>
+</header>
+
+
+      <section id="docs" class="docs withSubnav">
+        
+        <div class="wrapper">
+            
+                
+<input id="subnav-toggle" class="nav-toggle nav-toggle--sub" type="checkbox">
+<label class="nav-toggleLabel nav-toggleLabel--sub" for="subnav-toggle" onclick></label>
+
+            <nav class="subnav">
+    
+    <details open>
+        <summary>Quick Start</summary>
+        <a href="montagejs-setup.html" >Set Up</a>
+        <a href="hello-montagejs.html" >Hello MontageJS</a>
+    </details>
+
+    <details open>
+        <summary>Demos</summary>
+        <a href="montagejs-examples.html" >Examples</a>
+        <a href="http://montagejs.github.com/mfiddle/" target="_blank">Mfiddle</a>
+        
+    </details>
+
+    <details open>
+        <summary>Concepts</summary>
+        <a href="montagejs-templates.html" >Templates</a>
+        <a href="exploring-components.html" >Components</a>
+        <a href="serialization-format.html" >Declaration</a>
+        <a href="montagejs-objects.html" >Objects</a>
+        <a href="data-binding.html" >Data Binding</a>
+        <a href="event-handling.html" >Event Handling</a>
+        <a href="draw-cycle.html" >Draw Cycle</a>
+    </details>
+
+    <details open>
+        <summary>Tutorials</summary>
+        <a href="tutorial-reddit-client-with-montagejs.html" >Reddit Client with MontageJS</a>
+        <a href="tutorial-3d-applications-with-montagejs.html" >Building 3D Applications</a>
+    </details>
+    
+    <details open>
+        <summary>UI Containers</summary>
+        <a href="repetition.html" class="active">Repetition</a>
+        <a href="substitution.html" >Substitution</a>
+        <a href="overlay.html" >Overlay</a>
+    </details>    
+
+    <details open>
+        <summary>UI Sets</summary>
+        <a href="themes.html" >Introduction</a>
+        <a href="theme-digit-components.html" >Digit</a>
+        <a href="theme-matte-components.html" >Matte</a>
+        <a href="theme-native-components.html" >Native</a>
+    </details>
+    
+    <details open>
+        <summary>Tools</summary>
+        <a href="tools-minit.html" >Minit</a>
+        <a href="tools-mop.html" >Mop</a>
+    </details>
+    
+    <details open>
+        <summary>Help</summary>
+        <a href="faq.html" >FAQ</a>
+        <a href="troubleshooting.html" >Troubleshooting</a>
+    </details>
+    
+</nav>
+
+            
+            <div class="main">
+            
+                <a href="https://github.com/montagejs/montagejs.org/tree/gh-pages/docs/repetition.md" class="edit">Improve this</a>
+                
+                <article class="content">
+                    <h1 id="using-the-repetition-component">Using the Repetition Component</h1>
+
+<p>The Repetition component is used to produce a repeating group of elements based on an array of values. All elements nested inside of the Repetition element will repeat in each iteration. The content inside of a repetition is managed by a controller. You can set the Repetition component’s <code class="language-plaintext highlighter-rouge">content</code> property manually with a standard array for a simple repetition. You can also expand the component’s capabilities by assigning a RangeController component to its <code class="language-plaintext highlighter-rouge">contentController</code> property.</p>
+
+<p>You can use the Repetition component as a building block to repeat any number of user interface components. (The MontageJS List component, for example, uses the Repetition component to support selection management.) All elements nested inside of the Repetition element will repeat in each iteration of the repetition. You can use the bindable <code class="language-plaintext highlighter-rouge">iteration.object</code> property to point to the current list item.</p>
+
+<h2 id="a-simple-repetition">A Simple Repetition</h2>
+
+<p>The following example shows a simple Repetition (<code class="language-plaintext highlighter-rouge">items</code>) that produces three text items. Each iteration is associated with a corresponding item in a source collection, which is populated through the Repetition component’s <code class="language-plaintext highlighter-rouge">content</code> property.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"content"</span> <span class="na">class=</span><span class="s">"Content"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"items"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"item"</span><span class="nt">&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">    </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"content"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"items"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.myListProperty"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="err">,</span><span class="w">
+    </span><span class="nl">"item"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"item"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@items:iteration.object.quote"</span><span class="w"> </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"classList.has('highlight')"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@items:iteration.object.important"</span><span class="w"> </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.highlight</span> <span class="p">{</span>
+    <span class="nl">font-weight</span><span class="p">:</span> <span class="nb">bold</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Content</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+    <span class="na">myListProperty</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="p">[{</span>
+            <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">If music be the food of love, play on.</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">O Romeo, Romeo! wherefore art thou Romeo?</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">All that glitters is not gold.</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">I am amazed and know not what to say.</span><span class="dl">"</span><span class="p">,</span>
+            <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+        <span class="p">}]</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="preview">Preview:</h3>
+<iframe src="http://montagejs.github.io/mfiddle/preview/#!/7882151" style="border: 0; width: 100%; height: 110px"></iframe>
+<p>View in Mfiddle: <a href="http://montagejs.github.io/mfiddle/#!/7882151">http://montagejs.github.io/mfiddle/#!/7882151</a></p>
+
+<h2 id="using-a-rangecontroller-with-a-repetition">Using a RangeController with a Repetition</h2>
+
+<p>In this example:</p>
+
+<ul>
+  <li>The Repetition component’s <code class="language-plaintext highlighter-rouge">contentController</code> property is set to be a <code class="language-plaintext highlighter-rouge">RangeController</code> for managing some content.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">Text</code> component is a child of the Repetition and derives its <code class="language-plaintext highlighter-rouge">value</code> property from its <code class="language-plaintext highlighter-rouge">iteration.object</code> property.</li>
+  <li>Clicking the Change Content button replaces the managed content with new random content.</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"component"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">data-montage-id=</span><span class="s">"button"</span><span class="nt">&gt;&lt;/button&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"repetition"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"value"</span><span class="nt">&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"component"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"repetition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repetition"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"contentController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rangeController"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"rangeController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/core/range-controller"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@repetition:iteration.object.quote"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"changeButton"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/button.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"button"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Change Content"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"listeners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"listener"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"owner"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Owner</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+    <span class="na">constructor</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="nf">Owner</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="p">[{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">If music be the food of love, play on.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">O Romeo, Romeo! wherefore art thou Romeo?</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">All that glitters is not gold.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">I am amazed and know not what to say.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}];</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">templateDidLoad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">handleChangeButtonAction</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">randomContentIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">[</span><span class="nx">randomContentIndex</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="preview-1">Preview:</h3>
+<iframe src="http://montagejs.github.io/mfiddle/preview/#!/7883458" style="border: 0; width: 100%; height: 200px"></iframe>
+<p>View in Mfiddle: <a href="http://montagejs.github.io/mfiddle/#!/7883458">http://montagejs.github.io/mfiddle/#!/7883458</a></p>
+
+<h2 id="sorting-and-filtering-the-items-in-a-repetition">Sorting and Filtering the Items in a Repetition</h2>
+
+<p>To sort and filter items in a repetition you can use use FRB expressions on the RangeController.</p>
+
+<ul>
+  <li>Adding or removing items from the source collection automatically updates the returned items.</li>
+  <li>When the value of the <code class="language-plaintext highlighter-rouge">filterPath</code> is <code class="language-plaintext highlighter-rouge">false</code>, the item will not be included in the repetition.</li>
+  <li>Using <code class="language-plaintext highlighter-rouge">sortPath</code> returns the items in sequential order, sorted by the value of the <code class="language-plaintext highlighter-rouge">property</code> when the path is a single property.</li>
+</ul>
+
+<p>You can also use complex expressions inside of sort and filter operations. For example, when the repetition’s content has an index property that is a sequence of integers, you can filter out the odd numbers like this: <code class="language-plaintext highlighter-rouge">!(index%2)</code>.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"component"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">data-montage-id=</span><span class="s">"filterButton"</span><span class="nt">&gt;&lt;/button&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">data-montage-id=</span><span class="s">"sortButton"</span><span class="nt">&gt;&lt;/button&gt;</span>
+
+    <span class="nt">&lt;ul</span> <span class="na">data-montage-id=</span><span class="s">"repetition"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">data-montage-id=</span><span class="s">"quote"</span><span class="nt">&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"component"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"repetition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repetition"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"contentController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rangeController"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"rangeController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/core/range-controller"</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"quote"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"quote"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@repetition:iteration.object.quote"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"filterButton"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/button.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"filterButton"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Filter"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"listeners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"listener"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"owner"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"sortButton"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/button.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sortButton"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Sort"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"listeners"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"action"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"listener"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"owner"</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Owner</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+    <span class="na">constructor</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="nf">Owner</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="p">[{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">If music be the food of love, play on.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">O Romeo, Romeo! wherefore art thou Romeo?</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">All that glitters is not gold.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">I am amazed and know not what to say.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}];</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">templateDidLoad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">handleFilterButtonAction</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">rangeController</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">;</span>
+            <span class="nx">rangeController</span><span class="p">.</span><span class="nx">filterPath</span> <span class="o">=</span> <span class="nx">rangeController</span><span class="p">.</span><span class="nx">filterPath</span> <span class="p">?</span> <span class="dl">""</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">handleSortButtonAction</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">rangeController</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">;</span>
+            <span class="nx">rangeController</span><span class="p">.</span><span class="nx">sortPath</span> <span class="o">=</span> <span class="nx">rangeController</span><span class="p">.</span><span class="nx">sortPath</span> <span class="p">?</span> <span class="dl">""</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span> <span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="preview-2">Preview:</h3>
+<iframe src="http://montagejs.github.io/mfiddle/preview/#!/7884201" style="border: 0; width: 100%; height: 150px"></iframe>
+<p>View in Mfiddle: <a href="http://montagejs.github.io/mfiddle/#!/7884201">http://montagejs.github.io/mfiddle/#!/7884201</a></p>
+
+<h2 id="allowing-users-to-select-repetition-items">Allowing Users to Select Repetition Items</h2>
+
+<p>To allow users to select an item in a repetition:</p>
+
+<ul>
+  <li>Set the Repetition component’s <code class="language-plaintext highlighter-rouge">isSelectionEnabled</code> property to <code class="language-plaintext highlighter-rouge">true</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">selected</code> CSS rule is automatically applied to the selected item.</li>
+</ul>
+
+<p>Note that users could select multiple items.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"component"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-montage-id=</span><span class="s">"repetition"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p</span> <span class="na">data-montage-id=</span><span class="s">"value"</span><span class="nt">&gt;&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">data-montage-id=</span><span class="s">"select"</span><span class="nt">&gt;&lt;/select&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">data-montage-id=</span><span class="s">"log"</span><span class="nt">&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"component"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"repetition"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/repetition.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repetition"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"isSelectionEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"contentController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rangeController"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"rangeController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/core/range-controller"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"selection"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@repetition:iteration.object.quote"</span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+
+</span><span class="nl">"select"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"digit/ui/select.reel"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"contentController"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"@"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rangeController"</span><span class="p">},</span><span class="w">
+        </span><span class="nl">"labelPropertyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"quote"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="nl">"log"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="nl">"prototype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"montage/ui/text.reel"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"element"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"#"</span><span class="p">:</span><span class="w"> </span><span class="s2">"log"</span><span class="p">}</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="nl">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+       </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nl">"&lt;-"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@owner.message"</span><span class="p">}</span><span class="w">
+   </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">.selected</span> <span class="p">{</span>
+    <span class="nl">color</span><span class="p">:</span><span class="no">red</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">Component</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">montage/ui/component</span><span class="dl">"</span><span class="p">).</span><span class="nx">Component</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Owner</span> <span class="o">=</span> <span class="nx">Component</span><span class="p">.</span><span class="nf">specialize</span><span class="p">({</span>
+    <span class="na">constructor</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="kd">function</span> <span class="nf">Owner</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="p">[{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">If music be the food of love, play on.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">O Romeo, Romeo! wherefore art thou Romeo?</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">true</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">All that glitters is not gold.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">},</span> <span class="p">{</span>
+                <span class="dl">"</span><span class="s2">quote</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">I am amazed and know not what to say.</span><span class="dl">"</span><span class="p">,</span>
+                <span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}];</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">templateDidLoad</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span>
+            <span class="c1">//Observe the selection for changes</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">templateObjects</span><span class="p">.</span><span class="nx">rangeController</span><span class="p">.</span><span class="nf">addRangeAtPathChangeListener</span><span class="p">(</span>
+                <span class="dl">"</span><span class="s2">selection</span><span class="dl">"</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="dl">"</span><span class="s2">handleSelectionChange</span><span class="dl">"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">handleSelectionChange</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nf">function </span><span class="p">(</span><span class="nx">plus</span><span class="p">,</span> <span class="nx">minus</span><span class="p">)</span> <span class="p">{</span>
+           <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">Selection changed from: </span><span class="dl">"</span>
+                <span class="o">+</span> <span class="p">(</span><span class="nx">minus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">?</span> <span class="nx">minus</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">quote</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">nothing</span><span class="dl">"</span><span class="p">)</span>
+                <span class="o">+</span> <span class="dl">"</span><span class="s2"> -&gt; </span><span class="dl">"</span>
+                <span class="o">+</span> <span class="p">(</span><span class="nx">plus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">?</span> <span class="nx">plus</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">quote</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">nothing</span><span class="dl">"</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="preview-3">Preview:</h3>
+<iframe src="http://montagejs.github.io/mfiddle/preview/#!/7884716" style="border: 0; width: 100%; height: 260px"></iframe>
+<p>View in Mfiddle: <a href="http://montagejs.github.io/mfiddle/#!/7884716">http://montagejs.github.io/mfiddle/#!/7884716</a></p>
+
+                </article>
+
+                <nav class="paging">
+                    <a class="button paging--prev " href="/docs/native-components.html">Prev</a>
+                    <a class="button paging--next " href="/docs/substitution.html">Next</a>
+                </nav>
+
+                <div id="comments" class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'montagejs'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+            </div>
+            
+        </div>
+        
+    </section>
+    
+
+  <footer class="footer">
+
+    <div class="wrapper">
+    	
+    	<ul class="sitemap">
+            <li>
+                <a href="/" class="sitemap-main">Home</a>
+            </li>
+            <li>
+                <a href="/apps/" class="sitemap-main">Apps</a>
+                <a href="/apps/#gallery">Gallery</a>
+            </li>
+            <li>
+                <a href="/docs/" class="sitemap-main">Docs</a>
+                <a href="/docs/montagejs-setup.html">Set Up</a>
+                <a href="/docs/hello-montagejs.html">Hello MontageJS</a>
+                <a href="/docs/montagejs-examples.html">Examples</a>
+                <a href="/docs/themes.html">Themes</a>
+                <a href="/docs/faq.html">FAQ</a>
+            </li>
+            <li>
+                <a href="/api/" class="sitemap-main">API</a>
+            </li>
+            <li>
+                <a href="/community/" class="sitemap-main">Community</a>
+                <a href="/community/forum/">Forum</a>
+                <a href="/community/meet-ups/">Meet-ups</a>
+                <a href="/community/events/">Events</a>
+                <a href="/community/contact-us/">Contact us</a>
+            </li>
+            <li>
+                <a class="sitemap-main" href="/blog/">Blog</a>
+            </li>
+    	</ul>
+	    
+	    
+	    <p class="footer-end">2012–2014 MontageJS — Open source and licensed under <a href="https://github.com/montagejs/montage/blob/master/LICENSE.md" target="_blank">BSD</a> | <a href="https://github.com/montagejs/montage/" target="_blank">GitHub</a> | <a href="https://github.com/montagejs?tab=members" target="_blank">Team</a></p>
+    </div>
+
+</footer>
+
+  <!-- Google -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35717912-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+</body>
+</html>
