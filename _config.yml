@@ -1,6 +1,5 @@
 permalink: /blog/:year/:month/:day/:title
 markdown: kramdown
-baseurl: ""
 kramdown:
   input: GFM
   auto_ids: true
