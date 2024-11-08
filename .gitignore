@@ -13,26 +13,25 @@ log.txt
 
 ## Build
 builds
-_site
 /tmp
- 
+
 ### SublimeText ###
 *.sublime-project
 *.sublime-workspace
- 
+
 ### Intellij IDE ###
 .idea/
 atlassian-ide-plugin.xml
- 
+
 ### VisualStudioCode ###
 .vscode/*
 .vscode-upload.json
- 
+
 ### TextMate ###
 *.tmproj
 *.tmproject
 tmtags
- 
+
 ### Node ###
 npm-debug.log*
 .npmignore
